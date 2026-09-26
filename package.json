@@ -17,6 +17,8 @@
     "format:check": "prettier --check .",
     "validate": "npm run format:check && npm run lint && npm run check",
     "subset-fonts": "node scripts/subset-fonts.ts",
+    "generate-favicons": "node scripts/generate-favicons.ts",
+    "generate-og-images": "node scripts/generate-og-images.ts",
     "astro": "astro"
   },
   "dependencies": {
