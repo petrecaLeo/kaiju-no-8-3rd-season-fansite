@@ -1,0 +1,81 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .origin-file {
+    display: grid;
+    grid-template-areas:
+      'title'
+      'facts'
+      'prose';
+    gap: var(--space-lg);
+  }
+
+  .origin-file__title {
+    grid-area: title;
+    font-size: var(--font-size-xl);
+  }
+
+  /* The data sheet: the notched plate of the suit numbers, at file size. */
+  .origin-file__facts {
+    --facts-notch: var(--space-lg);
+
+    display: grid;
+    grid-area: facts;
+    padding: var(--space-sm) var(--space-lg);
+    border-inline-start: 2px solid var(--color-kaiju-cyan);
+    background-color: var(--color-surface);
+    clip-path: polygon(
+      0 0,
+      calc(100% - var(--facts-notch)) 0,
+      100% var(--facts-notch),
+      100% 100%,
+      0 100%
+    );
+  }
+
+  .origin-file__fact {
+    display: grid;
+    gap: var(--space-2xs) var(--space-lg);
+    padding-block: var(--space-sm);
+  }
+
+  .origin-file__fact + .origin-file__fact {
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .origin-file__label {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+  }
+
+  .origin-file__value {
+    font-weight: var(--font-weight-strong);
+  }
+
+  .origin-file__prose {
+    display: grid;
+    grid-area: prose;
+    gap: var(--space-md);
+    max-inline-size: 60ch;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-lg);
+  }
+
+  @media (width >= 40em) {
+    .origin-file__fact {
+      grid-template-columns: minmax(9rem, 2fr) 3fr;
+      align-items: baseline;
+    }
+  }
+
+  @media (width >= 64em) {
+    .origin-file {
+      grid-template-areas:
+        'title facts'
+        'prose facts';
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+      gap: var(--space-lg) var(--space-3xl);
+    }
+  }
+}

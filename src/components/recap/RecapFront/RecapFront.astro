@@ -1,0 +1,35 @@
+---
+import Readout from '@/components/ui/Readout/Readout.astro';
+import SuitNumber from '@/components/ui/SuitNumber/SuitNumber.astro';
+import type { RecapFront } from '@/lib/recap/recap.types';
+
+import './RecapFront.css';
+
+interface Props {
+  front: RecapFront;
+  versus: string;
+}
+
+const { front, versus } = Astro.props;
+const { suit } = front;
+---
+
+<li class="recap-front" data-character={front.id}>
+  <span class="recap-front__numeral" aria-hidden="true">
+    {front.kaijuNumber}
+  </span>
+  <div class="recap-front__matchup">
+    <h4 class="recap-front__title">
+      <span class="recap-front__fighter">{front.fighter}</span>{' '}
+      <span class="recap-front__versus">{versus}</span>{' '}
+      <span class="recap-front__kaiju">{front.kaiju}</span>
+    </h4>
+    {suit && <SuitNumber class="recap-front__suit" value={suit.value} label={suit.label} />}
+  </div>
+  <p class="recap-front__text">{front.text}</p>
+  <dl class="recap-front__stats">
+    {front.stats.map((stat) => (
+      <Readout {...stat} />
+    ))}
+  </dl>
+</li>

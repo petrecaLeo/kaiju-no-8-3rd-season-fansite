@@ -1,0 +1,42 @@
+---
+import { getFinaleArt } from '@/lib/recap/finale-art';
+import type { RecapContent } from '@/lib/recap/recap.types';
+
+import './RecapFinale.css';
+
+interface Props {
+  content: RecapContent['finale'];
+}
+
+const { content } = Astro.props;
+const art = await getFinaleArt();
+---
+
+<div class="recap-finale">
+  <h3 class="recap-finale__title" data-recap-node>
+    {content.title}
+  </h3>
+  <div class="recap-finale__frame">
+    <img
+      class="recap-finale__art"
+      src={art.still}
+      width={art.width}
+      height={art.height}
+      alt={content.imageAlt}
+      loading="lazy"
+      decoding="async"
+      data-recap-finale-art
+      data-loop-src={art.loop}
+    />
+  </div>
+  <div class="recap-finale__story">
+    {content.paragraphs.map((paragraph) => (
+      <p class="recap-finale__text">{paragraph}</p>
+    ))}
+  </div>
+  <p class="recap-finale__closing">
+    <span class="recap-finale__closing-line" data-recap-closing>
+      {content.closing}
+    </span>
+  </p>
+</div>

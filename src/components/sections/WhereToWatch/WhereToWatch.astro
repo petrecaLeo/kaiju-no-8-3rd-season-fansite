@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+
+import Button from '@/components/ui/Button/Button.astro';
+import { ANCHORS } from '@/config/anchors';
+import type { Dictionary } from '@/i18n/dictionary';
+import type { WhereToWatchImages } from '@/lib/images/where-to-watch-images';
+
+import './WhereToWatch.css';
+
+interface Props {
+  content: Dictionary['sections']['whereToWatch'];
+  images: WhereToWatchImages;
+  newTabLabel: string;
+}
+
+const { content, images, newTabLabel } = Astro.props;
+const { background, logo } = images;
+const titleId = `${ANCHORS.whereToWatch}-title`;
+---
+
+<section
+  id={ANCHORS.whereToWatch}
+  class="where-to-watch"
+  aria-labelledby={titleId}
+  data-where-to-watch
+>
+  <Image class="where-to-watch__background" {...background} alt="" loading="lazy" />
+  <div class="where-to-watch__inner container">
+    <div class="where-to-watch__content" data-where-to-watch-content>
+      <h2 id={titleId} class="where-to-watch__title">
+        {content.title}
+      </h2>
+      <p class="where-to-watch__text">{content.text}</p>
+      {logo && (
+        <Image class="where-to-watch__logo" {...logo} alt={content.logoAlt} loading="lazy" />
+      )}
+      <Button href={content.cta.url} variant="primary" size="lg" newTabLabel={newTabLabel}>
+        {content.cta.label}
+      </Button>
+    </div>
+  </div>
+</section>
+
+<script src="./WhereToWatch.client.ts"></script>

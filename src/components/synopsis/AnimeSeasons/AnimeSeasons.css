@@ -1,0 +1,121 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .anime-seasons {
+    display: grid;
+    grid-template-areas:
+      'title'
+      'text'
+      'list';
+    gap: var(--space-lg);
+  }
+
+  .anime-seasons__title {
+    grid-area: title;
+    font-size: var(--font-size-xl);
+  }
+
+  .anime-seasons__text {
+    grid-area: text;
+    max-inline-size: 60ch;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-lg);
+  }
+
+  /* A timeline: aired seasons on a solid rail, the announced one on a dashed cyan rail. */
+  .anime-seasons__list {
+    --rail-width: 2px;
+    --marker-size: 0.75rem;
+
+    display: grid;
+    grid-area: list;
+    margin-block-start: var(--space-sm);
+  }
+
+  /* Narrow screens: a vertical rail on the start side. */
+  .anime-seasons__season {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: var(--space-2xs);
+    padding-block: 0 var(--space-lg);
+    padding-inline-start: var(--space-lg);
+    border-inline-start: var(--rail-width) solid var(--color-border-strong);
+  }
+
+  .anime-seasons__season::before {
+    content: '';
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: calc(-0.5 * var(--marker-size) - 0.5 * var(--rail-width));
+    inline-size: var(--marker-size);
+    block-size: var(--marker-size);
+    background-color: var(--color-text);
+  }
+
+  .anime-seasons__season--upcoming {
+    border-inline-start-style: dashed;
+    border-inline-start-color: var(--color-kaiju-cyan);
+  }
+
+  .anime-seasons__season--upcoming::before {
+    background-color: var(--color-kaiju-cyan);
+    box-shadow: 0 0 0.75rem var(--color-kaiju-cyan);
+  }
+
+  /* Exo 2, not Paladins: Paladins turns the ordinal in "1ª temporada" into a capital A. */
+  .anime-seasons__name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-strong);
+    line-height: var(--line-height-tight);
+  }
+
+  .anime-seasons__season--upcoming .anime-seasons__name {
+    color: var(--color-kaiju-cyan);
+  }
+
+  .anime-seasons__when {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Wider screens: a horizontal rail across the three seasons. */
+  @media (width >= 40em) {
+    .anime-seasons__list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .anime-seasons__season {
+      padding-block: var(--space-lg) 0;
+      padding-inline: 0 var(--space-md);
+      border-block-start: var(--rail-width) solid var(--color-border-strong);
+      border-inline-start: 0;
+    }
+
+    .anime-seasons__season::before {
+      inset-block-start: calc(-0.5 * var(--marker-size) - 0.5 * var(--rail-width));
+      inset-inline-start: 0;
+    }
+
+    .anime-seasons__season--upcoming {
+      border-block-start-style: dashed;
+      border-block-start-color: var(--color-kaiju-cyan);
+    }
+  }
+
+  @media (width >= 64em) {
+    .anime-seasons {
+      grid-template-areas:
+        'title list'
+        'text list';
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      grid-template-rows: auto 1fr;
+      gap: var(--space-lg) var(--space-3xl);
+    }
+
+    .anime-seasons__list {
+      align-self: center;
+      margin-block-start: 0;
+    }
+  }
+}

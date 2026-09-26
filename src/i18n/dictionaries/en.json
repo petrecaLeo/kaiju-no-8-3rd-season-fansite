@@ -1,0 +1,323 @@
+{
+  "meta": {
+    "siteName": "Kaiju No. 8",
+    "title": "Kaiju No. 8 - Season 3",
+    "description": "A fan site for Kaiju No. 8 Season 3: catch up on the story so far, meet the characters, watch the trailer and find out where to stream it.",
+    "fanSiteName": "Kaiju No. 8 Fan Site",
+    "seriesCreator": "Naoya Matsumoto",
+    "openGraphImageAlt": "A glowing red eye in the cross-shaped slit of a red armored suit, above the Kaiju No. 8 logo and the words 3rd Season"
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content",
+    "languageSwitcher": "Select language",
+    "loading": "Loading the teaser…",
+    "opensInNewTab": "(opens in a new tab)"
+  },
+  "sections": {
+    "hero": {
+      "heading": "Kaiju No. 8: Season 3 coming soon",
+      "season": "3rd Season",
+      "status": "Coming soon",
+      "seasonLang": "en",
+      "logoAlt": "Kaiju No. 8 logo",
+      "armorAlt": "Close-up of a red armored suit with a cross-shaped slit across the chest",
+      "eyeAlt": "A glowing red eye peering through the cross-shaped slit in the armor",
+      "scrollCue": "Scroll to explore"
+    },
+    "synopsis": {
+      "title": "What is Kaiju No. 8?",
+      "artAlt": "Kaiju No. 8, dark-armored and streaked with glowing cyan lines, stands on a red steel beam high above the city. Far below, the body of a giant kaiju lies sprawled between the buildings.",
+      "premise": {
+        "world": "In a Japan where kaiju attacks are part of everyday life, 32-year-old Kafka Hibino cleans up the remains of monsters taken down by the Defense Force.",
+        "promise": "He and his childhood friend Mina Ashiro once made a promise: they would fight kaiju together.",
+        "captain": "Mina became a captain.",
+        "leftBehind": "Kafka was left behind.",
+        "change": "Everything changes when a mysterious creature enters his body and gives him the power to turn into a kaiju.",
+        "hunted": "Now he is trying to join the Defense Force while it hunts him down under the codename {codename}",
+        "codename": "Kaiju No. 8"
+      },
+      "origin": {
+        "title": "Creator and origins",
+        "facts": [
+          {
+            "label": "Created, written and drawn by",
+            "value": "Naoya Matsumoto"
+          },
+          {
+            "label": "Published on",
+            "value": "Shonen Jump+, Shueisha’s digital platform"
+          },
+          {
+            "label": "First chapter",
+            "value": "July 3, 2020"
+          },
+          {
+            "label": "Final chapter",
+            "value": "July 18, 2025"
+          }
+        ],
+        "paragraphs": [
+          "Matsumoto was already an experienced artist: he won a new-talent award in 2005 and published two series before this one.",
+          "A self-confessed fan of tokusatsu such as Ultraman, he brought his love of giant monsters to a story about deferred dreams and second chances."
+        ]
+      },
+      "stats": {
+        "title": "By the numbers",
+        "items": {
+          "copies": {
+            "value": 20000000,
+            "prefix": "",
+            "suffix": "",
+            "label": "copies in circulation",
+            "spoken": "20 million copies in circulation"
+          },
+          "views": {
+            "value": 2000000,
+            "prefix": "",
+            "suffix": "+",
+            "label": "views per chapter on Shonen Jump+",
+            "spoken": "Over 2 million views per chapter on Shonen Jump+"
+          },
+          "comments": {
+            "value": 3200,
+            "prefix": "",
+            "suffix": "+",
+            "label": "comments on launch day",
+            "spoken": "Over 3,200 comments on launch day"
+          },
+          "chapters": {
+            "value": 129,
+            "prefix": "",
+            "suffix": "",
+            "label": "chapters over five years of serialization",
+            "spoken": "129 chapters over five years of serialization"
+          },
+          "award": {
+            "value": 1,
+            "prefix": "#",
+            "suffix": "",
+            "label": "in the Next Manga Award 2021, web category",
+            "spoken": "First place in the Next Manga Award 2021, web category"
+          }
+        }
+      },
+      "anime": {
+        "title": "The anime",
+        "text": "The anime is made by Production I.G, with kaiju designs by Studio Khara. Both seasons so far have streamed worldwide on Crunchyroll.",
+        "seasons": {
+          "first": {
+            "name": "Season 1",
+            "when": "Premiered April 2024"
+          },
+          "second": {
+            "name": "Season 2",
+            "when": "Premiered July 2025"
+          },
+          "third": {
+            "name": "Season 3",
+            "when": "Confirmed"
+          }
+        }
+      }
+    },
+    "recap": {
+      "title": "The story so far",
+      "gate": {
+        "title": "Spoiler alert",
+        "levelLabel": "Spoiler level:",
+        "level": "High",
+        "body": "This report covers everything the anime has shown up to the last episode of season 2 (episode 23, “Second Wave”), ending included.",
+        "reveal": "Reveal the report",
+        "revealed": "Report revealed",
+        "skip": "Skip to the characters"
+      },
+      "cover": {
+        "lede": "Season 2 ended in the middle of a war.",
+        "kicker": "And no one knows who will make it out alive.",
+        "imageAlt": "Season 2 key art: Kaiju No. 8, cyan light running through its body, stands at the heart of an explosion, surrounded by Defense Force fighters in mid-leap. Behind them, a colossal grinning kaiju with glowing red eyes looms over a burning sky."
+      },
+      "threat": {
+        "title": "Kaiju No. 9’s plan",
+        "paragraphs": [
+          "Unlike other kaiju, No. 9 thinks, studies and adapts.",
+          "By absorbing Director General Isao Shinomiya, it claimed Numbers 2, the suit made from Kaiju No. 2."
+        ],
+        "goalLabel": "Objective",
+        "goal": "Take back for the kaiju every bit of power that has fallen into human hands."
+      },
+      "numbers": {
+        "title": "The Numbers suits",
+        "intro": "Numbers are weapons made from the remains of numbered kaiju. Few humans can wield them, and each one takes a toll on whoever wears it.",
+        "suitLabel": "Numbers {number}",
+        "list": {
+          "narumi": {
+            "holder": "Gen Narumi",
+            "text": "Lets its wearer predict the enemy’s movements."
+          },
+          "isao": {
+            "holder": "Kaiju No. 9",
+            "text": "Belonged to Isao Shinomiya. Now it is in enemy hands."
+          },
+          "kikoru": {
+            "holder": "Kikoru Shinomiya",
+            "text": "Inherited from her mother. It grants flight and speed."
+          },
+          "reno": {
+            "holder": "Reno Ichikawa",
+            "text": "The most powerful and most dangerous of them all. Reno earned it fighting side by side with Iharu."
+          },
+          "hoshina": {
+            "holder": "Soshiro Hoshina",
+            "text": "A sentient suit that keeps the original kaiju’s consciousness. At first it refused to obey. Hoshina learned to fight in sync with it."
+          }
+        }
+      },
+      "attack": {
+        "title": "The attack",
+        "distance": "{value} km",
+        "waves": {
+          "first": {
+            "title": "First wave",
+            "text": "It starts with Mina Ashiro destroying two giant kaiju from 20 kilometers away. It looked like a victory, but it was only the first wave.",
+            "statLabel": "Distance to target"
+          },
+          "second": {
+            "title": "Second wave",
+            "text": "Kaiju No. 11 through No. 15 appear, every one of them at fortitude 9.0. They speak and think, and No. 9 created them to take down the Defense Force’s strongest fighters one by one.",
+            "statLabel": "Fortitude"
+          }
+        }
+      },
+      "fronts": {
+        "title": "The battlefronts",
+        "intro": "Where everyone stands right now. None of these fights is over.",
+        "versus": "vs.",
+        "kaijuName": "Kaiju No. {number}",
+        "fortitude": "Fortitude",
+        "power": "Power released",
+        "percent": "{value}%",
+        "statusLabel": "Status",
+        "status": "Ongoing",
+        "list": {
+          "kikoru": {
+            "fighter": "Kikoru Shinomiya",
+            "text": "No. 15 disguises itself as a human. Kikoru unleashes 84% of her power and still falls behind."
+          },
+          "narumi": {
+            "fighter": "Gen Narumi",
+            "text": "No. 11 controls water and uses it to slip past the predictive sight of Japan’s strongest captain."
+          },
+          "hoshina": {
+            "fighter": "Soshiro Hoshina",
+            "text": "A close-combat specialist, No. 12 manages to corner the Defense Force’s greatest swordsman."
+          },
+          "mina": {
+            "fighter": "Mina Ashiro",
+            "text": "No. 14 is a monolith with many faces."
+          },
+          "shinonome": {
+            "fighter": "Rin Shinonome",
+            "text": "Her platoon has been wiped out. Rin fights at 73% power released, knowing she cannot win, until she is pinned down."
+          }
+        }
+      },
+      "finale": {
+        "title": "Where season two left off",
+        "paragraphs": [
+          "Shinonome had ordered Kafka not to transform. He had to save his strength for the showdown with No. 9.",
+          "But with a comrade about to die, Kafka disobeys and becomes Kaiju No. 8."
+        ],
+        "closing": "And that is exactly what No. 9 was waiting for.",
+        "imageAlt": "Reno Ichikawa, wearing Numbers 6, aims his weapon straight at the viewer, wrapped in bolts of blue light."
+      }
+    },
+    "characters": {
+      "title": "Main characters",
+      "rosterLabel": "Other characters",
+      "showCharacter": "Feature {name}",
+      "suitLabel": "Numbers {number} suit",
+      "previous": "Previous characters",
+      "next": "Next characters",
+      "list": {
+        "kafka": {
+          "name": "Kafka Hibino",
+          "alias": "Kaiju No. 8",
+          "description": "At 32, Kafka cleans up the remains of slain kaiju, a long way from his childhood dream of fighting alongside Mina. Everything changes when a mysterious creature gets into his body and gives him the power to turn into a kaiju. Now he is trying to prove he can control that power without losing his humanity.",
+          "photoAlt": "Kafka Hibino's face torn in half: the man on one side, Kaiju No. 8 on the other, its green eye glowing"
+        },
+        "mina": {
+          "name": "Mina Ashiro",
+          "description": "Captain of the Third Division and Kafka's childhood friend. Her cannon brings down giant kaiju from kilometers away, and many consider her unmatched against the largest targets. Calm and steady in command, she is the one Kafka promised to catch up with someday.",
+          "photoAlt": "Mina Ashiro in her Defense Force uniform, a heavy cannon resting on her shoulder"
+        },
+        "hoshina": {
+          "name": "Soshiro Hoshina",
+          "description": "Vice-Captain of the Third Division and the finest swordsman in the Defense Force. He comes from a clan of kaiju hunters that dates back to the Muromachi period and is unbeatable against smaller kaiju, which rounds out Mina's style. He wears Numbers 10, a suit with a will of its own.",
+          "photoAlt": "Soshiro Hoshina ready for combat, masked and wearing the Numbers 10 armor, the red core glowing on his chest"
+        },
+        "kikoru": {
+          "name": "Kikoru Shinomiya",
+          "description": "A prodigy with the highest combat power ever recorded among recruits. The daughter of Director General Isao Shinomiya, she grew up pushed to be perfect in memory of her mother, who was killed by a kaiju. Today she fights in the skies with Numbers 4, the same suit her mother wore.",
+          "photoAlt": "Kikoru Shinomiya charging forward with a shout, wearing the white Numbers 4 armor"
+        },
+        "reno": {
+          "name": "Reno Ichikawa",
+          "description": "Kafka's coworker on the kaiju cleanup crew, he joined the Defense Force together with him. He was the first to find out his friend's secret and never hesitated to protect him. He started out with no standout talent and ended up chosen for Numbers 6, the most powerful and most dangerous suit of all.",
+          "photoAlt": "Reno Ichikawa reaching out a hand, wearing the Numbers 6 armor, surrounded by shards of ice"
+        },
+        "narumi": {
+          "name": "Gen Narumi",
+          "description": "Captain of the First Division and the strongest fighter in Japan. With Numbers 1, made from Kaiju No. 1, he can predict the enemy's movements and almost never misses a strike. Off the field, he is hooked on video games, online shopping and his own popularity on social media.",
+          "photoAlt": "Gen Narumi with his weapon over his shoulder, wearing the Numbers 1 armor against a burning sky"
+        },
+        "kaiju9": {
+          "name": "Kaiju No. 9",
+          "description": "A humanoid kaiju that thinks, studies and adapts. It can take human form and hide among people, and every clash with the Defense Force makes it more dangerous. No one knows for sure what it wants, only that it is always one step ahead.",
+          "photoAlt": "Silhouette of Kaiju No. 9, its identity still unknown"
+        }
+      }
+    },
+    "trailer": {
+      "title": "Trailer",
+      "playerTitle": "Official Kaiju No. 8 trailer",
+      "playLabel": "Play the official Kaiju No. 8 trailer",
+      "posterAlt": "Trailer preview: the face of Kaiju No. 8 with glowing green eyes, captioned “Official Teaser”",
+      "watchOnYouTube": "Watch the official Kaiju No. 8 trailer on YouTube"
+    },
+    "whereToWatch": {
+      "title": "Where to watch",
+      "text": "Seasons 1 and 2 of Kaiju No. 8 are streaming on Crunchyroll, subbed and dubbed in English, and Season 3 is expected to land there too. There’s still time to binge both before it premieres.",
+      "logoAlt": "Crunchyroll logo",
+      "cta": {
+        "label": "Watch on Crunchyroll",
+        "url": "https://www.crunchyroll.com/series/GG5H5XQ7D/kaiju-no-8"
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "documentTitle": "{status}: {title} | {siteName}",
+    "message": "This page got wiped out by a kaiju.",
+    "homeLink": "Back to home",
+    "imageAlt": "Hand-drawn meme: five Defense Force members hold Kaiju No. 8 on red leashes, like a dog out for a walk. The prime suspect is already in custody."
+  },
+  "footer": {
+    "signoff": "End of report",
+    "backToTop": "Back to top",
+    "disclaimer": "This is an unofficial, non-profit fan project. It is not affiliated with or endorsed by the original author, the publisher, the animation studio or any other rights holder.",
+    "rights": "Kaiju No. 8 and all related characters, names and trademarks are the property of their respective owners. Images, logos and the trailer are used for illustrative, non-commercial purposes only. Crunchyroll is a registered trademark of its respective owners.",
+    "credits": {
+      "work": [
+        { "label": "Original work", "value": "Naoya Matsumoto (Shueisha, Shonen Jump+)" },
+        { "label": "Anime", "value": "Production I.G, with kaiju design by Studio Khara" }
+      ],
+      "copyright": "© Naoya Matsumoto/SHUEISHA, JAKDF 3rd Division",
+      "project": [
+        { "label": "UX/UI design", "name": "Duda (@byduuds.design)", "url": "[LINK_DUDA]" },
+        { "label": "Development", "name": "Leonardo [SOBRENOME]", "url": "[LINK_LEONARDO]" }
+      ]
+    },
+    "languages": "Available languages",
+    "signature": "Fan-made teaser, {year}"
+  }
+}

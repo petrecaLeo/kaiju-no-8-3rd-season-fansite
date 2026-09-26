@@ -1,0 +1,323 @@
+{
+  "meta": {
+    "siteName": "Kaiju No. 8",
+    "title": "Kaiju No. 8 - 3ª Temporada",
+    "description": "Site de fã da 3ª temporada de Kaiju No. 8: relembre a história, conheça os personagens, veja o trailer e saiba onde assistir.",
+    "fanSiteName": "Site de fã de Kaiju No. 8",
+    "seriesCreator": "Naoya Matsumoto",
+    "openGraphImageAlt": "Olho vermelho brilhando na fenda em cruz de uma armadura vermelha, acima do logotipo de Kaiju No. 8 e das palavras Terceira Temporada"
+  },
+  "a11y": {
+    "skipToContent": "Pular para o conteúdo principal",
+    "languageSwitcher": "Selecionar idioma",
+    "loading": "Carregando o teaser…",
+    "opensInNewTab": "(abre em nova aba)"
+  },
+  "sections": {
+    "hero": {
+      "heading": "Kaiju No. 8: 3ª temporada em breve",
+      "season": "Terceira Temporada",
+      "status": "Em breve",
+      "seasonLang": "pt-BR",
+      "logoAlt": "Logotipo de Kaiju No. 8",
+      "armorAlt": "Armadura vermelha vista de perto, com uma fenda em forma de cruz no peito",
+      "eyeAlt": "Olho vermelho e luminoso que espia pela fenda em cruz da armadura",
+      "scrollCue": "Role para descobrir"
+    },
+    "synopsis": {
+      "title": "O que é Kaiju No. 8",
+      "artAlt": "Kaiju Nº8, de carapaça escura riscada por linhas ciano luminosas, de pé numa viga de aço vermelha no alto da cidade. Lá embaixo, o corpo de um kaiju gigante está caído entre os prédios.",
+      "premise": {
+        "world": "Num Japão onde ataques de kaiju fazem parte do dia a dia, Kafka Hibino, de 32 anos, trabalha limpando os restos dos monstros abatidos pela Força de Defesa.",
+        "promise": "Ele e sua amiga de infância, Mina Ashiro, fizeram uma promessa: lutariam juntos contra os kaiju.",
+        "captain": "Mina virou capitã.",
+        "leftBehind": "Kafka ficou para trás.",
+        "change": "Tudo muda quando uma criatura misteriosa entra no seu corpo e ele ganha o poder de se transformar em kaiju.",
+        "hunted": "Agora ele tenta entrar na Força de Defesa enquanto é caçado por ela, sob o codinome {codename}",
+        "codename": "Kaiju Nº8"
+      },
+      "origin": {
+        "title": "Autor e origem",
+        "facts": [
+          {
+            "label": "Criação, roteiro e arte",
+            "value": "Naoya Matsumoto"
+          },
+          {
+            "label": "Publicação",
+            "value": "Shonen Jump+, plataforma digital da Shueisha"
+          },
+          {
+            "label": "Estreia",
+            "value": "3 de julho de 2020"
+          },
+          {
+            "label": "Conclusão",
+            "value": "18 de julho de 2025"
+          }
+        ],
+        "paragraphs": [
+          "Matsumoto já tinha estrada: ganhou um prêmio de novo talento em 2005 e publicou duas séries antes desta.",
+          "Fã declarado de tokusatsu, como Ultraman, ele levou o gosto por monstros gigantes para uma história sobre sonhos adiados e segundas chances."
+        ]
+      },
+      "stats": {
+        "title": "Em números",
+        "items": {
+          "copies": {
+            "value": 20000000,
+            "prefix": "",
+            "suffix": "",
+            "label": "cópias em circulação",
+            "spoken": "20 milhões de cópias em circulação"
+          },
+          "views": {
+            "value": 2000000,
+            "prefix": "+",
+            "suffix": "",
+            "label": "visualizações por capítulo na Shonen Jump+",
+            "spoken": "Mais de 2 milhões de visualizações por capítulo na Shonen Jump+"
+          },
+          "comments": {
+            "value": 3200,
+            "prefix": "+",
+            "suffix": "",
+            "label": "comentários no dia da estreia",
+            "spoken": "Mais de 3.200 comentários no dia da estreia"
+          },
+          "chapters": {
+            "value": 129,
+            "prefix": "",
+            "suffix": "",
+            "label": "capítulos em cinco anos de publicação",
+            "spoken": "129 capítulos em cinco anos de publicação"
+          },
+          "award": {
+            "value": 1,
+            "prefix": "",
+            "suffix": "º",
+            "label": "lugar no Next Manga Award 2021, categoria web",
+            "spoken": "1º lugar no Next Manga Award 2021, categoria web"
+          }
+        }
+      },
+      "anime": {
+        "title": "O anime",
+        "text": "O anime é da Production I.G, com design de kaiju do Studio Khara. As duas primeiras temporadas foram transmitidas para o mundo todo pela Crunchyroll.",
+        "seasons": {
+          "first": {
+            "name": "1ª temporada",
+            "when": "Estreou em abril de 2024"
+          },
+          "second": {
+            "name": "2ª temporada",
+            "when": "Estreou em julho de 2025"
+          },
+          "third": {
+            "name": "3ª temporada",
+            "when": "Já confirmada"
+          }
+        }
+      }
+    },
+    "recap": {
+      "title": "A história até aqui",
+      "gate": {
+        "title": "Alerta de spoiler",
+        "levelLabel": "Nível de spoiler:",
+        "level": "Alto",
+        "body": "Este relatório conta tudo o que o anime mostrou até o último episódio da 2ª temporada (episódio 23, “Second Wave”), inclusive o final.",
+        "reveal": "Revelar relatório",
+        "revealed": "Relatório revelado",
+        "skip": "Pular para os personagens"
+      },
+      "cover": {
+        "lede": "A segunda temporada terminou no meio de uma guerra.",
+        "kicker": "E ninguém sabe quem vai sair vivo.",
+        "imageAlt": "Arte da 2ª temporada: o Kaiju Nº8, com linhas de luz ciano pelo corpo, no centro de uma explosão, cercado por combatentes da Força de Defesa em pleno salto. Ao fundo, um kaiju colossal de sorriso largo e olhos vermelhos domina o céu em chamas."
+      },
+      "threat": {
+        "title": "O plano do Kaiju Nº9",
+        "paragraphs": [
+          "Diferente dos outros kaiju, o Nº9 pensa, estuda e se adapta.",
+          "Ao absorver o Diretor-Geral Isao Shinomiya, ele tomou para si a Numbers 2, a armadura feita do Kaiju Nº2."
+        ],
+        "goalLabel": "Objetivo",
+        "goal": "Recuperar para o lado dos kaiju todo o poder que caiu nas mãos humanas."
+      },
+      "numbers": {
+        "title": "As armaduras numeradas",
+        "intro": "As Numbers são armas feitas com os restos de kaiju numerados. Poucos humanos conseguem usá-las, e todas cobram um preço de quem as veste.",
+        "suitLabel": "Numbers {number}",
+        "list": {
+          "narumi": {
+            "holder": "Gen Narumi",
+            "text": "Permite prever os movimentos do inimigo."
+          },
+          "isao": {
+            "holder": "Kaiju Nº9",
+            "text": "Pertencia a Isao Shinomiya. Agora está nas mãos do inimigo."
+          },
+          "kikoru": {
+            "holder": "Kikoru Shinomiya",
+            "text": "Herdada da mãe, dá voo e velocidade."
+          },
+          "reno": {
+            "holder": "Reno Ichikawa",
+            "text": "A mais poderosa e perigosa de todas. Reno a conquistou lutando lado a lado com Iharu."
+          },
+          "hoshina": {
+            "holder": "Soshiro Hoshina",
+            "text": "Uma armadura senciente, que mantém a consciência do kaiju original. No começo, se recusava a obedecer. Hoshina aprendeu a lutar em sincronia com ela."
+          }
+        }
+      },
+      "attack": {
+        "title": "O ataque",
+        "distance": "{value} km",
+        "waves": {
+          "first": {
+            "title": "Primeira onda",
+            "text": "Tudo começa com Mina Ashiro destruindo dois kaiju gigantes a 20 quilômetros de distância. Parecia uma vitória, mas era só a primeira onda.",
+            "statLabel": "Distância do alvo"
+          },
+          "second": {
+            "title": "Segunda onda",
+            "text": "Surgem os kaiju de 11 a 15, todos com fortitude 9.0. Eles falam e pensam, e o Nº9 os criou para neutralizar, um por um, os combatentes mais fortes da Força de Defesa.",
+            "statLabel": "Fortitude"
+          }
+        }
+      },
+      "fronts": {
+        "title": "As frentes de batalha",
+        "intro": "Onde cada um está agora. Nenhuma dessas lutas terminou.",
+        "versus": "vs.",
+        "kaijuName": "Kaiju Nº{number}",
+        "fortitude": "Fortitude",
+        "power": "Poder liberado",
+        "percent": "{value}%",
+        "statusLabel": "Situação",
+        "status": "Em andamento",
+        "list": {
+          "kikoru": {
+            "fighter": "Kikoru Shinomiya",
+            "text": "O Nº15 se disfarça de humano. Kikoru libera 84% do seu poder e, mesmo assim, fica para trás."
+          },
+          "narumi": {
+            "fighter": "Gen Narumi",
+            "text": "O Nº11 controla a água e a usa para escapar da visão preditiva do capitão mais forte do Japão."
+          },
+          "hoshina": {
+            "fighter": "Soshiro Hoshina",
+            "text": "Especialista em combate corpo a corpo, o Nº12 consegue encurralar o maior espadachim da Força de Defesa."
+          },
+          "mina": {
+            "fighter": "Mina Ashiro",
+            "text": "O Nº14 é um monólito de múltiplos rostos."
+          },
+          "shinonome": {
+            "fighter": "Rin Shinonome",
+            "text": "O pelotão dela foi dizimado. Rin luta com 73% de poder liberado, sabendo que não vai vencer, até ficar imobilizada."
+          }
+        }
+      },
+      "finale": {
+        "title": "Onde a segunda temporada parou",
+        "paragraphs": [
+          "Shinonome havia ordenado que Kafka não se transformasse. Ele precisava guardar suas forças para o confronto com o Nº9.",
+          "Mas, diante de uma companheira prestes a morrer, Kafka desobedece e se torna o Kaiju Nº8."
+        ],
+        "closing": "E é exatamente isso que o Nº9 estava esperando.",
+        "imageAlt": "Reno Ichikawa, vestindo a Numbers 6, aponta a arma direto para quem olha, envolto em raios de luz azul."
+      }
+    },
+    "characters": {
+      "title": "Personagens principais",
+      "rosterLabel": "Outros personagens",
+      "showCharacter": "Mostrar {name} em destaque",
+      "suitLabel": "Traje Numbers {number}",
+      "previous": "Personagens anteriores",
+      "next": "Próximos personagens",
+      "list": {
+        "kafka": {
+          "name": "Kafka Hibino",
+          "alias": "Kaiju Nº8",
+          "description": "Aos 32 anos, Kafka trabalha limpando os restos de kaiju abatidos, bem longe do sonho de infância de lutar ao lado de Mina. Tudo muda quando uma criatura misteriosa entra no seu corpo e ele ganha o poder de virar um kaiju. Agora ele tenta provar que consegue controlar essa força sem perder a própria humanidade.",
+          "photoAlt": "Rosto de Kafka Hibino rasgado ao meio: de um lado o rapaz, do outro o Kaiju Nº8, com o olho verde aceso"
+        },
+        "mina": {
+          "name": "Mina Ashiro",
+          "description": "Capitã da Terceira Divisão e amiga de infância do Kafka. Com seu canhão, derruba kaiju gigantes a quilômetros de distância, e muitos a consideram insuperável contra os maiores alvos. Calma e firme no comando, é quem Kafka prometeu alcançar um dia.",
+          "photoAlt": "Mina Ashiro de uniforme da Força de Defesa, com o canhão pesado apoiado no ombro"
+        },
+        "hoshina": {
+          "name": "Soshiro Hoshina",
+          "description": "Vice-capitão da Terceira Divisão e o maior espadachim da Força de Defesa. Vem de um clã de caçadores de kaiju com raízes no período Muromachi e é imbatível contra kaiju menores, o que completa o estilo de Mina. Veste a Numbers 10, uma armadura com vontade própria.",
+          "photoAlt": "Soshiro Hoshina em combate, de máscara e vestindo a armadura Numbers 10, com o núcleo vermelho aceso no peito"
+        },
+        "kikoru": {
+          "name": "Kikoru Shinomiya",
+          "description": "Prodígio com o maior poder de combate já registrado entre os recrutas. Filha do Diretor-Geral Isao Shinomiya, cresceu cobrada a ser perfeita em memória da mãe, morta por um kaiju. Hoje luta nos céus com a Numbers 4, a mesma armadura que a mãe usava.",
+          "photoAlt": "Kikoru Shinomiya avançando aos gritos, vestindo a armadura branca Numbers 4"
+        },
+        "reno": {
+          "name": "Reno Ichikawa",
+          "description": "Colega de trabalho do Kafka na limpeza de kaiju, entrou na Força de Defesa junto com ele. Foi o primeiro a descobrir o segredo do amigo e nunca hesitou em protegê-lo. Começou sem talento de destaque e acabou escolhido para a Numbers 6, a mais poderosa e perigosa de todas.",
+          "photoAlt": "Reno Ichikawa estendendo a mão, vestindo a armadura Numbers 6, cercado por estilhaços de gelo"
+        },
+        "narumi": {
+          "name": "Gen Narumi",
+          "description": "Capitão da Primeira Divisão e o combatente mais forte do Japão. Com a Numbers 1, feita a partir do Kaiju Nº1, consegue prever os movimentos do inimigo e quase nunca erra um golpe. Fora de campo, é viciado em videogame, compras online e na própria popularidade nas redes sociais.",
+          "photoAlt": "Gen Narumi com a arma apoiada no ombro, vestindo a armadura Numbers 1 diante de um céu em chamas"
+        },
+        "kaiju9": {
+          "name": "Kaiju Nº9",
+          "description": "Um kaiju humanoide que pensa, estuda e se adapta. Pode assumir forma humana e se esconder entre as pessoas, e cada encontro com a Força de Defesa o deixa mais perigoso. Ninguém sabe ao certo o que ele quer, só que está sempre um passo à frente.",
+          "photoAlt": "Silhueta do Kaiju Nº9, identidade ainda desconhecida"
+        }
+      }
+    },
+    "trailer": {
+      "title": "Trailer",
+      "playerTitle": "Trailer oficial de Kaiju No. 8",
+      "playLabel": "Reproduzir o trailer oficial de Kaiju No. 8",
+      "posterAlt": "Prévia do trailer: o rosto do Kaiju No. 8, com olhos verdes brilhantes, e o letreiro “Official Teaser”",
+      "watchOnYouTube": "Assistir ao trailer oficial de Kaiju No. 8 no YouTube"
+    },
+    "whereToWatch": {
+      "title": "Onde assistir",
+      "text": "As duas primeiras temporadas de Kaiju No. 8 estão na Crunchyroll, legendadas e dubladas em português, e a terceira também deve chegar por lá. Dá tempo de maratonar tudo antes da estreia.",
+      "logoAlt": "Logotipo da Crunchyroll",
+      "cta": {
+        "label": "Assistir na Crunchyroll",
+        "url": "https://www.crunchyroll.com/pt-br/series/GG5H5XQ7D/kaiju-no-8"
+      }
+    }
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "documentTitle": "{status}: {title} | {siteName}",
+    "message": "Essa página foi destruída por um kaiju.",
+    "homeLink": "Voltar para o início",
+    "imageAlt": "Meme desenhado à mão: cinco membros da Força de Defesa seguram o Kaiju Nº8 por coleiras vermelhas, como quem leva o cachorro para passear. O principal suspeito já está sob custódia."
+  },
+  "footer": {
+    "signoff": "Fim do relatório",
+    "backToTop": "Voltar ao topo",
+    "disclaimer": "Este é um projeto de fã, sem fins lucrativos e não oficial. Não tem vínculo nem aprovação do autor original, da editora, do estúdio de animação ou de qualquer outro detentor de direitos.",
+    "rights": "Kaiju No. 8 e todos os personagens, nomes e marcas relacionados pertencem aos seus respectivos detentores. Imagens, logotipos e trailer são usados apenas para fins ilustrativos e não comerciais. Crunchyroll é marca registrada de seus respectivos proprietários.",
+    "credits": {
+      "work": [
+        { "label": "Obra original", "value": "Naoya Matsumoto (Shueisha, Shonen Jump+)" },
+        { "label": "Anime", "value": "Production I.G, com design de kaiju do Studio Khara" }
+      ],
+      "copyright": "© Naoya Matsumoto/SHUEISHA, JAKDF 3rd Division",
+      "project": [
+        { "label": "Design UX/UI", "name": "Duda (@byduuds.design)", "url": "[LINK_DUDA]" },
+        { "label": "Desenvolvimento", "name": "Leonardo [SOBRENOME]", "url": "[LINK_LEONARDO]" }
+      ]
+    },
+    "languages": "Idiomas disponíveis",
+    "signature": "Teaser feito por fãs, {year}"
+  }
+}

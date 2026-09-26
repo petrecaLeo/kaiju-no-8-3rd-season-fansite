@@ -1,0 +1,39 @@
+---
+import '@/styles/global.css';
+
+import BaseHead from '@/components/head/BaseHead/BaseHead.astro';
+import SiteHeader from '@/components/layout/SiteHeader/SiteHeader.astro';
+import SkipLink from '@/components/layout/SkipLink/SkipLink.astro';
+import Preloader from '@/components/ui/Preloader/Preloader.astro';
+import { LOCALE_METADATA, type Locale } from '@/i18n/config';
+import type { Dictionary } from '@/i18n/dictionary';
+
+interface Props {
+  locale: Locale;
+  dictionary: Dictionary;
+  // Where the skip link lands: the element must have this id and tabindex="-1".
+  skipTargetId: string;
+}
+
+const { locale, dictionary, skipTargetId } = Astro.props;
+const { meta, a11y } = dictionary;
+---
+
+<!doctype html>
+<html lang={locale} dir={LOCALE_METADATA[locale].direction}>
+  <head>
+    <BaseHead locale={locale} meta={meta} />
+    <slot name="head" />
+  </head>
+  <body>
+    <Preloader label={a11y.loading} />
+    <div class="page" data-page-content>
+      <SkipLink href={`#${skipTargetId}`} label={a11y.skipToContent} />
+      <SiteHeader locale={locale} languageSwitcherLabel={a11y.languageSwitcher} />
+      <main>
+        <slot />
+      </main>
+      <slot name="footer" />
+    </div>
+  </body>
+</html>

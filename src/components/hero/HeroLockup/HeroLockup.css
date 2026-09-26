@@ -1,0 +1,59 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .hero-lockup {
+    /* Every size in the lockup derives from the logo width, so it scales as one piece.
+       Keep in sync with LOGO_SIZES in hero-images.ts. */
+    --lockup-inline: min(78cqi, 27rem, 40cqb);
+
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline: 0;
+    display: grid;
+    justify-items: center;
+    padding-inline: var(--gutter);
+    padding-block-end: clamp(var(--space-lg), 6cqb, var(--space-2xl));
+    text-align: center;
+  }
+
+  .hero-lockup__title {
+    display: grid;
+    justify-items: center;
+  }
+
+  .hero-lockup__logo {
+    inline-size: var(--lockup-inline);
+    block-size: auto;
+  }
+
+  .hero-lockup__season,
+  .hero-lockup__status {
+    font-family: var(--font-title);
+    font-weight: var(--font-weight-title);
+    line-height: 1;
+  }
+
+  .hero-lockup__season {
+    margin-block-start: calc(var(--lockup-inline) * 0.06);
+    color: var(--color-kaiju-cyan);
+    font-size: calc(var(--lockup-inline) * 0.062);
+  }
+
+  .hero-lockup__status {
+    margin-block-start: calc(var(--lockup-inline) * 0.04);
+    color: var(--color-text);
+    font-size: max(0.8125rem, calc(var(--lockup-inline) * 0.036));
+    letter-spacing: 0.12em;
+  }
+
+  /* Paladins has no kana or kanji, so the Japanese status uses Noto Sans JP directly. */
+  .hero-lockup__status:lang(ja) {
+    font-family: var(--font-body);
+    font-weight: var(--font-weight-strong);
+    font-size: max(0.9375rem, calc(var(--lockup-inline) * 0.042));
+  }
+
+  .hero-lockup__cue {
+    margin-block-start: calc(var(--lockup-inline) * 0.07);
+  }
+}

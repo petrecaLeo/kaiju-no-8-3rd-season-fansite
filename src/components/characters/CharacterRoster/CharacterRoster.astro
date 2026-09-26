@@ -1,0 +1,67 @@
+---
+import ChevronDown from '@/assets/icons/chevron-down.svg';
+import CharacterCard from '@/components/characters/CharacterCard/CharacterCard.astro';
+import Button from '@/components/ui/Button/Button.astro';
+import type { Character } from '@/lib/characters/characters.types';
+
+import './CharacterRoster.css';
+
+interface Props {
+  characters: Character[];
+  featured: Character;
+  listId: string;
+  controls: string;
+  label: string;
+  previousLabel: string;
+  nextLabel: string;
+}
+
+const { characters, featured, listId, controls, label, previousLabel, nextLabel } = Astro.props;
+---
+
+<div class="character-roster" data-roster data-at-start>
+  <ul class="character-roster__list" id={listId} role="list" aria-label={label} data-roster-list>
+    {characters.map((character) => (
+      <CharacterCard
+        character={character}
+        featured={character.id === featured.id}
+        controls={controls}
+      />
+    ))}
+  </ul>
+  <Button
+    class="character-roster__nav character-roster__nav--previous"
+    variant="secondary"
+    size="sm"
+    iconOnly
+    aria-label={previousLabel}
+    aria-controls={listId}
+    aria-disabled="true"
+    data-roster-step="-1"
+  >
+    <ChevronDown
+      slot="icon-start"
+      class="character-roster__icon"
+      aria-hidden="true"
+      focusable="false"
+    />
+  </Button>
+  <Button
+    class="character-roster__nav character-roster__nav--next"
+    variant="secondary"
+    size="sm"
+    iconOnly
+    aria-label={nextLabel}
+    aria-controls={listId}
+    data-roster-step="1"
+  >
+    <ChevronDown
+      slot="icon-start"
+      class="character-roster__icon"
+      aria-hidden="true"
+      focusable="false"
+    />
+  </Button>
+</div>
+
+<script src="./CharacterRoster.client.ts"></script>

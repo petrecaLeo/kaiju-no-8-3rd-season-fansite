@@ -1,0 +1,13 @@
+---
+import { DEFAULT_LOCALE } from '@/i18n/config';
+import { createLocaleRedirectScript } from '@/i18n/locale-redirect';
+import { getLocalePath } from '@/i18n/routing';
+
+const script = createLocaleRedirectScript();
+const refresh = `0; url=${getLocalePath(DEFAULT_LOCALE)}`;
+---
+
+<script is:inline set:html={script}></script>
+<noscript>
+  <meta http-equiv="refresh" content={refresh} />
+</noscript>

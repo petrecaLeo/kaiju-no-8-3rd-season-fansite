@@ -1,0 +1,25 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .language-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .language-label__flag {
+    flex-shrink: 0;
+    inline-size: 1.35em;
+    block-size: 0.9em;
+  }
+
+  .language-label__code {
+    letter-spacing: 0.08em;
+  }
+
+  @media (forced-colors: active) {
+    .language-label__flag {
+      outline: 1px solid CanvasText;
+    }
+  }
+}

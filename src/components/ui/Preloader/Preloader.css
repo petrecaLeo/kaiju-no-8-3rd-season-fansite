@@ -1,0 +1,61 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .preloader {
+    display: none;
+  }
+
+  @media (scripting: enabled) {
+    :root:has(.preloader) {
+      overflow: hidden;
+      animation: preloader-unlock 0s var(--preloader-failsafe-delay) forwards;
+    }
+
+    .preloader {
+      position: fixed;
+      inset: 0;
+      z-index: var(--z-preloader);
+      display: grid;
+      place-items: center;
+      background-color: var(--color-bg);
+      animation: preloader-failsafe 0s var(--preloader-failsafe-delay) forwards;
+    }
+
+    /* The mark is white on a black box; screen drops the box into whatever background sits behind. */
+    .preloader__mark {
+      inline-size: auto;
+      block-size: clamp(5.5rem, 18svb, 9rem);
+      mix-blend-mode: screen;
+      animation: preloader-breathe var(--preloader-breath-duration) ease-in-out infinite alternate;
+    }
+  }
+
+  @media (scripting: enabled) and (prefers-reduced-motion: reduce) {
+    .preloader__mark {
+      animation: none;
+    }
+  }
+
+  @keyframes preloader-breathe {
+    from {
+      opacity: 0.2;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes preloader-failsafe {
+    to {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
+  @keyframes preloader-unlock {
+    to {
+      overflow: visible;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+---
+import YouTubeFacade from '@/components/ui/YouTubeFacade/YouTubeFacade.astro';
+import { ANCHORS } from '@/config/anchors';
+import type { Dictionary } from '@/i18n/dictionary';
+import type { YouTubeVideo } from '@/lib/video/youtube';
+
+import './Trailer.css';
+
+interface Props {
+  content: Dictionary['sections']['trailer'];
+  video: YouTubeVideo;
+}
+
+const { content, video } = Astro.props;
+const titleId = `${ANCHORS.trailer}-title`;
+---
+
+<section id={ANCHORS.trailer} class="trailer" aria-labelledby={titleId} data-trailer>
+  <h2 id={titleId} class="trailer__title container">
+    {content.title}
+  </h2>
+  <div class="trailer__stage">
+    <div class="trailer__frame" data-trailer-frame>
+      <YouTubeFacade
+        video={video}
+        title={content.playerTitle}
+        playLabel={content.playLabel}
+        posterAlt={content.posterAlt}
+        watchLabel={content.watchOnYouTube}
+      />
+    </div>
+  </div>
+</section>
+
+<script src="./Trailer.client.ts"></script>

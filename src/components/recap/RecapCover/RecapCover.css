@@ -1,0 +1,75 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* The season 2 key art opens the report, with nothing laid over it. Narrow screens crop it
+     square around Kaiju No. 8; wider ones show the whole 16:9 frame. Keep in sync with
+     COVER_SIZES in lib/recap/recap.ts. */
+  .recap-cover {
+    --cover-notch: var(--space-lg);
+  }
+
+  .recap-cover__frame {
+    aspect-ratio: 1;
+    overflow: clip;
+    background-color: var(--color-black);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - var(--cover-notch)),
+      calc(100% - var(--cover-notch)) 100%,
+      0 100%
+    );
+  }
+
+  .recap-cover__image {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: 47% 50%;
+  }
+
+  .recap-cover__text {
+    display: grid;
+    gap: var(--space-sm);
+    padding-block-start: var(--space-lg);
+  }
+
+  .recap-cover__lede {
+    max-inline-size: 26ch;
+    font-family: var(--recap-heading-font);
+    font-size: var(--font-size-xl);
+    font-weight: var(--recap-heading-weight);
+    line-height: var(--line-height-tight);
+    text-wrap: balance;
+  }
+
+  /* ch is a half-width digit in Noto Sans JP: 26ch would cut a Japanese line at 13 characters. */
+  .recap-cover__lede:lang(ja) {
+    max-inline-size: none;
+  }
+
+  /* Focus lands here when the report is revealed, as the reading start; it is not a control. */
+  .recap-cover__lede:focus {
+    outline: none;
+  }
+
+  .recap-cover__kicker {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-tight);
+  }
+
+  @media (width >= 48em) {
+    .recap-cover {
+      --cover-notch: var(--space-xl);
+    }
+
+    .recap-cover__frame {
+      aspect-ratio: var(--aspect-video);
+    }
+
+    .recap-cover__text {
+      padding-block-start: var(--space-xl);
+    }
+  }
+}

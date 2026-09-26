@@ -1,0 +1,31 @@
+---
+import type { Season } from '@/lib/synopsis/synopsis.types';
+
+import './AnimeSeasons.css';
+
+interface Props {
+  title: string;
+  text: string;
+  seasons: Season[];
+}
+
+const { title, text, seasons } = Astro.props;
+---
+
+<div class="anime-seasons">
+  <h3 class="anime-seasons__title">{title}</h3>
+  <p class="anime-seasons__text">{text}</p>
+  <ol class="anime-seasons__list" role="list">
+    {seasons.map((season) => (
+      <li
+        class:list={[
+          'anime-seasons__season',
+          { 'anime-seasons__season--upcoming': season.upcoming },
+        ]}
+      >
+        <span class="anime-seasons__name">{season.name}</span>
+        <span class="anime-seasons__when">{season.when}</span>
+      </li>
+    ))}
+  </ol>
+</div>

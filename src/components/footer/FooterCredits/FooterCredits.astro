@@ -1,0 +1,47 @@
+---
+import ExternalLinkIcon from '@/assets/icons/external-link.svg';
+import type { Dictionary } from '@/i18n/dictionary';
+
+import './FooterCredits.css';
+
+interface Props {
+  credits: Dictionary['footer']['credits'];
+  newTabLabel: string;
+  class?: string;
+}
+
+const { credits, newTabLabel, class: className } = Astro.props;
+---
+
+<div class:list={['footer-credits', className]}>
+  <div class="footer-credits__group">
+    <dl class="footer-credits__list">
+      {credits.work.map((credit) => (
+        <div class="footer-credits__item">
+          <dt class="footer-credits__label">{credit.label}</dt>
+          <dd class="footer-credits__value">{credit.value}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="footer-credits__copyright">{credits.copyright}</p>
+  </div>
+  <dl class="footer-credits__group footer-credits__list">
+    {credits.project.map((credit) => (
+      <div class="footer-credits__item">
+        <dt class="footer-credits__label">{credit.label}</dt>
+        <dd class="footer-credits__value">
+          <a
+            class="footer-credits__link"
+            href={credit.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>{credit.name}</span>
+            <span class="visually-hidden">{newTabLabel}</span>
+            <ExternalLinkIcon class="footer-credits__icon" aria-hidden="true" focusable="false" />
+          </a>
+        </dd>
+      </div>
+    ))}
+  </dl>
+</div>

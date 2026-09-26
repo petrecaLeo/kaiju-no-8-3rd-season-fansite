@@ -1,0 +1,165 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .recap {
+    --recap-heading-font: var(--font-title);
+    --recap-heading-weight: var(--font-weight-title);
+
+    display: grid;
+    gap: var(--space-xl);
+    padding-block: var(--space-2xl);
+  }
+
+  .recap__title {
+    font-size: var(--font-size-xl);
+  }
+
+  /* Paladins digits read as blocks next to kanji (第2期, 9号), so Japanese headings in the report
+     use Noto Sans JP. The section title has no digits and keeps the site's title font. */
+  .recap:lang(ja) {
+    --recap-heading-font: var(--font-body);
+    --recap-heading-weight: var(--font-weight-strong);
+  }
+
+  /* The gate sits above the report. The veil shares the report's grid cell and covers it until
+     Recap.client.ts reveals it (data-recap-state: veiled → revealing → revealed). */
+  .recap__vault {
+    display: grid;
+    grid-template-areas:
+      'gate'
+      'report';
+    row-gap: var(--space-xl);
+    overflow: clip;
+  }
+
+  .recap__report {
+    display: grid;
+    grid-area: report;
+    gap: var(--space-3xl);
+  }
+
+  /* One screen tall and stuck to the top of the report: whatever part of the report is on screen
+     stays covered, and the blur only ever processes one viewport of pixels. */
+  .recap__veil {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 1;
+    display: none;
+    grid-area: report;
+    align-self: start;
+    block-size: 100lvb;
+    background-color: var(--color-veil);
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--color-scrim) 0 1px,
+      transparent 1px 4px
+    );
+    backdrop-filter: blur(1.75rem) saturate(1.3);
+  }
+
+  /* The scan line at the veil's top edge leads the reveal sweep. */
+  .recap__veil::before {
+    content: '';
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: 2px;
+    background-color: var(--color-kaiju-cyan);
+    box-shadow: 0 0 1.5rem 0.2rem var(--color-kaiju-cyan);
+    opacity: 0;
+  }
+
+  .recap[data-recap-state='revealing'] .recap__veil::before {
+    opacity: 1;
+  }
+
+  @media (scripting: enabled) {
+    .recap:not([data-recap-state='revealed']) .recap__veil {
+      display: block;
+    }
+
+    .recap:is(:not([data-recap-state]), [data-recap-state='veiled']) .recap-gate {
+      position: sticky;
+      inset-block-start: var(--space-md);
+      z-index: 2;
+    }
+
+    /* If the script never arms the gate, the veil lifts instead of locking the report away. */
+    .recap:not([data-recap-state]) .recap__veil {
+      animation: recap-veil-failsafe 0s var(--preloader-failsafe-delay) forwards;
+    }
+  }
+
+  @keyframes recap-veil-failsafe {
+    to {
+      visibility: hidden;
+    }
+  }
+
+  /* The chronology runs along a spine: the attack, the fronts and the finale. Headings marked with
+     data-recap-node get a marker on it; recap-motion.ts fills the spine and lights the markers as
+     the page scrolls (with reduced motion or no JS, everything is drawn from the start). */
+  .recap__chronology {
+    --spine-gutter: var(--space-xl);
+    --spine-inset: 0.5rem;
+    --marker-size: 0.625rem;
+
+    position: relative;
+    display: grid;
+    gap: var(--space-3xl);
+    padding-inline-start: var(--spine-gutter);
+  }
+
+  .recap__spine {
+    position: absolute;
+    inset-block: 0.4rem 0;
+    inset-inline-start: var(--spine-inset);
+    inline-size: 2px;
+    background-color: var(--color-border);
+  }
+
+  .recap__spine-fill {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to bottom, var(--color-kaiju-cyan), var(--color-core-hot));
+    transform-origin: 50% 0;
+  }
+
+  .recap__chronology [data-recap-node] {
+    position: relative;
+  }
+
+  .recap__chronology [data-recap-node]::before,
+  .recap__chronology [data-recap-node]::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 0.4rem;
+    inset-inline-start: calc(
+      var(--spine-inset) + 1px - var(--spine-gutter) - var(--marker-size) / 2
+    );
+    inline-size: var(--marker-size);
+    aspect-ratio: 1;
+    rotate: 45deg;
+  }
+
+  .recap__chronology [data-recap-node]::before {
+    border: 2px solid var(--color-border-strong);
+    background-color: var(--color-bg);
+  }
+
+  .recap__chronology [data-recap-node]::after {
+    background-color: var(--color-kaiju-cyan);
+    box-shadow: 0 0 0.75rem var(--color-kaiju-cyan);
+    transition: opacity var(--duration-base) var(--ease-standard);
+  }
+
+  .recap__chronology [data-recap-node][data-dim]::after {
+    opacity: 0;
+  }
+
+  @media (width >= 48em) {
+    .recap__chronology {
+      --spine-gutter: calc(var(--space-2xl) + var(--spine-inset));
+    }
+  }
+}

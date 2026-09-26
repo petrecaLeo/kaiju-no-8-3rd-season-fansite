@@ -1,0 +1,41 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .synopsis {
+    position: relative;
+  }
+
+  /* Target of the skip link and the hero's scroll cue: it takes focus so reading and Tab resume
+     here, but it is not a control, so it draws no ring. */
+  .synopsis:focus {
+    outline: none;
+  }
+
+  /* The sticky art and the premise beats share one grid cell: the beats scroll over the art. */
+  .synopsis__story {
+    position: relative;
+    display: grid;
+  }
+
+  /* Blends the top edge of the art into the end of the hero; scrolls away with the section. */
+  .synopsis__story::before {
+    content: '';
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    z-index: 1;
+    block-size: 30svb;
+    background-image: linear-gradient(to bottom, var(--color-bg), transparent);
+    pointer-events: none;
+  }
+
+  .synopsis__story > * {
+    grid-area: 1 / 1;
+  }
+
+  .synopsis__file {
+    display: grid;
+    gap: var(--space-3xl);
+    padding-block: var(--space-2xl) var(--space-3xl);
+  }
+}

@@ -1,0 +1,118 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* One front of the second wave: the fighter on the left in their aura, the kaiju's number on
+     the right in red. --character-aura comes from data-character (tokens.css). */
+  .recap-front {
+    --front-notch: var(--space-md);
+    --readout-size: var(--font-size-lg);
+
+    position: relative;
+    display: grid;
+    grid-template-areas:
+      'matchup numeral'
+      'text text'
+      'stats stats';
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto 1fr auto;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    overflow: clip;
+    isolation: isolate;
+    border-inline-start: 3px solid var(--character-aura);
+    background-color: var(--color-surface);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - var(--front-notch)),
+      calc(100% - var(--front-notch)) 100%,
+      0 100%
+    );
+  }
+
+  /* Two lights meet in every card: the fighter's aura from one side, the kaiju's from the other. */
+  .recap-front::before,
+  .recap-front::after {
+    content: '';
+    position: absolute;
+    inset-block: -50%;
+    z-index: -1;
+    inline-size: 75%;
+    pointer-events: none;
+  }
+
+  .recap-front::before {
+    inset-inline-start: -35%;
+    background-image: radial-gradient(closest-side, var(--character-aura), transparent);
+    opacity: 0.14;
+  }
+
+  .recap-front::after {
+    inset-inline-end: -35%;
+    background-image: radial-gradient(closest-side, var(--color-core-ember), transparent);
+    opacity: 0.5;
+  }
+
+  .recap-front__numeral {
+    grid-area: numeral;
+    align-self: start;
+    margin-block-start: -0.08em;
+    margin-inline-end: -0.06em;
+    color: var(--color-core-hot);
+    font-family: var(--font-title-latin);
+    font-size: clamp(3.5rem, 2.75rem + 3.5vi, 5.5rem);
+    line-height: 0.8;
+  }
+
+  .recap-front__matchup {
+    display: flex;
+    flex-direction: column;
+    grid-area: matchup;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .recap-front__suit {
+    order: -1;
+    font-size: var(--font-size-xs);
+  }
+
+  .recap-front__title {
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-tight);
+  }
+
+  .recap-front__fighter {
+    display: block;
+    margin-block-end: var(--space-2xs);
+    font-family: var(--recap-heading-font);
+    font-size: var(--font-size-lg);
+    font-weight: var(--recap-heading-weight);
+  }
+
+  .recap-front__versus {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+  }
+
+  .recap-front__kaiju {
+    color: var(--color-core-hot);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-strong);
+  }
+
+  .recap-front__text {
+    grid-area: text;
+    max-inline-size: 60ch;
+    color: var(--color-text-muted);
+  }
+
+  .recap-front__stats {
+    display: flex;
+    flex-wrap: wrap;
+    grid-area: stats;
+    gap: var(--space-md) var(--space-xl);
+    padding-block-start: var(--space-md);
+    border-block-start: 1px solid var(--color-border);
+  }
+}

@@ -1,0 +1,65 @@
+---
+import PlayIcon from '@/assets/icons/play.svg';
+import Button from '@/components/ui/Button/Button.astro';
+import type { YouTubeVideo } from '@/lib/video/youtube';
+
+import './YouTubeFacade.css';
+
+interface Props {
+  video: YouTubeVideo;
+  title: string;
+  playLabel: string;
+  posterAlt: string;
+  watchLabel: string;
+}
+
+const { video, title, playLabel, posterAlt, watchLabel } = Astro.props;
+const { poster } = video;
+---
+
+<div class="youtube-facade" data-youtube-facade>
+  <picture class="youtube-facade__poster" data-youtube-facade-poster>
+    <source type="image/webp" srcset={poster.webp} />
+    <img
+      class="youtube-facade__poster-image"
+      src={poster.jpeg}
+      width={poster.width}
+      height={poster.height}
+      alt={posterAlt}
+      loading="lazy"
+      decoding="async"
+    />
+  </picture>
+  <Button
+    class="youtube-facade__control youtube-facade__play"
+    variant="primary"
+    size="lg"
+    iconOnly
+    aria-label={playLabel}
+    data-youtube-facade-play
+  >
+    <PlayIcon slot="icon-start" aria-hidden="true" focusable="false" />
+  </Button>
+  <Button
+    class="youtube-facade__control youtube-facade__fallback"
+    href={video.watchUrl}
+    variant="primary"
+    size="lg"
+    iconOnly
+    aria-label={watchLabel}
+  >
+    <PlayIcon slot="icon-start" aria-hidden="true" focusable="false" />
+  </Button>
+  <template data-youtube-facade-player>
+    <iframe
+      class="youtube-facade__player"
+      src={video.embedUrl}
+      title={title}
+      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+      allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin"
+    ></iframe>
+  </template>
+</div>
+
+<script src="./YouTubeFacade.client.ts"></script>

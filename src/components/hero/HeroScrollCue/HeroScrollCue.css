@@ -1,0 +1,89 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* Points to the next section and fades out once the page scrolls (data-away comes from
+     HeroScrollCue.client.ts). A focused cue stays, so the keyboard focus never goes invisible. */
+  .hero-scroll-cue {
+    --cue-rail: clamp(2rem, 6cqb, 3rem);
+    --cue-cycle: 1.6s;
+    --cue-delay: 1.2s;
+
+    display: inline-grid;
+    justify-items: center;
+    gap: var(--space-xs);
+    min-inline-size: 2.75rem;
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-strong);
+    line-height: var(--line-height-tight);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    text-decoration: none;
+    transition:
+      opacity var(--duration-base) var(--ease-standard),
+      visibility var(--duration-base) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard);
+  }
+
+  .hero-scroll-cue[data-away]:not(:focus-visible) {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  @media (hover: hover) {
+    .hero-scroll-cue:hover {
+      color: var(--color-text);
+    }
+  }
+
+  .hero-scroll-cue__rail {
+    position: relative;
+    display: block;
+    inline-size: 2px;
+    block-size: var(--cue-rail);
+    overflow: clip;
+    background-color: var(--color-border);
+  }
+
+  .hero-scroll-cue__spark {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: 40%;
+    background-color: var(--color-kaiju-cyan);
+  }
+
+  /* Three drops (under the 5 s of WCAG 2.2.2), after the loader is gone and the eye has lit up.
+     With reduced motion the spark simply rests at the top of the rail. */
+  @media (prefers-reduced-motion: no-preference) {
+    :root[data-page-state='revealed'] .hero-scroll-cue__spark {
+      animation: hero-scroll-cue-drop var(--cue-cycle) var(--ease-standard) var(--cue-delay) 3;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) and (scripting: none) {
+    .hero-scroll-cue__spark {
+      animation: hero-scroll-cue-drop var(--cue-cycle) var(--ease-standard) var(--cue-delay) 3;
+    }
+  }
+
+  /* Each drop leaves through the bottom and slides back in from the top, ending where it rests. */
+  @keyframes hero-scroll-cue-drop {
+    0% {
+      translate: 0 0;
+    }
+
+    60% {
+      translate: 0 250%;
+    }
+
+    60.01% {
+      translate: 0 -100%;
+    }
+
+    100% {
+      translate: 0 0;
+    }
+  }
+}

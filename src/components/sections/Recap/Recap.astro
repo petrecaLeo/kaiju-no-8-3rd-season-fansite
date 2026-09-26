@@ -1,0 +1,46 @@
+---
+import RecapCover from '@/components/recap/RecapCover/RecapCover.astro';
+import RecapDossier from '@/components/recap/RecapDossier/RecapDossier.astro';
+import RecapFinale from '@/components/recap/RecapFinale/RecapFinale.astro';
+import RecapFronts from '@/components/recap/RecapFronts/RecapFronts.astro';
+import RecapGate from '@/components/recap/RecapGate/RecapGate.astro';
+import RecapWaves from '@/components/recap/RecapWaves/RecapWaves.astro';
+import { ANCHORS } from '@/config/anchors';
+import { getCoverImage } from '@/lib/recap/recap';
+import type { RecapContent } from '@/lib/recap/recap.types';
+
+import './Recap.css';
+
+interface Props {
+  content: RecapContent;
+}
+
+const { content } = Astro.props;
+const titleId = `${ANCHORS.recap}-title`;
+const reportId = `${ANCHORS.recap}-report`;
+const coverImage = getCoverImage();
+---
+
+<section id={ANCHORS.recap} class="recap" aria-labelledby={titleId} data-recap>
+  <h2 id={titleId} class="recap__title container">
+    {content.title}
+  </h2>
+  <div class="recap__vault container" data-recap-vault>
+    <RecapGate content={content.gate} reportId={reportId} skipHref={`#${ANCHORS.characters}`} />
+    <div id={reportId} class="recap__report" data-recap-report>
+      <RecapCover content={content.cover} image={coverImage} />
+      <RecapDossier threat={content.threat} numbers={content.numbers} />
+      <div class="recap__chronology" data-recap-chronology>
+        <span class="recap__spine" aria-hidden="true">
+          <span class="recap__spine-fill" data-recap-spine></span>
+        </span>
+        <RecapWaves content={content.attack} />
+        <RecapFronts content={content.fronts} suitLabel={content.numbers.suitLabel} />
+        <RecapFinale content={content.finale} />
+      </div>
+    </div>
+    <div class="recap__veil" aria-hidden="true" data-recap-veil></div>
+  </div>
+</section>
+
+<script src="./Recap.client.ts"></script>

@@ -1,0 +1,24 @@
+---
+import '@/styles/global.css';
+
+import BaseHead from '@/components/head/BaseHead/BaseHead.astro';
+import LocaleRedirect from '@/components/head/LocaleRedirect/LocaleRedirect.astro';
+import LanguageFallback from '@/components/layout/LanguageFallback/LanguageFallback.astro';
+import { DEFAULT_LOCALE, LOCALE_METADATA } from '@/i18n/config';
+import { getDictionary, type LocalizedText } from '@/i18n/dictionary';
+
+const { meta, a11y } = getDictionary(DEFAULT_LOCALE);
+const headings: LocalizedText[] = [{ locale: DEFAULT_LOCALE, text: meta.siteName }];
+---
+
+<!doctype html>
+<html lang={DEFAULT_LOCALE} dir={LOCALE_METADATA[DEFAULT_LOCALE].direction}>
+  <head>
+    <BaseHead locale={DEFAULT_LOCALE} meta={meta} preloadFonts={false}>
+      <LocaleRedirect />
+    </BaseHead>
+  </head>
+  <body>
+    <LanguageFallback headings={headings} label={a11y.languageSwitcher} />
+  </body>
+</html>

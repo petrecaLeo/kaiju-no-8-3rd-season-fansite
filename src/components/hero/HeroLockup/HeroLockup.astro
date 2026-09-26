@@ -1,0 +1,27 @@
+---
+import HeroScrollCue from '@/components/hero/HeroScrollCue/HeroScrollCue.astro';
+import CriticalImage from '@/components/ui/CriticalImage/CriticalImage.astro';
+import type { Dictionary } from '@/i18n/dictionary';
+import type { ResponsiveImage } from '@/lib/images/responsive-image';
+
+import './HeroLockup.css';
+
+interface Props {
+  logo: ResponsiveImage;
+  content: Dictionary['sections']['hero'];
+  scrollCueHref: `#${string}`;
+}
+
+const { logo, content, scrollCueHref } = Astro.props;
+---
+
+<div class="hero-lockup">
+  <div class="hero-lockup__title" aria-hidden="true">
+    <CriticalImage class="hero-lockup__logo" {...logo} alt={content.logoAlt} />
+    <p class="hero-lockup__season" lang={content.seasonLang}>
+      {content.season}
+    </p>
+    <p class="hero-lockup__status">{content.status}</p>
+  </div>
+  <HeroScrollCue class="hero-lockup__cue" href={scrollCueHref} label={content.scrollCue} />
+</div>

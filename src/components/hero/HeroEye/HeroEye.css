@@ -1,0 +1,62 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .hero-eye {
+    --eye-size: 14.25%;
+
+    position: absolute;
+    inset-block-start: calc(var(--socket-y) * 100%);
+    inset-inline-start: calc(var(--socket-x) * 100%);
+    inline-size: var(--eye-size);
+    aspect-ratio: 1;
+    margin-block-start: calc(var(--eye-size) / -2);
+    margin-inline-start: calc(var(--eye-size) / -2);
+  }
+
+  /* The light and the eye sit between the black background and the armour: with z-index: -1 they
+     paint below the armour image (the stage isolates), so they only show through the cross slit. */
+  .hero-eye__seam-light,
+  .hero-eye__gaze {
+    z-index: -1;
+  }
+
+  .hero-eye__seam-light {
+    position: absolute;
+    inset: -90% -240%;
+    background-image: radial-gradient(
+      closest-side,
+      var(--color-core-hot) 0%,
+      var(--color-core-ember) 38%,
+      var(--color-core-shadow) 70%,
+      transparent 100%
+    );
+    opacity: 0.6;
+    will-change: opacity, transform;
+  }
+
+  .hero-eye__gaze {
+    position: absolute;
+    inset: 0;
+    will-change: transform;
+  }
+
+  .hero-eye__halo {
+    position: absolute;
+    inset: -55%;
+    background-image: radial-gradient(
+      closest-side,
+      var(--color-core-hot) 42%,
+      var(--color-core-ember) 62%,
+      transparent 100%
+    );
+    opacity: 0.55;
+    will-change: opacity, transform;
+  }
+
+  .hero-eye__core {
+    position: relative;
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+}

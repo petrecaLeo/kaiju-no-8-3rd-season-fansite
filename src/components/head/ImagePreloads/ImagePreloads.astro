@@ -1,0 +1,21 @@
+---
+import { getImagePreloads } from '@/lib/images/preload';
+import type { ResponsiveImage } from '@/lib/images/responsive-image';
+
+interface Props {
+  images: readonly ResponsiveImage[];
+}
+
+const preloads = await getImagePreloads(Astro.props.images);
+---
+
+{preloads.map(({ href, srcset, sizes }) => (
+  <link
+    rel="preload"
+    as="image"
+    href={href}
+    imagesrcset={srcset}
+    imagesizes={sizes}
+    fetchpriority="high"
+  />
+))}

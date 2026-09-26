@@ -1,0 +1,169 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* A Defense Force threat alert standing in front of the veiled report. Recap.css makes it
+     sticky while the report is veiled; the state lives in data-recap-state on the section. */
+  .recap-gate {
+    --gate-notch: var(--space-lg);
+    --gate-hazard: 0.5rem;
+
+    position: relative;
+    display: grid;
+    grid-template-areas:
+      'title'
+      'level'
+      'body'
+      'actions';
+    gap: var(--space-md);
+    padding: calc(var(--space-lg) + var(--gate-hazard)) var(--space-lg) var(--space-lg);
+    background-color: var(--color-core-shadow);
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - var(--gate-notch)),
+      calc(100% - var(--gate-notch)) 100%,
+      0 100%
+    );
+  }
+
+  .recap-gate::before {
+    content: '';
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    block-size: var(--gate-hazard);
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--color-core-hot) 0 0.5rem,
+      var(--color-core-shadow) 0.5rem 1rem
+    );
+  }
+
+  .recap-gate__title {
+    grid-area: title;
+    color: var(--color-core-hot);
+    font-family: var(--recap-heading-font);
+    font-size: var(--font-size-lg);
+    font-weight: var(--recap-heading-weight);
+  }
+
+  .recap-gate__level {
+    display: grid;
+    grid-area: level;
+    align-content: start;
+    gap: var(--space-xs);
+  }
+
+  .recap-gate__level-label {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-strong);
+  }
+
+  .recap-gate__level-value {
+    color: var(--color-core-hot);
+    font-family: var(--font-title);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-title);
+    line-height: 1;
+  }
+
+  /* Five of five segments lit. */
+  .recap-gate__meter {
+    display: block;
+    inline-size: 9rem;
+    block-size: 0.5rem;
+    background-image: repeating-linear-gradient(
+      to right,
+      var(--color-core-hot) 0 calc(20% - 3px),
+      transparent calc(20% - 3px) 20%
+    );
+  }
+
+  .recap-gate__body {
+    grid-area: body;
+    max-inline-size: 60ch;
+  }
+
+  .recap-gate__actions {
+    display: flex;
+    flex-wrap: wrap;
+    grid-area: actions;
+    align-items: center;
+    gap: var(--space-md) var(--space-lg);
+    margin-block-start: var(--space-xs);
+  }
+
+  /* The button and the "revealed" status share one cell, so swapping them never moves anything. */
+  .recap-gate__control {
+    display: grid;
+  }
+
+  .recap-gate__reveal,
+  .recap-gate__status {
+    grid-area: 1 / 1;
+  }
+
+  .recap-gate__status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-kaiju-cyan);
+    font-weight: var(--font-weight-strong);
+    visibility: hidden;
+  }
+
+  .recap-gate__status::before {
+    content: '';
+    inline-size: 0.5rem;
+    aspect-ratio: 1;
+    background-color: var(--color-kaiju-cyan);
+    rotate: 45deg;
+  }
+
+  :is([data-recap-state='revealing'], [data-recap-state='revealed']) .recap-gate__reveal {
+    visibility: hidden;
+  }
+
+  :is([data-recap-state='revealing'], [data-recap-state='revealed']) .recap-gate__status {
+    visibility: visible;
+  }
+
+  /* Without JS the report is simply shown below the warning, so there is nothing to reveal. If the
+     script fails to arm the gate, the button goes away with the veil (see Recap.css). */
+  @media (scripting: none) {
+    .recap-gate__control {
+      display: none;
+    }
+  }
+
+  @media (scripting: enabled) {
+    [data-recap]:not([data-recap-state]) .recap-gate__control {
+      animation: recap-gate-failsafe 0s var(--preloader-failsafe-delay) forwards;
+    }
+  }
+
+  @keyframes recap-gate-failsafe {
+    to {
+      visibility: hidden;
+    }
+  }
+
+  @media (width >= 48em) {
+    .recap-gate {
+      grid-template-areas:
+        'title level'
+        'body level'
+        'actions level';
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: var(--space-2xl);
+      padding: calc(var(--space-xl) + var(--gate-hazard)) var(--space-xl) var(--space-xl);
+    }
+
+    .recap-gate__level {
+      align-self: center;
+      padding-inline-start: var(--space-xl);
+      border-inline-start: 1px solid var(--color-border);
+    }
+  }
+}

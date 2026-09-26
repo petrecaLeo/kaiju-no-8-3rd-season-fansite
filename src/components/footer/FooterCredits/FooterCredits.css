@@ -1,0 +1,67 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .footer-credits {
+    display: grid;
+    align-content: start;
+    gap: var(--space-lg);
+  }
+
+  .footer-credits__group {
+    display: grid;
+    gap: var(--space-md);
+    padding-inline-start: var(--space-md);
+    border-inline-start: 1px solid var(--color-border);
+  }
+
+  .footer-credits__list {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .footer-credits__item {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .footer-credits__label {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-strong);
+    letter-spacing: 0.02em;
+  }
+
+  .footer-credits__value {
+    font-size: var(--font-size-sm);
+  }
+
+  .footer-credits__copyright {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+  }
+
+  /* inline-flex turns the spans into blocks, which is what puts a space before the new-tab note
+     in the accessible name (Astro drops the whitespace between them). */
+  .footer-credits__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-text);
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-border-strong);
+    transition: text-decoration-color var(--duration-fast) var(--ease-standard);
+  }
+
+  .footer-credits__icon {
+    flex-shrink: 0;
+    inline-size: 0.9em;
+    block-size: 0.9em;
+    color: var(--color-text-muted);
+  }
+
+  @media (hover: hover) {
+    .footer-credits__link:hover {
+      text-decoration-color: var(--color-core-hot);
+    }
+  }
+}

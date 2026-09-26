@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+
+import SuitNumber from '@/components/ui/SuitNumber/SuitNumber.astro';
+import type { Character } from '@/lib/characters/characters.types';
+
+import './CharacterSpotlight.css';
+
+interface Props {
+  characters: Character[];
+  featured: Character;
+  infoId: string;
+}
+
+const { characters, featured, infoId } = Astro.props;
+const { suit } = featured;
+const nameId = `${infoId}-name`;
+---
+
+<div
+  class="character-spotlight"
+  data-character={featured.id}
+  data-unknown={featured.unknown ? '' : undefined}
+  data-spotlight
+>
+  <div class="character-spotlight__media">
+    <div class="character-spotlight__frame">
+      {characters.map((character) => (
+        <Image
+          class:list={[
+            'character-spotlight__photo',
+            { 'character-spotlight__photo--unknown': character.unknown },
+          ]}
+          {...character.spotlightPhoto}
+          alt={character.photoAlt}
+          loading={character.id === featured.id ? 'eager' : 'lazy'}
+          hidden={character.id !== featured.id}
+          data-spotlight-photo={character.id}
+        />
+      ))}
+    </div>
+  </div>
+  <div
+    class="character-spotlight__info"
+    id={infoId}
+    aria-live="polite"
+    aria-atomic="true"
+    data-spotlight-info
+  >
+    <p class="character-spotlight__suit" hidden={!suit} data-spotlight-suit data-spotlight-part>
+      <SuitNumber value={suit?.value} label={suit?.label ?? ''} />
+    </p>
+    <h3 class="character-spotlight__name" id={nameId} data-spotlight-name data-spotlight-part>
+      {featured.name}
+    </h3>
+    <p
+      class="character-spotlight__alias"
+      hidden={!featured.alias}
+      data-spotlight-alias
+      data-spotlight-part
+    >
+      {featured.alias}
+    </p>
+    <div
+      class="character-spotlight__description"
+      role="region"
+      aria-labelledby={nameId}
+      data-spotlight-scroll
+      data-spotlight-part
+    >
+      <p data-spotlight-description>{featured.description}</p>
+    </div>
+  </div>
+</div>

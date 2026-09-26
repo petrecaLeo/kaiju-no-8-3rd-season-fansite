@@ -1,0 +1,44 @@
+---
+import ChevronDown from '@/assets/icons/chevron-down.svg';
+import Button from '@/components/ui/Button/Button.astro';
+import SuitNumber from '@/components/ui/SuitNumber/SuitNumber.astro';
+import { ANCHORS } from '@/config/anchors';
+import { KAFKA_KAIJU_NUMBER } from '@/lib/suits/designation';
+
+import './FooterSignoff.css';
+
+interface Props {
+  signoff: string;
+  backToTop: string;
+  class?: string;
+}
+
+const { signoff, backToTop, class: className } = Astro.props;
+---
+
+<div class:list={['footer-signoff', className]} data-footer-signoff>
+  <div class="footer-signoff__rule" aria-hidden="true">
+    <span class="footer-signoff__light">
+      <span class="footer-signoff__halo" data-signoff-halo></span>
+      <span class="footer-signoff__core" data-signoff-core></span>
+    </span>
+    <span class="footer-signoff__track">
+      <span class="footer-signoff__line" data-signoff-line></span>
+    </span>
+    <span class="footer-signoff__tag" data-signoff-tag>
+      <SuitNumber value={KAFKA_KAIJU_NUMBER} label={signoff} />
+    </span>
+  </div>
+  <p class="footer-signoff__title">{signoff}</p>
+  <Button href={`#${ANCHORS.top}`} variant="secondary" size="sm">
+    <ChevronDown
+      slot="icon-start"
+      class="footer-signoff__icon"
+      aria-hidden="true"
+      focusable="false"
+    />
+    {backToTop}
+  </Button>
+</div>
+
+<script src="./FooterSignoff.client.ts"></script>

@@ -1,0 +1,166 @@
+/* Registered so the aura colour can transition when the featured character changes. */
+@property --character-aura {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: transparent;
+}
+
+@layer tokens {
+  :root {
+    --color-bg: #0b0d10;
+    --color-surface: #151a20;
+    --color-scrim: rgb(11 13 16 / 70%);
+    --color-scrim-strong: rgb(11 13 16 / 85%);
+    --color-veil: rgb(11 13 16 / 55%);
+    --color-surface-raised: #1d242c;
+    --color-border: #2b343e;
+    --color-border-strong: #5b6875;
+    --color-text: #eef1f4;
+    --color-text-muted: #a3adb8;
+    --color-accent: #5ce1b9;
+    --color-accent-contrast: #06120e;
+    --color-focus: #ffd166;
+    --color-focus-contrast: #0b0d10;
+    --color-black: #000;
+    --color-white: #fff;
+    --color-kaiju-cyan: #00efdf;
+    --color-kaiju-cyan-light: #7af5ec;
+    --color-kaiju-cyan-dark: #00c9bc;
+    --color-wash: rgb(238 241 244 / 10%);
+    --color-wash-strong: rgb(238 241 244 / 18%);
+    --color-core-hot: #ff3a24;
+    --color-core-ember: #a8070b;
+    --color-core-shadow: #2a0003;
+
+    /* Character auras, sampled from each character's artwork. */
+    --color-aura-kafka: #3fe0a4;
+    --color-aura-mina: #e0a060;
+    --color-aura-hoshina: #e0366f;
+    --color-aura-kikoru: #3fe6e3;
+    --color-aura-reno: #3f86e0;
+    --color-aura-narumi: #ff6a2b;
+    --color-aura-kaiju9: #6f7c8c;
+    --color-aura-shinonome: #a58cff;
+
+    /* The thumb keeps about 10:1 against the track (WCAG asks for 3:1). */
+    --color-scrollbar-thumb: var(--color-kaiju-cyan);
+    --color-scrollbar-thumb-hover: var(--color-kaiju-cyan-light);
+    --color-scrollbar-track: var(--color-surface-raised);
+    --scrollbar-size: 0.625rem;
+
+    --font-stack-paladins: 'Paladins', 'Paladins fallback';
+    --font-stack-exo: 'Exo 2', 'Exo 2 fallback';
+    --font-stack-jp-system: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', meiryo;
+    --font-stack-noto-jp: 'Noto Sans JP', 'Noto Sans JP fallback', var(--font-stack-jp-system);
+
+    --font-title-latin: var(--font-stack-paladins), system-ui, sans-serif;
+    --font-title-ja: var(--font-stack-paladins), var(--font-stack-noto-jp), sans-serif;
+    --font-body-latin: var(--font-stack-exo), system-ui, sans-serif;
+    --font-body-ja: var(--font-stack-noto-jp), sans-serif;
+    --font-title: var(--font-title-latin);
+    --font-body: var(--font-body-latin);
+
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-title: var(--font-weight-regular);
+    --font-weight-strong: var(--font-weight-semibold);
+
+    --font-size-xs: clamp(0.6875rem, 0.67rem + 0.1vi, 0.75rem);
+    --font-size-sm: clamp(0.875rem, 0.84rem + 0.15vi, 0.95rem);
+    --font-size-md: clamp(1rem, 0.96rem + 0.2vi, 1.125rem);
+    --font-size-lg: clamp(1.25rem, 1.15rem + 0.5vi, 1.5rem);
+    --font-size-xl: clamp(1.75rem, 1.5rem + 1.25vi, 2.5rem);
+    --font-size-2xl: clamp(2.25rem, 1.75rem + 2.5vi, 3.75rem);
+    --font-size-display: clamp(3rem, 2rem + 5vi, 7rem);
+
+    --line-height-tight: 1.1;
+    --line-height-text: 1.6;
+    --line-height-text-ja: 1.8;
+
+    --space-2xs: 0.25rem;
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2.5rem;
+    --space-2xl: 4rem;
+    --space-3xl: clamp(4rem, 3rem + 5vi, 8rem);
+
+    --gutter: clamp(1rem, 0.5rem + 2.5vi, 2.5rem);
+    --content-max-width: 72rem;
+
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-pill: 999px;
+
+    --aspect-video: 16 / 9;
+    --aspect-portrait: 4 / 5;
+    --focus-ring-width: 3px;
+
+    --duration-fast: 150ms;
+    --duration-base: 300ms;
+    --duration-slow: 600ms;
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+    --z-header: 10;
+    --z-preloader: 100;
+    --z-skip-link: 200;
+
+    --preloader-failsafe-delay: 8s;
+    --preloader-breath-duration: 1.2s;
+  }
+
+  :root:lang(ja) {
+    --font-title: var(--font-title-ja);
+    --font-body: var(--font-body-ja);
+    --font-weight-strong: var(--font-weight-medium);
+  }
+
+  [data-character='kafka'] {
+    --character-aura: var(--color-aura-kafka);
+  }
+
+  [data-character='mina'] {
+    --character-aura: var(--color-aura-mina);
+  }
+
+  [data-character='hoshina'] {
+    --character-aura: var(--color-aura-hoshina);
+  }
+
+  [data-character='kikoru'] {
+    --character-aura: var(--color-aura-kikoru);
+  }
+
+  [data-character='reno'] {
+    --character-aura: var(--color-aura-reno);
+  }
+
+  [data-character='narumi'] {
+    --character-aura: var(--color-aura-narumi);
+  }
+
+  [data-character='kaiju9'] {
+    --character-aura: var(--color-aura-kaiju9);
+  }
+
+  [data-character='shinonome'] {
+    --character-aura: var(--color-aura-shinonome);
+  }
+
+  /* Set by the preloader when a font misses the safety timeout, so it never swaps in late. */
+  :root[data-fonts='fallback'] {
+    --font-stack-paladins: 'Paladins fallback';
+    --font-stack-exo: 'Exo 2 fallback';
+    --font-stack-noto-jp: 'Noto Sans JP fallback', var(--font-stack-jp-system);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --duration-fast: 0ms;
+      --duration-base: 0ms;
+      --duration-slow: 0ms;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+---
+import SuitNumber from '@/components/ui/SuitNumber/SuitNumber.astro';
+import { getNumbersRegistry } from '@/lib/recap/recap';
+import type { RecapContent } from '@/lib/recap/recap.types';
+
+import './RecapDossier.css';
+
+interface Props {
+  threat: RecapContent['threat'];
+  numbers: RecapContent['numbers'];
+}
+
+const { threat, numbers } = Astro.props;
+const registry = getNumbersRegistry(numbers);
+---
+
+<div class="recap-dossier">
+  <div class="recap-dossier__threat">
+    <h3 class="recap-dossier__title">{threat.title}</h3>
+    {threat.paragraphs.map((paragraph) => (
+      <p class="recap-dossier__text">{paragraph}</p>
+    ))}
+    <p class="recap-dossier__goal">
+      <strong class="recap-dossier__goal-label">{threat.goalLabel}</strong>
+      <span class="recap-dossier__goal-text">{threat.goal}</span>
+    </p>
+  </div>
+  <div class="recap-dossier__numbers">
+    <h3 class="recap-dossier__title">{numbers.title}</h3>
+    <p class="recap-dossier__text">{numbers.intro}</p>
+    <ul class="recap-dossier__registry" role="list">
+      {registry.map((entry) => (
+        <li
+          class:list={['recap-dossier__suit', { 'recap-dossier__suit--captured': entry.captured }]}
+        >
+          <SuitNumber
+            class="recap-dossier__code"
+            value={entry.suit.value}
+            label={entry.suit.label}
+          />
+          <p class="recap-dossier__holder">{entry.holder}</p>
+          <p class="recap-dossier__detail">{entry.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

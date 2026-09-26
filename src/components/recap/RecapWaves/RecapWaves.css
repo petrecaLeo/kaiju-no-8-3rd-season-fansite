@@ -1,0 +1,68 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .recap-waves {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .recap-waves__title {
+    font-family: var(--recap-heading-font);
+    font-size: var(--font-size-lg);
+    font-weight: var(--recap-heading-weight);
+  }
+
+  .recap-waves__list {
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  .recap-waves__wave {
+    display: grid;
+    grid-template-areas:
+      'name'
+      'text'
+      'stat';
+    gap: var(--space-sm) var(--space-2xl);
+  }
+
+  .recap-waves__name {
+    grid-area: name;
+    color: var(--color-kaiju-cyan);
+    font-family: var(--recap-heading-font);
+    font-size: var(--font-size-md);
+    font-weight: var(--recap-heading-weight);
+    line-height: var(--line-height-tight);
+  }
+
+  .recap-waves__wave--second .recap-waves__name {
+    color: var(--color-core-hot);
+  }
+
+  .recap-waves__text {
+    grid-area: text;
+    max-inline-size: 60ch;
+  }
+
+  .recap-waves__stat {
+    --readout-size: var(--font-size-2xl);
+
+    grid-area: stat;
+    margin-block-start: var(--space-xs);
+  }
+
+  @media (width >= 48em) {
+    .recap-waves__wave {
+      grid-template-areas:
+        'name stat'
+        'text stat';
+      grid-template-columns: minmax(0, 1fr) minmax(14rem, auto);
+      grid-template-rows: auto 1fr;
+    }
+
+    .recap-waves__stat {
+      align-self: center;
+      margin-block-start: 0;
+    }
+  }
+}

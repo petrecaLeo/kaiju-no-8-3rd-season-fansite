@@ -1,0 +1,139 @@
+@layer reset, tokens, base, components, utilities;
+
+/* Registered so the fill, painted as a gradient to cut the notch, can transition. */
+@property --button-fill {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: transparent;
+}
+
+/* Every selector sits inside :where(), so a class the consumer adds for layout (position, grid
+   area, visibility) wins whatever order the CSS chunks load in. Variants, sizes and states only
+   set custom properties; the base rule reads them. Tokens: src/styles/button-tokens.css. */
+@layer components {
+  :where(.button) {
+    --button-notch: 0px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--button-gap);
+    min-block-size: var(--button-height);
+    min-inline-size: var(--button-touch-target);
+    padding: 0 var(--button-padding);
+    border: var(--button-border-width) solid var(--button-edge);
+    border-radius: var(--button-radius);
+    background-color: transparent;
+    /* eslint-disable-next-line css/no-invalid-properties -- the rule cannot resolve a var() stop length */
+    background-image: linear-gradient(
+      225deg,
+      transparent var(--button-notch),
+      var(--button-fill) var(--button-notch)
+    );
+    /* One tile over the whole border box: laid out on the padding box (the default), the gradient
+       would repeat into the transparent border and draw thin straight lines along its edges. */
+    background-origin: border-box;
+    background-repeat: no-repeat;
+    color: var(--button-ink);
+    font-family: var(--button-font-family);
+    font-size: var(--button-font-size);
+    font-weight: var(--button-font-weight);
+    line-height: var(--button-line-height);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      --button-fill var(--duration-fast) var(--ease-standard),
+      border-color var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard);
+  }
+
+  :where(.button svg) {
+    flex-shrink: 0;
+    inline-size: var(--button-icon-size);
+    block-size: var(--button-icon-size);
+  }
+
+  :where(.button--sm) {
+    --button-height: var(--button-height-sm);
+    --button-padding: var(--button-padding-sm);
+    --button-font-size: var(--button-font-size-sm);
+  }
+
+  :where(.button--md) {
+    --button-height: var(--button-height-md);
+    --button-padding: var(--button-padding-md);
+    --button-font-size: var(--button-font-size-md);
+  }
+
+  :where(.button--lg) {
+    --button-height: var(--button-height-lg);
+    --button-padding: var(--button-padding-lg);
+    --button-font-size: var(--button-font-size-lg);
+  }
+
+  :where(.button--icon-only) {
+    --button-padding: 0;
+    --button-icon-size: 1.5em;
+
+    min-inline-size: var(--button-height);
+  }
+
+  :where(.button--primary) {
+    --button-fill: var(--button-primary-fill);
+    --button-ink: var(--button-primary-ink);
+    --button-edge: var(--button-primary-edge);
+    --button-notch: var(--button-primary-notch);
+  }
+
+  :where(.button--secondary) {
+    --button-fill: var(--button-secondary-fill);
+    --button-ink: var(--button-secondary-ink);
+    --button-edge: var(--button-secondary-edge);
+  }
+
+  :where(.button--ghost) {
+    --button-fill: var(--button-ghost-fill);
+    --button-ink: var(--button-ghost-ink);
+    --button-edge: transparent;
+  }
+
+  /* Touch screens would keep the hover state after a tap, so it only exists with a real pointer. */
+  @media (hover: hover) {
+    :where(.button--primary:hover:not(:disabled, [aria-disabled='true'])) {
+      --button-fill: var(--button-primary-fill-hover);
+    }
+
+    :where(.button--secondary:hover:not(:disabled, [aria-disabled='true'])) {
+      --button-ink: var(--button-secondary-ink-hover);
+      --button-edge: var(--button-secondary-edge-hover);
+    }
+
+    :where(.button--ghost:hover:not(:disabled, [aria-disabled='true'])) {
+      --button-fill: var(--button-ghost-fill-hover);
+      --button-ink: var(--button-ghost-ink-hover);
+    }
+  }
+
+  :where(.button--primary:active:not(:disabled, [aria-disabled='true'])) {
+    --button-fill: var(--button-primary-fill-active);
+  }
+
+  :where(.button--secondary:active:not(:disabled, [aria-disabled='true'])) {
+    --button-fill: var(--button-secondary-fill-active);
+  }
+
+  :where(.button--ghost:active:not(:disabled, [aria-disabled='true'])) {
+    --button-fill: var(--button-ghost-fill-active);
+  }
+
+  :where(.button:focus-visible) {
+    outline: var(--focus-ring-width) solid var(--button-focus-ring);
+    outline-offset: var(--button-focus-offset);
+  }
+
+  :where(.button:is(:disabled, [aria-disabled='true'])) {
+    cursor: not-allowed;
+    opacity: var(--button-disabled-opacity);
+  }
+}

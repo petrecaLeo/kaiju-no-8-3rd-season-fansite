@@ -1,0 +1,42 @@
+---
+import ChevronDown from '@/assets/icons/chevron-down.svg';
+import LanguageLabel from '@/components/layout/LanguageLabel/LanguageLabel.astro';
+import type { Locale } from '@/i18n/config';
+import { getLanguageMenu } from '@/i18n/routing';
+
+import './LanguageSwitcher.css';
+
+interface Props {
+  locale: Locale;
+  label: string;
+}
+
+const { locale, label } = Astro.props;
+const { current, alternatives } = getLanguageMenu(locale);
+---
+
+<nav class="language-switcher" aria-label={label} data-language-switcher>
+  <details class="language-switcher__menu" data-language-menu>
+    <summary class="language-switcher__trigger">
+      <LanguageLabel link={current} />
+      <ChevronDown class="language-switcher__chevron" aria-hidden="true" focusable="false" />
+    </summary>
+    <ul class="language-switcher__list" role="list">
+      {alternatives.map((link) => (
+        <li>
+          <a
+            class="language-switcher__link"
+            href={link.href}
+            hreflang={link.locale}
+            lang={link.locale}
+            data-locale={link.locale}
+          >
+            <LanguageLabel link={link} />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </details>
+</nav>
+
+<script src="./LanguageSwitcher.client.ts"></script>

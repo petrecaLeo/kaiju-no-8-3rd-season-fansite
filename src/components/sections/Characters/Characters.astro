@@ -1,0 +1,39 @@
+---
+import CharacterRoster from '@/components/characters/CharacterRoster/CharacterRoster.astro';
+import CharacterSpotlight from '@/components/characters/CharacterSpotlight/CharacterSpotlight.astro';
+import { ANCHORS } from '@/config/anchors';
+import { getCharacterLineup } from '@/lib/characters/characters';
+import type { CharactersContent } from '@/lib/characters/characters.types';
+
+import './Characters.css';
+
+interface Props {
+  content: CharactersContent;
+}
+
+const { content } = Astro.props;
+const titleId = `${ANCHORS.characters}-title`;
+const spotlightId = `${ANCHORS.characters}-spotlight`;
+const rosterId = `${ANCHORS.characters}-roster`;
+const { featured, characters } = getCharacterLineup(content);
+---
+
+<section id={ANCHORS.characters} class="characters" aria-labelledby={titleId} data-characters>
+  <div class="characters__layout container">
+    <h2 id={titleId} class="characters__title">
+      {content.title}
+    </h2>
+    <CharacterSpotlight characters={characters} featured={featured} infoId={spotlightId} />
+    <CharacterRoster
+      characters={characters}
+      featured={featured}
+      listId={rosterId}
+      controls={spotlightId}
+      label={content.rosterLabel}
+      previousLabel={content.previous}
+      nextLabel={content.next}
+    />
+  </div>
+</section>
+
+<script src="./Characters.client.ts"></script>

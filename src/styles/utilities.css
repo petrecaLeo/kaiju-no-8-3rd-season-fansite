@@ -1,0 +1,15 @@
+@layer utilities {
+  .visually-hidden:not(:focus-within, :active) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .container {
+    inline-size: min(100% - 2 * var(--gutter), var(--content-max-width));
+    margin-inline: auto;
+  }
+}

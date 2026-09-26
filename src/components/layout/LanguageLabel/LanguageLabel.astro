@@ -1,0 +1,19 @@
+---
+import type { LanguageLink } from '@/i18n/routing';
+import { LOCALE_FLAGS } from '@/lib/images/locale-flags';
+
+import './LanguageLabel.css';
+
+interface Props {
+  link: LanguageLink;
+}
+
+const { link } = Astro.props;
+const Flag = LOCALE_FLAGS[link.locale];
+---
+
+<span class="language-label">
+  <Flag class="language-label__flag" aria-hidden="true" focusable="false" />
+  <span class="language-label__code">{link.shortLabel}</span>
+  <span class="visually-hidden">{link.label}</span>
+</span>

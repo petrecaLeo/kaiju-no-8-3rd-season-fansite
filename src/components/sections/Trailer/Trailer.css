@@ -1,0 +1,54 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .trailer {
+    display: grid;
+    gap: var(--space-xl);
+    padding-block: var(--space-3xl);
+  }
+
+  .trailer__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .trailer__stage {
+    display: grid;
+    justify-items: center;
+    padding-inline: var(--gutter);
+  }
+
+  .trailer__frame {
+    inline-size: 100%;
+    max-inline-size: var(--content-max-width);
+  }
+
+  /* Set by Trailer.client.ts on wide screens: the section fills the viewport and the frame grows
+     from --trailer-start-ratio to the largest 16:9 box that fits the stage as --trailer-progress
+     goes from 0 to 1. With reduced motion nothing animates it and it stays at 1. */
+  .trailer[data-layout='theater'] {
+    --trailer-start-ratio: 0.55;
+
+    block-size: 100svb;
+    grid-template-rows: auto minmax(0, 1fr);
+    padding-block: var(--space-2xl) var(--space-xl);
+  }
+
+  .trailer[data-layout='theater'] .trailer__title {
+    text-align: center;
+  }
+
+  .trailer[data-layout='theater'] .trailer__stage {
+    container-type: size;
+    place-items: center;
+  }
+
+  .trailer[data-layout='theater'] .trailer__frame {
+    --trailer-full-width: min(100cqi, 100cqb * var(--aspect-video));
+
+    inline-size: calc(
+      var(--trailer-full-width) *
+        (var(--trailer-start-ratio) + (1 - var(--trailer-start-ratio)) * var(--trailer-progress, 1))
+    );
+    max-inline-size: none;
+  }
+}

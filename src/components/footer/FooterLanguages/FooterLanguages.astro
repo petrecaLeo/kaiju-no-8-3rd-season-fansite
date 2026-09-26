@@ -1,0 +1,38 @@
+---
+import type { Locale } from '@/i18n/config';
+import { getLanguageLinks } from '@/i18n/routing';
+
+import './FooterLanguages.css';
+
+interface Props {
+  locale: Locale;
+  label: string;
+}
+
+const { locale, label } = Astro.props;
+const links = getLanguageLinks(locale);
+---
+
+<nav class="footer-languages" aria-label={label} data-footer-languages>
+  <ul class="footer-languages__list" role="list">
+    {links.map((link) => (
+      <li>
+        <a
+          class="footer-languages__link"
+          href={link.href}
+          hreflang={link.locale}
+          lang={link.locale}
+          aria-current={link.isCurrent ? 'page' : undefined}
+          data-locale={link.locale}
+        >
+          <span class="footer-languages__code" aria-hidden="true">
+            {link.shortLabel}
+          </span>
+          <span class="footer-languages__name">{link.label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<script src="./FooterLanguages.client.ts"></script>

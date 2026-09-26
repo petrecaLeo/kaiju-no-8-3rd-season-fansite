@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+
+import type { ResponsiveImage } from '@/lib/images/responsive-image';
+import type { RecapContent } from '@/lib/recap/recap.types';
+
+import './RecapCover.css';
+
+interface Props {
+  content: RecapContent['cover'];
+  image: ResponsiveImage;
+}
+
+const { content, image } = Astro.props;
+---
+
+<div class="recap-cover">
+  <div class="recap-cover__frame">
+    <Image
+      class="recap-cover__image"
+      {...image}
+      width={image.src.width}
+      height={image.src.height}
+      alt={content.imageAlt}
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <div class="recap-cover__text">
+    <p class="recap-cover__lede" tabindex="-1" data-recap-start>
+      {content.lede}
+    </p>
+    <p class="recap-cover__kicker">{content.kicker}</p>
+  </div>
+</div>

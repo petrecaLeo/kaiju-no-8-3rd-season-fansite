@@ -1,0 +1,23 @@
+---
+import CriticalImage from '@/components/ui/CriticalImage/CriticalImage.astro';
+import type { ResponsiveImage } from '@/lib/images/responsive-image';
+
+import './HeroEye.css';
+
+interface Props {
+  image: ResponsiveImage;
+  alt: string;
+}
+
+const { image, alt } = Astro.props;
+---
+
+<div class="hero-eye" data-hero-eye>
+  <div class="hero-eye__seam-light" data-hero-eye-seam></div>
+  <div class="hero-eye__gaze" data-hero-eye-gaze>
+    <div class="hero-eye__halo" data-hero-eye-halo></div>
+    <CriticalImage class="hero-eye__core" {...image} alt={alt} data-hero-eye-core />
+  </div>
+</div>
+
+<script src="./HeroEye.client.ts"></script>

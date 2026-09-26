@@ -1,0 +1,99 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* The report's closing line: a core light (the hero's eye, small) wired to the Nº8 stencil. */
+  .footer-signoff {
+    --signoff-light-size: 0.625rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg) var(--space-md);
+  }
+
+  .footer-signoff__rule {
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+  }
+
+  .footer-signoff__light {
+    position: relative;
+    flex-shrink: 0;
+    inline-size: var(--signoff-light-size);
+    aspect-ratio: 1;
+  }
+
+  .footer-signoff__core,
+  .footer-signoff__halo {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .footer-signoff__core {
+    inset: 0;
+    background-color: var(--color-core-hot);
+    box-shadow: 0 0 var(--signoff-light-size) var(--color-core-hot);
+  }
+
+  .footer-signoff__halo {
+    inset: -150%;
+    background-image: radial-gradient(circle, var(--color-core-hot), transparent 70%);
+    opacity: 0.35;
+  }
+
+  .footer-signoff__track {
+    flex: 1;
+    block-size: 2px;
+    margin-inline-start: var(--space-xs);
+    background-color: var(--color-border);
+  }
+
+  .footer-signoff__line {
+    display: block;
+    block-size: 100%;
+    background-image: linear-gradient(
+      to right,
+      var(--color-core-hot),
+      var(--color-core-ember) 50%,
+      var(--color-core-hot)
+    );
+    transform-origin: 0 50%;
+  }
+
+  .footer-signoff__tag {
+    --suit-color: var(--color-core-hot);
+
+    display: flex;
+    font-size: var(--font-size-md);
+  }
+
+  .footer-signoff__title {
+    font-family: var(--font-title);
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-tight);
+  }
+
+  .footer-signoff__title:lang(ja) {
+    font-weight: var(--font-weight-strong);
+  }
+
+  .footer-signoff__icon {
+    color: var(--color-core-hot);
+    rotate: 180deg;
+  }
+
+  @media (width >= 56em) {
+    .footer-signoff__title {
+      font-size: var(--font-size-xl);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .footer-signoff__core,
+    .footer-signoff__line {
+      background-color: CanvasText;
+    }
+  }
+}

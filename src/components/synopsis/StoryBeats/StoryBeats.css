@@ -1,0 +1,123 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* The premise, one beat per screen, scrolling over the sticky art. Narrow screens keep the text
+     low, under the subject; wide landscape screens move it to a left column. */
+  .story-beats {
+    position: relative;
+    z-index: 1;
+  }
+
+  .story-beats__beat {
+    display: grid;
+    align-content: end;
+    min-block-size: 100svb;
+    padding: var(--space-2xl) var(--gutter) 12svb;
+  }
+
+  .story-beats__text {
+    position: relative;
+    display: grid;
+    gap: var(--space-md);
+    max-inline-size: 34rem;
+    font-size: var(--font-size-lg);
+    line-height: 1.5;
+    container-type: inline-size;
+    isolation: isolate;
+  }
+
+  /* A soft band behind the text, so it stays legible wherever it crosses the art. */
+  .story-beats__text::before {
+    content: '';
+    position: absolute;
+    inset: calc(-1 * var(--space-xl)) calc(-1 * var(--gutter));
+    z-index: -1;
+    background-image: linear-gradient(
+      to bottom,
+      transparent,
+      var(--color-scrim-strong) var(--space-xl),
+      var(--color-scrim-strong) calc(100% - var(--space-xl)),
+      transparent
+    );
+  }
+
+  .story-beats__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .story-beats__turn {
+    display: grid;
+    gap: var(--space-2xs);
+    margin-block-start: var(--space-xs);
+    font-family: var(--font-title);
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-tight);
+  }
+
+  .story-beats__line {
+    display: block;
+  }
+
+  .story-beats__codename {
+    display: block;
+    margin-block-start: var(--space-sm);
+    color: var(--color-kaiju-cyan);
+    font-family: var(--font-title);
+    font-size: min(11.5cqi, 6.5rem);
+    font-weight: var(--font-weight-title);
+    line-height: 1;
+  }
+
+  /* Paladins has no kanji and its 8 reads as a block next to them (怪獣8号): use Noto Sans JP. */
+  .story-beats__codename:lang(ja) {
+    font-family: var(--font-body);
+    font-size: min(20cqi, 7rem);
+    font-weight: var(--font-weight-strong);
+  }
+
+  @media (orientation: landscape) and (width >= 56em) {
+    .story-beats__beat {
+      align-content: center;
+      padding-inline: calc(var(--gutter) + 3vi);
+    }
+
+    .story-beats__beat--title,
+    .story-beats__beat--lock {
+      align-content: end;
+    }
+
+    .story-beats__text {
+      max-inline-size: min(36rem, 44vi);
+    }
+
+    /* The codename and each sentence of the turn may reach over the art, towards the figure. */
+    .story-beats__codename {
+      font-size: min(7vi, 8rem);
+      white-space: nowrap;
+    }
+
+    .story-beats__codename:lang(ja) {
+      font-size: min(9vi, 9rem);
+    }
+
+    .story-beats__line {
+      white-space: nowrap;
+    }
+
+    .story-beats__text::before {
+      display: none;
+    }
+  }
+
+  /* No sticky art: the title stays over the image and the rest reads as a column below it. */
+  @media (prefers-reduced-motion: reduce) {
+    .story-beats__beat:not(.story-beats__beat--title) {
+      min-block-size: 0;
+      padding-block: var(--space-md);
+    }
+
+    .story-beats__beat:nth-child(2) {
+      padding-block-start: var(--space-2xl);
+    }
+  }
+}

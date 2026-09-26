@@ -1,0 +1,14 @@
+---
+import type { InferGetStaticPropsType } from 'astro';
+
+import NotFoundLayout from '@/layouts/NotFoundLayout/NotFoundLayout.astro';
+import { getLocalizedNotFoundPaths } from '@/lib/not-found/not-found-page';
+
+export const getStaticPaths = getLocalizedNotFoundPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { locale } = Astro.props;
+---
+
+<NotFoundLayout locale={locale} />

@@ -1,0 +1,41 @@
+---
+import FooterCredits from '@/components/footer/FooterCredits/FooterCredits.astro';
+import FooterLanguages from '@/components/footer/FooterLanguages/FooterLanguages.astro';
+import FooterSignoff from '@/components/footer/FooterSignoff/FooterSignoff.astro';
+import type { Locale } from '@/i18n/config';
+import { type Dictionary, formatMessage } from '@/i18n/dictionary';
+
+import './SiteFooter.css';
+
+interface Props {
+  content: Dictionary['footer'];
+  locale: Locale;
+  newTabLabel: string;
+}
+
+const { content, locale, newTabLabel } = Astro.props;
+const signature = formatMessage(content.signature, { year: new Date().getFullYear() });
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner container">
+    <FooterSignoff
+      class="site-footer__signoff"
+      signoff={content.signoff}
+      backToTop={content.backToTop}
+    />
+    <div class="site-footer__legal">
+      <p>{content.disclaimer}</p>
+      <p>{content.rights}</p>
+    </div>
+    <FooterCredits
+      class="site-footer__credits"
+      credits={content.credits}
+      newTabLabel={newTabLabel}
+    />
+    <div class="site-footer__base">
+      <FooterLanguages locale={locale} label={content.languages} />
+      <p class="site-footer__signature">{signature}</p>
+    </div>
+  </div>
+</footer>

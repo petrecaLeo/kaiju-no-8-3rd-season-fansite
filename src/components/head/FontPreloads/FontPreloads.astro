@@ -1,0 +1,16 @@
+---
+import type { FontFamily } from '@/config/fonts';
+import type { Locale } from '@/i18n/config';
+import { getFontPreloads } from '@/lib/fonts/font-files';
+
+interface Props {
+  locales: readonly Locale[];
+  families?: readonly FontFamily[] | undefined;
+}
+
+const hrefs = getFontPreloads(Astro.props.locales, Astro.props.families);
+---
+
+{hrefs.map((href) => (
+  <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />
+))}

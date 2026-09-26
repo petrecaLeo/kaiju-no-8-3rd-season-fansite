@@ -1,0 +1,50 @@
+---
+import AnimeSeasons from '@/components/synopsis/AnimeSeasons/AnimeSeasons.astro';
+import OriginFile from '@/components/synopsis/OriginFile/OriginFile.astro';
+import StatBoard from '@/components/synopsis/StatBoard/StatBoard.astro';
+import StoryBeats from '@/components/synopsis/StoryBeats/StoryBeats.astro';
+import StoryStage from '@/components/synopsis/StoryStage/StoryStage.astro';
+import { ANCHORS } from '@/config/anchors';
+import type { Locale } from '@/i18n/config';
+import { getSeasons, getStats, splitCodenameSentence } from '@/lib/synopsis/synopsis-content';
+import type { SynopsisContent } from '@/lib/synopsis/synopsis.types';
+
+import './Synopsis.css';
+
+interface Props {
+  content: SynopsisContent;
+  locale: Locale;
+}
+
+const { content, locale } = Astro.props;
+const titleId = `${ANCHORS.synopsis}-title`;
+---
+
+<section
+  id={ANCHORS.synopsis}
+  class="synopsis"
+  aria-labelledby={titleId}
+  tabindex="-1"
+  data-synopsis
+>
+  <div class="synopsis__story" data-story>
+    <StoryBeats
+      title={content.title}
+      titleId={titleId}
+      premise={content.premise}
+      hunted={splitCodenameSentence(content.premise)}
+    />
+    <StoryStage alt={content.artAlt} codename={content.premise.codename} />
+  </div>
+  <div class="synopsis__file container">
+    <OriginFile content={content.origin} />
+    <StatBoard title={content.stats.title} stats={getStats(content, locale)} />
+    <AnimeSeasons
+      title={content.anime.title}
+      text={content.anime.text}
+      seasons={getSeasons(content)}
+    />
+  </div>
+</section>
+
+<script src="./Synopsis.client.ts"></script>

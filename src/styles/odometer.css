@@ -1,0 +1,37 @@
+/* Rolling reels laid over a figure by createOdometer (lib/motion/odometer.ts). The figure must be
+   positioned; set --odometer-color on it for the reels. While they roll, the figure's own text
+   turns transparent: a utility, so it wins over any component colour whatever the bundle order. */
+@layer utilities {
+  [data-odometer] {
+    color: transparent;
+  }
+}
+
+/* Paladins digits fill about 0.18–0.82em of a line-height: 1 box, so the reel window trims 0.15em
+   top and bottom: otherwise the neighbouring digits on the strip show as bars while it rolls. */
+@layer components {
+  .odometer {
+    position: absolute;
+    inset: 0;
+    color: var(--odometer-color);
+    white-space: pre;
+  }
+
+  .odometer__reel {
+    position: relative;
+    display: inline-block;
+    clip-path: inset(0.15em 0);
+  }
+
+  .odometer__sizer {
+    visibility: hidden;
+  }
+
+  .odometer__strip {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    text-align: center;
+    white-space: pre;
+  }
+}

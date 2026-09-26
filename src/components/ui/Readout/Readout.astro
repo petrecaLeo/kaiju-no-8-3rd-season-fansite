@@ -1,0 +1,34 @@
+---
+import './Readout.css';
+
+interface Props {
+  label: string;
+  value: string;
+  tone?: 'human' | 'kaiju' | 'aura' | 'status';
+  gauge?: number | undefined;
+  class?: string;
+}
+
+const { label, value, tone = 'human', gauge, class: className } = Astro.props;
+---
+
+<div class:list={['readout', `readout--${tone}`, className]} data-readout>
+  <dt class="readout__label">{label}</dt>
+  <dd class="readout__figure">
+    <span class="readout__value" data-readout-value>
+      {value}
+    </span>
+    {gauge !== undefined && (
+      <svg
+        class="readout__gauge"
+        viewBox="0 0 100 4"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <rect class="readout__gauge-track" width="100" height="4" />
+        <rect class="readout__gauge-fill" width={gauge} height="4" data-readout-gauge />
+      </svg>
+    )}
+  </dd>
+</div>

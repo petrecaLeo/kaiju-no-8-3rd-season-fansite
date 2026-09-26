@@ -1,0 +1,26 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* The two-digit stencil printed on kaiju and Numbers suits ("08", "10"). Size it with font-size
+     on the element and recolour it with --suit-color on an ancestor. */
+  .suit-number {
+    --suit-notch: 0.6em;
+
+    display: inline-flex;
+    padding: 0.4em 0.8em 0.35em 0.6em;
+    border-inline-start: 2px solid var(--suit-color, var(--color-kaiju-cyan));
+    background-color: var(--color-scrim);
+    color: var(--suit-color, var(--color-kaiju-cyan));
+    font-family: var(--font-title-latin);
+    line-height: 1;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    clip-path: polygon(
+      0 0,
+      calc(100% - var(--suit-notch)) 0,
+      100% var(--suit-notch),
+      100% 100%,
+      0 100%
+    );
+  }
+}

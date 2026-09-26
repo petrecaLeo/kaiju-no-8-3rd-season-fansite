@@ -1,0 +1,145 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* White to blend with the meme, which is drawn on a plain white background. */
+  :root:has(.not-found) {
+    color-scheme: light;
+    background-color: var(--color-white);
+    color: var(--color-black);
+  }
+
+  /* On white, the cyan button needs a black edge to stand out, and the yellow focus ring would
+     have no contrast. The stencil notch would cut into that edge, so it goes. */
+  .not-found {
+    --not-found-code-size: clamp(4.5rem, min(27vi, 22svb), 13rem);
+    --button-primary-edge: var(--color-black);
+    --button-primary-notch: 0px;
+    --button-focus-ring: var(--color-black);
+
+    display: grid;
+    min-block-size: 100svb;
+    place-content: center;
+    justify-items: center;
+    padding: var(--space-md) var(--gutter);
+    text-align: center;
+  }
+
+  /* Overlaps the empty top of the drawing, like a meme caption. */
+  .not-found__title {
+    position: relative;
+    z-index: 1;
+    margin-block-end: calc(var(--not-found-code-size) * -0.12);
+  }
+
+  .not-found__code {
+    display: block;
+    color: var(--color-kaiju-cyan);
+    font-size: var(--not-found-code-size);
+    line-height: 1;
+    white-space: nowrap;
+    text-shadow:
+      0.05em 0 0 var(--color-black),
+      -0.05em 0 0 var(--color-black),
+      0 0.05em 0 var(--color-black),
+      0 -0.05em 0 var(--color-black),
+      0.035em 0.035em 0 var(--color-black),
+      -0.035em 0.035em 0 var(--color-black),
+      0.035em -0.035em 0 var(--color-black),
+      -0.035em -0.035em 0 var(--color-black);
+  }
+
+  /* Drawn under the fill, so the full stroke width shows outside the glyphs. */
+  @supports (-webkit-text-stroke: 1px) {
+    .not-found__code {
+      -webkit-text-stroke: 0.1em var(--color-black);
+      paint-order: stroke fill;
+      text-shadow: 0.03em 0.05em 0 var(--color-black);
+    }
+  }
+
+  .not-found__image {
+    inline-size: min(100%, 26rem);
+    block-size: auto;
+    max-block-size: 34svb;
+    object-fit: contain;
+  }
+
+  /* Two lines are reserved, so a body font swap that rewraps the text can't move the centred column. */
+  .not-found__message {
+    display: grid;
+    align-content: center;
+    min-block-size: 2lh;
+    max-inline-size: 36ch;
+    margin-block-start: var(--space-md);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-strong);
+    text-wrap: balance;
+  }
+
+  /* Breaks only after the comma instead of mid-word; anywhere is the fallback if a phrase won't fit. */
+  .not-found__message:lang(ja) {
+    max-inline-size: 22em;
+    line-break: strict;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  .not-found__link {
+    margin-block-start: var(--space-lg);
+  }
+
+  /* Phones in landscape: keep everything within one screen. */
+  @media (orientation: landscape) and (height < 30rem) {
+    .not-found {
+      --button-height-lg: var(--button-height-md);
+    }
+
+    .not-found__image {
+      max-block-size: 27svb;
+    }
+
+    .not-found__link {
+      margin-block-start: var(--space-md);
+    }
+  }
+
+  /* One kaiju footstep on load. */
+  @media (prefers-reduced-motion: no-preference) {
+    .not-found__code {
+      animation: not-found-tremor var(--duration-slow) linear 0.2s;
+    }
+  }
+
+  @keyframes not-found-tremor {
+    0%,
+    100% {
+      translate: 0;
+      rotate: 0deg;
+    }
+
+    15% {
+      translate: -0.03em 0.02em;
+      rotate: -2deg;
+    }
+
+    30% {
+      translate: 0.03em -0.01em;
+      rotate: 1.5deg;
+    }
+
+    45% {
+      translate: -0.02em 0.01em;
+      rotate: -1deg;
+    }
+
+    60% {
+      translate: 0.015em 0;
+      rotate: 0.5deg;
+    }
+
+    80% {
+      translate: -0.005em 0;
+      rotate: 0deg;
+    }
+  }
+}

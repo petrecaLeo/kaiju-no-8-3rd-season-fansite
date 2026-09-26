@@ -1,0 +1,26 @@
+---
+import { getLoaderMark } from '@/lib/images/loader-mark';
+
+import './Preloader.css';
+
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+const mark = await getLoaderMark(Astro.logger);
+---
+
+<div class="preloader" role="status" data-preloader>
+  <img
+    class="preloader__mark"
+    src={mark.src}
+    width={mark.width}
+    height={mark.height}
+    alt=""
+    decoding="sync"
+  />
+  <span class="visually-hidden">{label}</span>
+</div>
+
+<script src="./Preloader.client.ts"></script>

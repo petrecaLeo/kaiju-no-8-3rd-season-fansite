@@ -1,0 +1,51 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* At least one screen tall on every device. Narrow and portrait screens stack title,
+     spotlight and roster, and the spotlight takes the height the other two leave. */
+  .characters {
+    --characters-padding: var(--space-xl);
+
+    display: grid;
+    min-block-size: 100svb;
+    padding-block: var(--characters-padding);
+    overflow: clip;
+    isolation: isolate;
+  }
+
+  .characters__layout {
+    display: grid;
+    grid-template-areas:
+      'title'
+      'spotlight'
+      'roster';
+    grid-template-rows: auto minmax(22rem, 1fr) auto;
+    gap: var(--space-lg);
+    container-type: inline-size;
+  }
+
+  .characters__title {
+    grid-area: title;
+    font-size: var(--font-size-xl);
+  }
+
+  /* Wide landscape screens: photo on the left at full height; title, text and roster on the
+     right. Keep the breakpoint in sync with the spotlight, the roster and characters.ts. */
+  @media (orientation: landscape) and (width >= 56em) {
+    .characters {
+      --characters-padding: var(--space-2xl);
+
+      align-content: center;
+    }
+
+    .characters__layout {
+      grid-template-areas:
+        'media title'
+        'media info'
+        'media roster';
+      grid-template-columns: auto minmax(0, 1fr);
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: var(--space-lg) var(--space-2xl);
+    }
+  }
+}

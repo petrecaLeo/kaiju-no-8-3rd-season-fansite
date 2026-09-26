@@ -1,0 +1,83 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* Narrow screens: the artwork is a band at the top that fades into the page, and the text sits
+     below it on the page background. */
+  .where-to-watch {
+    --where-to-watch-band: min(28rem, 110vi);
+
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-items: center;
+    padding-block: calc(var(--where-to-watch-band) * 0.8) var(--space-3xl);
+    overflow: clip;
+  }
+
+  .where-to-watch__background {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    z-index: -2;
+    inline-size: 100%;
+    block-size: var(--where-to-watch-band);
+    object-fit: cover;
+    object-position: 0% 15%;
+    mask-image: linear-gradient(transparent, black 15% 50%, transparent 90%);
+  }
+
+  .where-to-watch__inner {
+    display: grid;
+  }
+
+  .where-to-watch__content {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-lg);
+    max-inline-size: 34rem;
+  }
+
+  /* Never start a line with ー or small kana (新シ / ーズン). */
+  .where-to-watch__content:lang(ja) {
+    line-break: strict;
+  }
+
+  .where-to-watch__title {
+    font-size: var(--font-size-xl);
+  }
+
+  /* Keep in sync with LOGO_SIZES in where-to-watch-images.ts. */
+  .where-to-watch__logo {
+    inline-size: min(45vi, 14rem);
+    block-size: auto;
+    margin-block-start: var(--space-sm);
+  }
+
+  /* Wide screens: the artwork covers the section with the drawing on the left, and the text sits
+     on the right half, where the art is plain orange and only that side is darkened. */
+  @media (width >= 56em) {
+    .where-to-watch {
+      min-block-size: min(100svb, 44rem);
+      padding-block: var(--space-3xl);
+    }
+
+    .where-to-watch__background {
+      block-size: 100%;
+      object-position: 25% 15%;
+      mask-image: linear-gradient(transparent, black 12% 88%, transparent);
+    }
+
+    .where-to-watch::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(to right, transparent 30%, var(--color-scrim) 50%);
+    }
+
+    .where-to-watch__content {
+      justify-self: end;
+      max-inline-size: min(34rem, 50%);
+    }
+  }
+}

@@ -1,0 +1,19 @@
+---
+import FontPreloads from '@/components/head/FontPreloads/FontPreloads.astro';
+import SeoHead from '@/components/head/SeoHead/SeoHead.astro';
+import SiteIcons from '@/components/head/SiteIcons/SiteIcons.astro';
+
+import type { BaseHeadProps } from './BaseHead.types';
+
+type Props = BaseHeadProps;
+
+const { locale, meta, title, indexable, preloadFonts = true, fontFamilies } = Astro.props;
+---
+
+<meta charset="utf-8" />
+<slot />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+{preloadFonts && <FontPreloads locales={[locale]} families={fontFamilies} />}
+<SeoHead locale={locale} meta={meta} title={title} indexable={indexable} />
+<SiteIcons />
+<meta name="color-scheme" content="dark" />

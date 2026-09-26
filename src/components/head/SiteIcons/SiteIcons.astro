@@ -1,0 +1,19 @@
+---
+import { SITE } from '@/config/site';
+import {
+  APPLE_TOUCH_ICON,
+  FAVICON_ICO,
+  FAVICON_PNGS,
+  getIconPath,
+  getIconSizes,
+  WEB_MANIFEST_PATH,
+} from '@/config/site-icons';
+---
+
+<link rel="icon" href={getIconPath(FAVICON_ICO)} sizes={getIconSizes(FAVICON_ICO)} />
+{FAVICON_PNGS.map((icon) => (
+  <link rel="icon" href={getIconPath(icon)} sizes={getIconSizes(icon)} type="image/png" />
+))}
+<link rel="apple-touch-icon" href={getIconPath(APPLE_TOUCH_ICON)} />
+<link rel="manifest" href={WEB_MANIFEST_PATH} />
+<meta name="theme-color" content={SITE.themeColor} />

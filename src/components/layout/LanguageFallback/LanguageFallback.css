@@ -1,0 +1,33 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  :root[data-redirecting] .language-fallback {
+    visibility: hidden;
+  }
+
+  .language-fallback {
+    display: grid;
+    min-block-size: 100svb;
+    place-content: center;
+    justify-items: center;
+    gap: var(--space-xl);
+    padding: var(--space-xl) var(--gutter);
+    text-align: center;
+  }
+
+  .language-fallback__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .language-fallback__heading {
+    display: block;
+  }
+
+  .language-fallback__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-lg);
+    font-size: var(--font-size-lg);
+  }
+}

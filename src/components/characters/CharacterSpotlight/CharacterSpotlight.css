@@ -1,0 +1,198 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* Narrow and portrait screens: the photo keeps its 4:5 frame inside the space left by the
+     title and the roster (a size container), and the text sits over its lower part. */
+  .character-spotlight {
+    --spotlight-notch: var(--space-lg);
+    --spotlight-inline: min(100cqi, 80cqb);
+    --spotlight-cut: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - var(--spotlight-notch)),
+      calc(100% - var(--spotlight-notch)) 100%,
+      0 100%
+    );
+
+    position: relative;
+    display: grid;
+    grid-area: spotlight;
+    container-type: size;
+  }
+
+  .character-spotlight__media {
+    position: relative;
+    grid-area: 1 / 1;
+    justify-self: center;
+    inline-size: var(--spotlight-inline);
+    block-size: 100%;
+  }
+
+  /* The aura: a stage light in the featured character's colour, fading between characters. */
+  .character-spotlight__media::before {
+    content: '';
+    position: absolute;
+    inset: -30% -45%;
+    z-index: -1;
+    background-image: radial-gradient(closest-side, var(--character-aura), transparent);
+    opacity: 0.32;
+    transition: --character-aura var(--duration-slow) var(--ease-standard);
+    pointer-events: none;
+  }
+
+  /* A lit seam along the frame edge, the same light that leaks through the armor in the hero. */
+  .character-spotlight__media::after {
+    content: '';
+    position: absolute;
+    inset-block: 8% calc(var(--spotlight-notch) + 4%);
+    inset-inline-end: -1px;
+    inline-size: 2px;
+    background-image: linear-gradient(transparent, var(--character-aura), transparent);
+    box-shadow: 0 0 1.25rem var(--character-aura);
+    transition: --character-aura var(--duration-slow) var(--ease-standard);
+    pointer-events: none;
+  }
+
+  .character-spotlight__frame {
+    position: absolute;
+    inset: 0;
+    overflow: clip;
+    background-color: var(--color-black);
+    clip-path: var(--spotlight-cut);
+  }
+
+  .character-spotlight__frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--color-black) 0 1px,
+      transparent 1px 3px
+    );
+    opacity: 0;
+    transition: opacity var(--duration-slow) var(--ease-standard);
+    pointer-events: none;
+  }
+
+  .character-spotlight[data-unknown] .character-spotlight__frame::after {
+    opacity: 0.3;
+  }
+
+  .character-spotlight__photo {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: 50% 20%;
+    will-change: transform, opacity;
+  }
+
+  .character-spotlight__photo[hidden] {
+    display: none;
+  }
+
+  .character-spotlight__photo--unknown {
+    filter: grayscale(0.85) brightness(0.8) contrast(1.15);
+  }
+
+  .character-spotlight__info {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    grid-area: 1 / 1;
+    align-self: end;
+    justify-self: center;
+    gap: var(--space-xs);
+    inline-size: var(--spotlight-inline);
+    padding: var(--space-2xl) var(--space-md) var(--space-md);
+    background-image: linear-gradient(to top, var(--color-black) 50%, transparent);
+    clip-path: var(--spotlight-cut);
+  }
+
+  .character-spotlight__suit {
+    margin-block-end: var(--space-2xs);
+    font-size: var(--font-size-sm);
+  }
+
+  .character-spotlight__name {
+    font-size: var(--font-size-lg);
+  }
+
+  .character-spotlight__alias {
+    color: var(--character-aura);
+    font-family: var(--font-title);
+    font-size: var(--font-size-sm);
+    letter-spacing: 0.06em;
+    line-height: var(--line-height-tight);
+  }
+
+  /* Paladins digits read as blocks next to kanji (怪獣8号), so Japanese uses Noto Sans JP. */
+  .character-spotlight__alias:lang(ja) {
+    font-family: var(--font-body);
+    font-weight: var(--font-weight-strong);
+    letter-spacing: 0.02em;
+  }
+
+  /* Grows with the panel's height (it is a size container), so tall phones show more of the
+     text; anything longer scrolls inside the box. */
+  .character-spotlight__description {
+    max-inline-size: 46ch;
+    max-block-size: clamp(4lh, 32cqb, 7lh);
+    margin-block-start: var(--space-2xs);
+    overflow: hidden auto;
+    color: var(--color-text-muted);
+  }
+
+  .character-spotlight__description:focus-visible {
+    outline-offset: 2px;
+  }
+
+  .character-spotlight__description[data-more] {
+    mask-image: linear-gradient(to bottom, var(--color-black) 60%, transparent);
+  }
+
+  /* Wide landscape screens: the photo takes the left column at full height and the text moves
+     to the right column, above the roster (grid areas from Characters.css). */
+  @media (orientation: landscape) and (width >= 56em) {
+    .character-spotlight {
+      --spotlight-notch: var(--space-xl);
+
+      display: contents;
+    }
+
+    .character-spotlight__media {
+      grid-area: media;
+      align-self: center;
+      inline-size: min(50cqi, 0.8 * (100svb - 2 * var(--characters-padding)), 36rem);
+      block-size: auto;
+      aspect-ratio: var(--aspect-portrait);
+    }
+
+    .character-spotlight__info {
+      grid-area: info;
+      align-self: stretch;
+      justify-self: stretch;
+      justify-content: flex-end;
+      inline-size: auto;
+      min-block-size: 0;
+      padding: 0;
+      background-image: none;
+      clip-path: none;
+    }
+
+    .character-spotlight__name {
+      font-size: var(--font-size-xl);
+    }
+
+    .character-spotlight__description {
+      flex-shrink: 1;
+      min-block-size: 0;
+      max-block-size: none;
+      font-size: var(--font-size-md);
+    }
+  }
+}

@@ -1,0 +1,48 @@
+/* Tokens of the button design system (components/ui/Button; see "Botões" in CLAUDE.md). They live
+   on :root, so a scope can restyle every button inside it, like the light 404 page does. */
+@layer tokens {
+  :root {
+    --button-font-family: var(--font-body);
+    --button-font-weight: var(--font-weight-strong);
+    --button-line-height: var(--line-height-tight);
+    --button-radius: 0;
+    --button-border-width: 2px;
+    --button-gap: var(--space-xs);
+    --button-icon-size: 1.15em;
+    --button-touch-target: 2.75rem;
+    --button-focus-ring: var(--color-focus);
+    --button-focus-offset: 3px;
+    --button-disabled-opacity: 0.4;
+
+    --button-height-sm: 2.75rem;
+    --button-height-md: 3rem;
+    --button-height-lg: 3.5rem;
+    --button-padding-sm: var(--space-sm);
+    --button-padding-md: var(--space-lg);
+    --button-padding-lg: var(--space-xl);
+    --button-font-size-sm: var(--font-size-sm);
+    --button-font-size-md: var(--font-size-md);
+    --button-font-size-lg: var(--font-size-lg);
+
+    /* The stencil cut on the top corner, as on the Numbers suits: only the main action has it. */
+    --button-primary-notch: 0.625rem;
+    --button-primary-fill: var(--color-kaiju-cyan);
+    --button-primary-fill-hover: var(--color-kaiju-cyan-light);
+    --button-primary-fill-active: var(--color-kaiju-cyan-dark);
+    --button-primary-ink: var(--color-accent-contrast);
+    --button-primary-edge: transparent;
+
+    --button-secondary-fill: var(--color-scrim);
+    --button-secondary-fill-active: var(--color-surface-raised);
+    --button-secondary-ink: var(--color-text);
+    --button-secondary-ink-hover: var(--color-kaiju-cyan);
+    --button-secondary-edge: var(--color-border-strong);
+    --button-secondary-edge-hover: var(--color-kaiju-cyan);
+
+    --button-ghost-fill: transparent;
+    --button-ghost-fill-hover: var(--color-wash);
+    --button-ghost-fill-active: var(--color-wash-strong);
+    --button-ghost-ink: var(--color-text-muted);
+    --button-ghost-ink-hover: var(--color-text);
+  }
+}

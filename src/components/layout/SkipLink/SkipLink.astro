@@ -1,0 +1,14 @@
+---
+import './SkipLink.css';
+
+interface Props {
+  href: `#${string}`;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<a class="skip-link" href={href}>
+  {label}
+</a>

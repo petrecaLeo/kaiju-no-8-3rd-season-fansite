@@ -1,0 +1,91 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* An instrument readout (label over a figure), used inside a <dl>. Size the figure with
+     --readout-size on an ancestor. Cyan for the Defense Force, red for the kaiju. */
+  .readout {
+    --readout-color: var(--color-kaiju-cyan);
+
+    display: grid;
+    align-content: start;
+    gap: var(--space-2xs);
+  }
+
+  .readout--kaiju {
+    --readout-color: var(--color-core-hot);
+  }
+
+  .readout--aura {
+    --readout-color: var(--character-aura, var(--color-kaiju-cyan));
+  }
+
+  .readout--status {
+    --readout-color: var(--color-text);
+  }
+
+  .readout__label {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-strong);
+    letter-spacing: 0.02em;
+  }
+
+  .readout__figure {
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  /* Positioned for the odometer reels (src/styles/odometer.css), which roll in its colour. */
+  .readout__value {
+    --odometer-color: var(--readout-color);
+
+    position: relative;
+    justify-self: start;
+    color: var(--readout-color);
+    font-family: var(--font-title-latin);
+    font-size: var(--readout-size, var(--font-size-xl));
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .readout--status .readout__value {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-strong);
+    line-height: var(--line-height-tight);
+  }
+
+  /* No fight is decided: the status light stays on. */
+  .readout--status .readout__value::before {
+    content: '';
+    inline-size: 0.55em;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: var(--color-core-hot);
+    box-shadow: 0 0 0.6em var(--color-core-hot);
+  }
+
+  .readout__gauge {
+    inline-size: 100%;
+    min-inline-size: 8rem;
+    block-size: 0.375rem;
+    mask-image: repeating-linear-gradient(
+      to right,
+      var(--color-black) 0 calc(5% - 2px),
+      transparent calc(5% - 2px) 5%
+    );
+  }
+
+  .readout__gauge-track {
+    fill: var(--color-border);
+  }
+
+  .readout__gauge-fill {
+    fill: var(--readout-color);
+    transform-box: fill-box;
+    transform-origin: 0 50%;
+  }
+}

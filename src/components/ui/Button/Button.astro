@@ -1,0 +1,45 @@
+---
+import ExternalLinkIcon from '@/assets/icons/external-link.svg';
+
+import type { ButtonProps } from './Button.types';
+
+import './Button.css';
+
+type Props = ButtonProps;
+
+const {
+  variant = 'primary',
+  size = 'md',
+  iconOnly = false,
+  newTabLabel,
+  class: className,
+  ...attributes
+} = Astro.props;
+const Tag = attributes.href === undefined ? 'button' : 'a';
+const nativeType = Tag === 'button' ? 'button' : undefined;
+const opensNewTab = newTabLabel !== undefined;
+---
+
+<Tag
+  class:list={[
+    'button',
+    `button--${variant}`,
+    `button--${size}`,
+    { 'button--icon-only': iconOnly },
+    className,
+  ]}
+  type={nativeType}
+  target={opensNewTab ? '_blank' : undefined}
+  rel={opensNewTab ? 'noopener noreferrer' : undefined}
+  {...attributes}
+>
+  <slot name="icon-start" />
+  {Astro.slots.has('default') && (
+    <span class="button__label">
+      <slot />
+    </span>
+  )}
+  {opensNewTab && <span class="visually-hidden">{newTabLabel}</span>}
+  {opensNewTab && <ExternalLinkIcon aria-hidden="true" focusable="false" />}
+  <slot name="icon-end" />
+</Tag>

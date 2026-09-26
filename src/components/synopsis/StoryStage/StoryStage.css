@@ -1,0 +1,155 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* The art stays on screen while the premise scrolls over it (grid cell shared with the beats in
+     Synopsis.css). With reduced motion it is a plain block at the top of the section. */
+  .story-stage {
+    /* Measured on Story/background.webp: aspect ratio and the framing used without the camera.
+       Keep in sync with STORY_ART_SIZES in story-art.ts. */
+    --art-ratio: 1.598;
+    --focus-x: 0.84;
+    --focus-y: 0.4;
+
+    /* Where the camera (Synopsis.client.ts) puts its subject, as a share of the stage. */
+    --camera-anchor-x: 0.5;
+    --camera-anchor-y: 0.34;
+
+    position: sticky;
+    inset-block-start: 0;
+    align-self: start;
+    block-size: 100lvb;
+    overflow: clip;
+    container-type: size;
+    background-color: var(--color-black);
+  }
+
+  /* Legibility: a dark floor for the text on narrow screens and a fade into the next block. */
+  .story-stage::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+      to top,
+      var(--color-bg) 0%,
+      var(--color-scrim-strong) 22%,
+      transparent 58%
+    );
+    pointer-events: none;
+  }
+
+  .story-stage__canvas {
+    --canvas-inline: max(100cqi, 100cqb * var(--art-ratio));
+
+    position: absolute;
+    inset-block-start: calc((100cqb - var(--canvas-inline) / var(--art-ratio)) * var(--focus-y));
+    inset-inline-start: calc((100cqi - var(--canvas-inline)) * var(--focus-x));
+    /* eslint-disable-next-line css/no-invalid-properties -- the rule follows the first var() inside max() */
+    inline-size: var(--canvas-inline);
+    aspect-ratio: var(--art-ratio);
+    transform-origin: 0 0;
+    will-change: transform;
+  }
+
+  .story-stage__art {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  /* Brackets around Kaiju No. 8, in % of the art (figure measured at x 76.5–88.5%, y 11–71%).
+     This is the locked state, shown without JS and with reduced motion. */
+  .story-stage__reticle {
+    --corner-size: clamp(0.875rem, 2cqi, 1.5rem);
+    --corner-stroke: 2px;
+
+    position: absolute;
+    inset-block-start: 9%;
+    inset-inline-start: 75%;
+    inline-size: 15%;
+    block-size: 64%;
+  }
+
+  .story-stage__corner {
+    position: absolute;
+    inline-size: var(--corner-size);
+    block-size: var(--corner-size);
+    border: 0 solid var(--color-kaiju-cyan);
+    filter: drop-shadow(0 0 0.375rem var(--color-kaiju-cyan));
+  }
+
+  .story-stage__corner--start-start {
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    border-block-start-width: var(--corner-stroke);
+    border-inline-start-width: var(--corner-stroke);
+  }
+
+  .story-stage__corner--start-end {
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    border-block-start-width: var(--corner-stroke);
+    border-inline-end-width: var(--corner-stroke);
+  }
+
+  .story-stage__corner--end-start {
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    border-block-end-width: var(--corner-stroke);
+    border-inline-start-width: var(--corner-stroke);
+  }
+
+  .story-stage__corner--end-end {
+    inset-block-end: 0;
+    inset-inline-end: 0;
+    border-block-end-width: var(--corner-stroke);
+    border-inline-end-width: var(--corner-stroke);
+  }
+
+  /* The designation plate sits on the top-left bracket; on wide screens it hangs off its side,
+     towards the text column. */
+  .story-stage__tag {
+    position: absolute;
+    inset-block-end: calc(100% + var(--space-xs));
+    inset-inline-start: 0;
+    font-size: var(--font-size-sm);
+  }
+
+  /* Landscape screens are short: centre the subject vertically and hang the plate off the side. */
+  @media (orientation: landscape) {
+    .story-stage {
+      --camera-anchor-y: 0.45;
+    }
+
+    .story-stage__tag {
+      inset-block: 0 auto;
+      inset-inline: auto calc(100% + var(--space-sm));
+    }
+  }
+
+  /* Wide landscape screens: the text column sits on the left, so the subject moves right and a
+     side gradient replaces the dark floor. Same breakpoint as the beats. */
+  @media (orientation: landscape) and (width >= 56em) {
+    .story-stage {
+      --focus-x: 0.7;
+      --camera-anchor-x: 0.7;
+    }
+
+    .story-stage::after {
+      background-image:
+        linear-gradient(
+          to right,
+          var(--color-scrim-strong) 0%,
+          var(--color-scrim) 32%,
+          transparent 60%
+        ),
+        linear-gradient(to top, var(--color-bg) 0%, transparent 22%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .story-stage {
+      position: relative;
+      block-size: 100svb;
+    }
+  }
+}

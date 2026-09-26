@@ -1,0 +1,36 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .recap-fronts {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .recap-fronts__title {
+    font-family: var(--recap-heading-font);
+    font-size: var(--font-size-lg);
+    font-weight: var(--recap-heading-weight);
+  }
+
+  .recap-fronts__intro {
+    margin-block-end: var(--space-md);
+    color: var(--color-text-muted);
+  }
+
+  .recap-fronts__list {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  /* Four fronts side by side; the last one (Shinonome's, see lib/recap/recap.ts) takes the full
+     row, right before the finale it leads into. */
+  @media (width >= 60em) {
+    .recap-fronts__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .recap-fronts__list > :last-child {
+      grid-column: 1 / -1;
+    }
+  }
+}

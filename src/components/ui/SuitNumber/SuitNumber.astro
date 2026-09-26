@@ -1,0 +1,23 @@
+---
+import { formatDesignation } from '@/lib/suits/designation';
+
+import './SuitNumber.css';
+
+interface Props {
+  value: number | undefined;
+  label: string;
+  class?: string;
+}
+
+const { value, label, class: className } = Astro.props;
+const code = value === undefined ? '' : formatDesignation(value);
+---
+
+<span class:list={['suit-number', className]}>
+  <span class="suit-number__code" aria-hidden="true" data-suit-code>
+    {code}
+  </span>
+  <span class="visually-hidden" data-suit-label>
+    {label}
+  </span>
+</span>

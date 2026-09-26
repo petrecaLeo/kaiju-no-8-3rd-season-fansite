@@ -1,0 +1,20 @@
+---
+import './HeroScrollCue.css';
+
+interface Props {
+  href: `#${string}`;
+  label: string;
+  class?: string;
+}
+
+const { href, label, class: className } = Astro.props;
+---
+
+<a class:list={['hero-scroll-cue', className]} href={href} data-scroll-cue>
+  <span class="hero-scroll-cue__label">{label}</span>
+  <span class="hero-scroll-cue__rail" aria-hidden="true">
+    <span class="hero-scroll-cue__spark"></span>
+  </span>
+</a>
+
+<script src="./HeroScrollCue.client.ts"></script>

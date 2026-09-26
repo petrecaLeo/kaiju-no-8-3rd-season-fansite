@@ -1,0 +1,88 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* Cards are sized so the neighbours always peek in at the edges. On narrow screens the
+     carousel bleeds to the viewport edges; keep in sync with CARD_SIZES in characters.ts. */
+  .character-roster {
+    --roster-card-size: clamp(7.5rem, 40%, 13rem);
+    --roster-bleed: var(--gutter);
+
+    position: relative;
+    grid-area: roster;
+    min-inline-size: 0;
+  }
+
+  .character-roster__list {
+    display: flex;
+    gap: var(--space-sm);
+    margin-inline: calc(-1 * var(--roster-bleed));
+    padding: 0 var(--roster-bleed);
+    overflow: auto hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--roster-bleed);
+    scrollbar-width: none;
+    mask-image:
+      linear-gradient(to right, transparent, var(--color-black) var(--gutter)),
+      linear-gradient(to left, transparent, var(--color-black) var(--gutter));
+    mask-composite: intersect;
+  }
+
+  /* CharacterRoster.client.ts marks the ends, so an edge only fades while there is more to see. */
+  .character-roster[data-at-start] .character-roster__list {
+    mask-image: linear-gradient(to left, transparent, var(--color-black) var(--gutter));
+  }
+
+  .character-roster[data-at-end] .character-roster__list {
+    mask-image: linear-gradient(to right, transparent, var(--color-black) var(--gutter));
+  }
+
+  .character-roster[data-at-start][data-at-end] .character-roster__list {
+    mask-image: none;
+  }
+
+  .character-roster__nav {
+    display: none;
+  }
+
+  @media (orientation: landscape) and (width >= 56em) {
+    .character-roster {
+      --roster-card-size: 29%;
+      --roster-bleed: 0px;
+    }
+  }
+
+  /* Step buttons for mouse users, who cannot swipe. Touch and keyboard scroll natively. */
+  @media (hover: hover) and (pointer: fine) and (scripting: enabled) {
+    .character-roster__nav {
+      position: absolute;
+      inset-block-start: 50%;
+      z-index: 1;
+      display: inline-flex;
+      translate: 0 -50%;
+      transition:
+        opacity var(--duration-fast) var(--ease-standard),
+        visibility var(--duration-fast) var(--ease-standard);
+    }
+
+    .character-roster__nav--previous {
+      inset-inline-start: calc(-0.5 * var(--space-xl));
+    }
+
+    .character-roster__nav--next {
+      inset-inline-end: calc(-0.5 * var(--space-xl));
+    }
+
+    .character-roster__nav[aria-disabled='true'] {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
+  .character-roster__icon {
+    rotate: -90deg;
+  }
+
+  .character-roster__nav--previous .character-roster__icon {
+    rotate: 90deg;
+  }
+}

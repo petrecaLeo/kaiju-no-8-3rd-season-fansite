@@ -1,0 +1,68 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .hero-artwork {
+    position: absolute;
+    inset: 0;
+    overflow: clip;
+    container-type: size;
+    pointer-events: none;
+  }
+
+  .hero-artwork__stage {
+    /* Measured on background.webp: aspect ratio and the centre of the cross-shaped socket. */
+    --artwork-aspect: 1.5142;
+    --socket-x: 0.5193;
+    --socket-y: 0.606;
+    --socket-target: 0.5;
+    --min-fill: 0.6;
+
+    /* As little zoom as possible: wide enough to put the socket axis on the centre line, and at
+       least --min-fill of the height tall. Keep in sync with STAGE_SIZES in hero-images.ts. */
+    --stage-inline: max(
+      100cqi / (2 * (1 - var(--socket-x))),
+      100cqb * var(--min-fill) * var(--artwork-aspect)
+    );
+    --stage-block: calc(var(--stage-inline) / var(--artwork-aspect));
+
+    position: absolute;
+    inset-block-start: calc(var(--socket-target) * 100cqb - var(--socket-y) * var(--stage-block));
+    inset-inline-start: calc(50cqi - var(--socket-x) * var(--stage-inline));
+    /* eslint-disable-next-line css/no-invalid-properties -- the rule follows the first var() inside max() */
+    inline-size: var(--stage-inline);
+    aspect-ratio: var(--artwork-aspect);
+    isolation: isolate;
+  }
+
+  @container (orientation: portrait) {
+    .hero-artwork__stage {
+      --socket-target: 0.45;
+    }
+  }
+
+  /* On tall screens the artwork does not reach the top or bottom, so its edges melt into black. */
+  .hero-artwork__armor {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--color-black) 14%,
+      var(--color-black) 72%,
+      transparent 96%
+    );
+  }
+
+  .hero-artwork::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+      to top,
+      var(--color-bg) 0%,
+      var(--color-black) 10%,
+      transparent 50%
+    );
+  }
+}

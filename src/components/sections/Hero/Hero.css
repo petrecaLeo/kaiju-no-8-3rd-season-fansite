@@ -1,0 +1,12 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .hero {
+    position: relative;
+    block-size: 100svb;
+    min-block-size: 34rem;
+    overflow: clip;
+    container-type: size;
+    background-color: var(--color-black);
+  }
+}

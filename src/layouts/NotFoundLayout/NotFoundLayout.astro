@@ -1,0 +1,57 @@
+---
+import '@/styles/global.css';
+
+import { Image } from 'astro:assets';
+
+import BaseHead from '@/components/head/BaseHead/BaseHead.astro';
+import Button from '@/components/ui/Button/Button.astro';
+import { LOCALE_METADATA, type Locale } from '@/i18n/config';
+import { getDictionary } from '@/i18n/dictionary';
+import {
+  getNotFoundContent,
+  NOT_FOUND_FONT_FAMILIES,
+  NOT_FOUND_IMAGE,
+} from '@/lib/not-found/not-found-page';
+
+import './NotFoundLayout.css';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { meta } = getDictionary(locale);
+const content = getNotFoundContent(locale);
+---
+
+<!doctype html>
+<html lang={locale} dir={LOCALE_METADATA[locale].direction}>
+  <head>
+    <BaseHead
+      locale={locale}
+      meta={meta}
+      title={content.documentTitle}
+      indexable={false}
+      fontFamilies={NOT_FOUND_FONT_FAMILIES}
+    />
+  </head>
+  <body>
+    <main class="not-found">
+      <h1 class="not-found__title">
+        <span class="not-found__code">{content.status}</span>
+        <span class="visually-hidden">{content.headingDetail}</span>
+      </h1>
+      <Image
+        class="not-found__image"
+        {...NOT_FOUND_IMAGE}
+        alt={content.imageAlt}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <p class="not-found__message">{content.message}</p>
+      <Button class="not-found__link" href={content.homeHref} variant="primary" size="lg">
+        {content.homeLabel}
+      </Button>
+    </main>
+  </body>
+</html>

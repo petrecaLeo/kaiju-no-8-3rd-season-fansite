@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'Paladins';
+  src: url('../assets/fonts/paladins/paladinsstraight.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Exo 2';
+  src: url('../assets/fonts/exo2/Exo2-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Exo 2';
+  src: url('../assets/fonts/exo2/Exo2-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Noto Sans JP';
+  src: url('../assets/fonts/noto-sans-jp/NotoSansJP-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Noto Sans JP';
+  src: url('../assets/fonts/noto-sans-jp/NotoSansJP-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: block;
+}

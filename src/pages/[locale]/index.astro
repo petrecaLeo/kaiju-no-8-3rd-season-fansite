@@ -1,0 +1,51 @@
+---
+import type { InferGetStaticPropsType } from 'astro';
+
+import ImagePreloads from '@/components/head/ImagePreloads/ImagePreloads.astro';
+import Characters from '@/components/sections/Characters/Characters.astro';
+import Hero from '@/components/sections/Hero/Hero.astro';
+import Recap from '@/components/sections/Recap/Recap.astro';
+import SiteFooter from '@/components/sections/SiteFooter/SiteFooter.astro';
+import Synopsis from '@/components/sections/Synopsis/Synopsis.astro';
+import Trailer from '@/components/sections/Trailer/Trailer.astro';
+import WhereToWatch from '@/components/sections/WhereToWatch/WhereToWatch.astro';
+import { ANCHORS } from '@/config/anchors';
+import { TRAILER_VIDEO_ID } from '@/config/youtube';
+import { getDictionary } from '@/i18n/dictionary';
+import { getLocaleStaticPaths } from '@/i18n/routing';
+import { getHeroImages, getHeroPreloads } from '@/lib/images/hero-images';
+import { getWhereToWatchImages } from '@/lib/images/where-to-watch-images';
+import { getYouTubeVideo } from '@/lib/video/youtube';
+import BaseLayout from '@/layouts/BaseLayout/BaseLayout.astro';
+
+export const getStaticPaths = getLocaleStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+const { sections, a11y } = dictionary;
+const heroImages = getHeroImages(locale);
+const trailerVideo = getYouTubeVideo(TRAILER_VIDEO_ID, locale);
+const whereToWatchImages = getWhereToWatchImages(locale);
+---
+
+<BaseLayout locale={locale} dictionary={dictionary} skipTargetId={ANCHORS.synopsis}>
+  <ImagePreloads slot="head" images={getHeroPreloads(heroImages)} />
+  <Hero content={sections.hero} images={heroImages} />
+  <Synopsis content={sections.synopsis} locale={locale} />
+  <Recap content={sections.recap} />
+  <Characters content={sections.characters} />
+  <Trailer content={sections.trailer} video={trailerVideo} />
+  <WhereToWatch
+    content={sections.whereToWatch}
+    images={whereToWatchImages}
+    newTabLabel={a11y.opensInNewTab}
+  />
+  <SiteFooter
+    slot="footer"
+    content={dictionary.footer}
+    locale={locale}
+    newTabLabel={a11y.opensInNewTab}
+  />
+</BaseLayout>

@@ -1,0 +1,11 @@
+---
+import { Image } from 'astro:assets';
+
+import type { CriticalImageProps } from './CriticalImage.types';
+
+type Props = CriticalImageProps;
+
+const props = Astro.props;
+---
+
+<Image {...props} loading="eager" fetchpriority="high" />

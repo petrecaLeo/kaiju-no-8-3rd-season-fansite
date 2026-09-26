@@ -1,0 +1,80 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .stat-board {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .stat-board__title {
+    font-size: var(--font-size-xl);
+  }
+
+  .stat-board__list {
+    display: grid;
+    gap: var(--space-xl) var(--space-2xl);
+  }
+
+  .stat-board__item {
+    display: grid;
+    align-content: start;
+    gap: var(--space-xs);
+    padding-block-start: var(--space-md);
+    border-block-start: 1px solid var(--color-border);
+    container-type: inline-size;
+  }
+
+  /* Sized to the item, so the longest figure ("+2.000.000") fills it at any width. */
+  .stat-board__figure {
+    display: flex;
+    align-items: baseline;
+    color: var(--color-text);
+    font-family: var(--font-title-latin);
+    font-size: min(11cqi, 4.5rem);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .stat-board__item--featured {
+    grid-column: 1 / -1;
+    border-block-start-color: var(--color-kaiju-cyan);
+  }
+
+  .stat-board__item--featured .stat-board__figure {
+    font-size: min(11.2cqi, 10rem);
+  }
+
+  /* Host of the rolling reels (lib/motion/odometer.ts, styles in styles/odometer.css). */
+  .stat-board__number {
+    --odometer-color: var(--color-text);
+
+    position: relative;
+  }
+
+  .stat-board__affix {
+    color: var(--color-kaiju-cyan);
+  }
+
+  .stat-board__affix:empty {
+    display: none;
+  }
+
+  /* Japanese units (万部, 件超, 話) are kanji: Noto Sans JP at label size next to the digits. */
+  .stat-board__affix:lang(ja) {
+    margin-inline: 0.12em;
+    font-family: var(--font-body);
+    font-size: 0.42em;
+    font-weight: var(--font-weight-strong);
+  }
+
+  .stat-board__label {
+    max-inline-size: 40ch;
+    color: var(--color-text-muted);
+  }
+
+  @media (width >= 48em) {
+    .stat-board__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}

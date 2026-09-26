@@ -1,0 +1,67 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .site-footer {
+    padding-block: var(--space-2xl) var(--space-lg);
+    background-color: var(--color-bg);
+  }
+
+  .site-footer__inner {
+    display: grid;
+    grid-template-areas:
+      'signoff'
+      'legal'
+      'credits'
+      'base';
+    gap: var(--space-xl);
+  }
+
+  .site-footer__signoff {
+    grid-area: signoff;
+  }
+
+  .site-footer__legal {
+    display: grid;
+    grid-area: legal;
+    align-content: start;
+    gap: var(--space-sm);
+    max-inline-size: 62ch;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+  }
+
+  .site-footer__legal:lang(ja) {
+    line-break: strict;
+  }
+
+  .site-footer__credits {
+    grid-area: credits;
+  }
+
+  .site-footer__base {
+    display: flex;
+    flex-wrap: wrap;
+    grid-area: base;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs) var(--space-xl);
+    padding-block-start: var(--space-sm);
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .site-footer__signature {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+  }
+
+  @media (width >= 56em) {
+    .site-footer__inner {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      grid-template-areas:
+        'signoff signoff'
+        'legal credits'
+        'base base';
+      column-gap: var(--space-2xl);
+    }
+  }
+}

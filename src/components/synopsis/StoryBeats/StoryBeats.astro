@@ -1,0 +1,54 @@
+---
+import type { CodenameSentence, PremiseContent } from '@/lib/synopsis/synopsis.types';
+
+import './StoryBeats.css';
+
+interface Props {
+  title: string;
+  titleId: string;
+  premise: PremiseContent;
+  hunted: CodenameSentence;
+}
+
+const { title, titleId, premise, hunted } = Astro.props;
+---
+
+<div class="story-beats" data-story-beats>
+  <div class="story-beats__beat story-beats__beat--title" data-story-beat>
+    <div class="story-beats__text" data-beat-text>
+      <h2 id={titleId} class="story-beats__title">
+        {title}
+      </h2>
+    </div>
+  </div>
+  <div class="story-beats__beat" data-story-beat>
+    <div class="story-beats__text" data-beat-text>
+      <p>{premise.world}</p>
+    </div>
+  </div>
+  <div class="story-beats__beat" data-story-beat>
+    <div class="story-beats__text" data-beat-text>
+      <p>{premise.promise}</p>
+      <p class="story-beats__turn">
+        <span class="story-beats__line">{premise.captain}</span>
+        <span class="story-beats__line story-beats__line--behind" data-beat-lag>
+          {premise.leftBehind}
+        </span>
+      </p>
+    </div>
+  </div>
+  <div class="story-beats__beat" data-story-beat>
+    <div class="story-beats__text" data-beat-text>
+      <p>{premise.change}</p>
+    </div>
+  </div>
+  <div class="story-beats__beat story-beats__beat--lock" data-story-beat>
+    <div class="story-beats__text" data-beat-text data-story-lock>
+      <p>
+        {hunted.before}
+        <strong class="story-beats__codename">{hunted.codename}</strong>
+        {hunted.after}
+      </p>
+    </div>
+  </div>
+</div>

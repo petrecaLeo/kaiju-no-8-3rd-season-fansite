@@ -1,0 +1,30 @@
+---
+import HeroArtwork from '@/components/hero/HeroArtwork/HeroArtwork.astro';
+import HeroLockup from '@/components/hero/HeroLockup/HeroLockup.astro';
+import { ANCHORS } from '@/config/anchors';
+import type { Dictionary } from '@/i18n/dictionary';
+import type { HeroImages } from '@/lib/images/hero-images';
+
+import './Hero.css';
+
+interface Props {
+  content: Dictionary['sections']['hero'];
+  images: HeroImages;
+}
+
+const { content, images } = Astro.props;
+const titleId = `${ANCHORS.hero}-title`;
+---
+
+<section id={ANCHORS.hero} class="hero" aria-labelledby={titleId}>
+  <h1 id={titleId} class="visually-hidden">
+    {content.heading}
+  </h1>
+  <HeroArtwork
+    armor={images.armor}
+    eye={images.eye}
+    armorAlt={content.armorAlt}
+    eyeAlt={content.eyeAlt}
+  />
+  <HeroLockup logo={images.logo} content={content} scrollCueHref={`#${ANCHORS.synopsis}`} />
+</section>

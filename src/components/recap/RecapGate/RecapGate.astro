@@ -1,0 +1,41 @@
+---
+import Button from '@/components/ui/Button/Button.astro';
+import type { RecapContent } from '@/lib/recap/recap.types';
+
+import './RecapGate.css';
+
+interface Props {
+  content: RecapContent['gate'];
+  reportId: string;
+  skipHref: string;
+}
+
+const { content, reportId, skipHref } = Astro.props;
+---
+
+<div class="recap-gate" data-recap-gate>
+  <h3 class="recap-gate__title">{content.title}</h3>
+  <p class="recap-gate__level">
+    <span class="recap-gate__level-label">{content.levelLabel}</span>
+    <strong class="recap-gate__level-value">{content.level}</strong>
+    <span class="recap-gate__meter" aria-hidden="true"></span>
+  </p>
+  <p class="recap-gate__body">{content.body}</p>
+  <div class="recap-gate__actions">
+    <div class="recap-gate__control">
+      <Button
+        class="recap-gate__reveal"
+        variant="primary"
+        aria-expanded="false"
+        aria-controls={reportId}
+        data-recap-reveal
+      >
+        {content.reveal}
+      </Button>
+      <p class="recap-gate__status">{content.revealed}</p>
+    </div>
+    <Button class="recap-gate__skip" href={skipHref} variant="ghost" size="sm">
+      {content.skip}
+    </Button>
+  </div>
+</div>

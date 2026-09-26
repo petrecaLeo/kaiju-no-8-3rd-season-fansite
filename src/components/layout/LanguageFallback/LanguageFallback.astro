@@ -1,0 +1,38 @@
+---
+import { getLanguageLinks } from '@/i18n/routing';
+
+import type { LanguageFallbackProps } from './LanguageFallback.types';
+
+import './LanguageFallback.css';
+
+type Props = LanguageFallbackProps;
+
+const { headings, label } = Astro.props;
+const links = getLanguageLinks();
+---
+
+<main class="language-fallback">
+  <h1 class="language-fallback__title">
+    {headings.map(({ locale, text }) => (
+      <span class="language-fallback__heading" lang={locale}>
+        {text}
+      </span>
+    ))}
+  </h1>
+  <nav aria-label={label}>
+    <ul class="language-fallback__list" role="list">
+      {links.map((link) => (
+        <li>
+          <a
+            class="language-fallback__link"
+            href={link.href}
+            hreflang={link.locale}
+            lang={link.locale}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</main>

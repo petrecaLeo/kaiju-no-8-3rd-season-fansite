@@ -1,0 +1,28 @@
+---
+import type { OriginContent } from '@/lib/synopsis/synopsis.types';
+
+import './OriginFile.css';
+
+interface Props {
+  content: OriginContent;
+}
+
+const { content } = Astro.props;
+---
+
+<div class="origin-file">
+  <h3 class="origin-file__title">{content.title}</h3>
+  <dl class="origin-file__facts">
+    {content.facts.map((fact) => (
+      <div class="origin-file__fact">
+        <dt class="origin-file__label">{fact.label}</dt>
+        <dd class="origin-file__value">{fact.value}</dd>
+      </div>
+    ))}
+  </dl>
+  <div class="origin-file__prose">
+    {content.paragraphs.map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
+  </div>
+</div>

@@ -1,0 +1,33 @@
+---
+import type { Stat } from '@/lib/synopsis/synopsis.types';
+
+import './StatBoard.css';
+
+interface Props {
+  title: string;
+  stats: Stat[];
+}
+
+const { title, stats } = Astro.props;
+---
+
+<div class="stat-board">
+  <h3 class="stat-board__title">{title}</h3>
+  <ul class="stat-board__list" role="list">
+    {stats.map((stat) => (
+      <li class:list={['stat-board__item', { 'stat-board__item--featured': stat.featured }]}>
+        <p class="visually-hidden">{stat.spoken}</p>
+        <p class="stat-board__figure" aria-hidden="true">
+          <span class="stat-board__affix">{stat.prefix}</span>
+          <span class="stat-board__number" data-stat-roll={stat.rolls ? '' : undefined}>
+            {stat.formatted}
+          </span>
+          <span class="stat-board__affix">{stat.suffix}</span>
+        </p>
+        <p class="stat-board__label" aria-hidden="true">
+          {stat.label}
+        </p>
+      </li>
+    ))}
+  </ul>
+</div>

@@ -1,0 +1,27 @@
+---
+import RecapFront from '@/components/recap/RecapFront/RecapFront.astro';
+import { getFronts } from '@/lib/recap/recap';
+import type { RecapContent } from '@/lib/recap/recap.types';
+
+import './RecapFronts.css';
+
+interface Props {
+  content: RecapContent['fronts'];
+  suitLabel: string;
+}
+
+const { content, suitLabel } = Astro.props;
+const fronts = getFronts(content, suitLabel);
+---
+
+<div class="recap-fronts">
+  <h3 class="recap-fronts__title" data-recap-node>
+    {content.title}
+  </h3>
+  <p class="recap-fronts__intro">{content.intro}</p>
+  <ul class="recap-fronts__list" role="list">
+    {fronts.map((front) => (
+      <RecapFront front={front} versus={content.versus} />
+    ))}
+  </ul>
+</div>

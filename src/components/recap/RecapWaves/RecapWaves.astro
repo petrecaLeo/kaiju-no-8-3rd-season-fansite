@@ -1,0 +1,33 @@
+---
+import Readout from '@/components/ui/Readout/Readout.astro';
+import { getWaves } from '@/lib/recap/recap';
+import type { RecapContent } from '@/lib/recap/recap.types';
+
+import './RecapWaves.css';
+
+interface Props {
+  content: RecapContent['attack'];
+}
+
+const { content } = Astro.props;
+const waves = getWaves(content);
+---
+
+<div class="recap-waves">
+  <h3 class="recap-waves__title" data-recap-node>
+    {content.title}
+  </h3>
+  <ol class="recap-waves__list" role="list">
+    {waves.map((wave) => (
+      <li class:list={['recap-waves__wave', `recap-waves__wave--${wave.id}`]}>
+        <h4 class="recap-waves__name" data-recap-node>
+          {wave.title}
+        </h4>
+        <p class="recap-waves__text">{wave.text}</p>
+        <dl class="recap-waves__stat">
+          <Readout {...wave.stat} />
+        </dl>
+      </li>
+    ))}
+  </ol>
+</div>

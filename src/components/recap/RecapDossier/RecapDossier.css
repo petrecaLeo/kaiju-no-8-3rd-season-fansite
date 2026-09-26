@@ -1,0 +1,104 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .recap-dossier {
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  .recap-dossier__threat,
+  .recap-dossier__numbers {
+    display: grid;
+    align-content: start;
+    gap: var(--space-md);
+  }
+
+  .recap-dossier__title {
+    font-family: var(--recap-heading-font);
+    font-size: var(--font-size-lg);
+    font-weight: var(--recap-heading-weight);
+  }
+
+  .recap-dossier__text {
+    max-inline-size: 60ch;
+    color: var(--color-text-muted);
+  }
+
+  .recap-dossier__threat .recap-dossier__text:first-of-type {
+    color: var(--color-text);
+    font-size: var(--font-size-lg);
+    line-height: 1.4;
+  }
+
+  .recap-dossier__goal {
+    display: grid;
+    gap: var(--space-2xs);
+    margin-block-start: var(--space-xs);
+    padding: var(--space-md) var(--space-lg);
+    border-inline-start: 3px solid var(--color-core-hot);
+    background-color: var(--color-surface);
+  }
+
+  .recap-dossier__goal-label {
+    color: var(--color-core-hot);
+    font-size: var(--font-size-sm);
+  }
+
+  .recap-dossier__goal-text {
+    font-size: var(--font-size-lg);
+    line-height: 1.4;
+  }
+
+  .recap-dossier__registry {
+    display: grid;
+    margin-block-start: var(--space-xs);
+    border-block-end: 1px solid var(--color-border);
+  }
+
+  .recap-dossier__suit {
+    display: grid;
+    grid-template-areas:
+      'code holder'
+      'code detail';
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    column-gap: var(--space-md);
+    padding-block: var(--space-md);
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .recap-dossier__code {
+    grid-area: code;
+    align-self: start;
+    justify-self: start;
+    font-size: var(--font-size-sm);
+  }
+
+  .recap-dossier__holder {
+    grid-area: holder;
+    font-weight: var(--font-weight-strong);
+    line-height: var(--line-height-tight);
+  }
+
+  .recap-dossier__detail {
+    grid-area: detail;
+    margin-block-start: var(--space-2xs);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Numbers 2 changed hands: the suit now belongs to the enemy. */
+  .recap-dossier__suit--captured {
+    --suit-color: var(--color-core-hot);
+  }
+
+  .recap-dossier__suit--captured .recap-dossier__holder {
+    color: var(--color-core-hot);
+  }
+
+  @media (width >= 56em) {
+    .recap-dossier {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: var(--space-3xl);
+    }
+  }
+}

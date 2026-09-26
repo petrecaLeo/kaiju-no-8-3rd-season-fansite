@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+
+import SuitNumber from '@/components/ui/SuitNumber/SuitNumber.astro';
+import { KAFKA_KAIJU_NUMBER } from '@/lib/suits/designation';
+import { STORY_ART } from '@/lib/synopsis/story-art';
+
+import './StoryStage.css';
+
+interface Props {
+  alt: string;
+  codename: string;
+}
+
+const { alt, codename } = Astro.props;
+---
+
+<div class="story-stage" data-story-stage>
+  <div class="story-stage__canvas" data-story-canvas>
+    <Image class="story-stage__art" {...STORY_ART} alt={alt} loading="lazy" />
+    <div class="story-stage__reticle" aria-hidden="true" data-story-reticle>
+      <span class="story-stage__corner story-stage__corner--start-start" data-corner="-1 -1"></span>
+      <span class="story-stage__corner story-stage__corner--start-end" data-corner="1 -1"></span>
+      <span class="story-stage__corner story-stage__corner--end-start" data-corner="-1 1"></span>
+      <span class="story-stage__corner story-stage__corner--end-end" data-corner="1 1"></span>
+      <span class="story-stage__tag" data-reticle-tag>
+        <SuitNumber value={KAFKA_KAIJU_NUMBER} label={codename} />
+      </span>
+    </div>
+  </div>
+</div>

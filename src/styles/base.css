@@ -1,0 +1,85 @@
+@layer base {
+  :root {
+    color-scheme: dark;
+    scrollbar-gutter: stable;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-text);
+  }
+
+  :root:lang(ja) {
+    --line-height-text: var(--line-height-text-ja);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :root {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Chrome ignores ::-webkit-scrollbar once scrollbar-color is set, so the pseudo-elements only
+     style browsers without the standard properties. */
+  @supports (scrollbar-color: auto) {
+    * {
+      scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
+      scrollbar-width: thin;
+    }
+  }
+
+  @supports not (scrollbar-color: auto) {
+    ::-webkit-scrollbar {
+      inline-size: var(--scrollbar-size);
+      block-size: var(--scrollbar-size);
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: var(--color-scrollbar-track);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 0;
+      background-color: var(--color-scrollbar-thumb);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: var(--color-scrollbar-thumb-hover);
+    }
+  }
+
+  body {
+    font-size: var(--font-size-md);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-title);
+    font-weight: var(--font-weight-title);
+    line-height: var(--line-height-tight);
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+
+  b,
+  strong {
+    font-weight: var(--font-weight-strong);
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+  }
+
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-contrast);
+  }
+}

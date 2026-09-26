@@ -1,0 +1,19 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  .site-header {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    z-index: var(--z-header);
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--space-md) var(--gutter);
+  }
+
+  /* Target of the footer's "back to top" link: it takes focus so Tab resumes at the top, but it
+     is not a control, so it draws no ring. */
+  .site-header:focus {
+    outline: none;
+  }
+}

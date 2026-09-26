@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+
+import SuitNumber from '@/components/ui/SuitNumber/SuitNumber.astro';
+import type { Character } from '@/lib/characters/characters.types';
+
+import './CharacterCard.css';
+
+interface Props {
+  character: Character;
+  featured: boolean;
+  controls: string;
+}
+
+const { character, featured, controls } = Astro.props;
+const { suit } = character;
+---
+
+<li
+  class:list={['character-card', { 'character-card--unknown': character.unknown }]}
+  hidden={featured}
+  data-character={character.id}
+  data-unknown={character.unknown ? '' : undefined}
+  data-character-card
+>
+  <button
+    type="button"
+    class="character-card__button"
+    aria-label={character.selectLabel}
+    aria-controls={controls}
+  >
+    <Image class="character-card__photo" {...character.cardPhoto} alt={character.photoAlt} />
+    {suit && <SuitNumber class="character-card__suit" value={suit.value} label={suit.label} />}
+    <span class="character-card__name" data-character-name>
+      {character.name}
+    </span>
+  </button>
+  {character.alias && (
+    <p class="visually-hidden" data-character-alias>
+      {character.alias}
+    </p>
+  )}
+  <p class="visually-hidden" data-character-description>
+    {character.description}
+  </p>
+</li>

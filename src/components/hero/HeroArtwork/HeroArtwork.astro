@@ -1,0 +1,23 @@
+---
+import HeroEye from '@/components/hero/HeroEye/HeroEye.astro';
+import CriticalImage from '@/components/ui/CriticalImage/CriticalImage.astro';
+import type { ResponsiveImage } from '@/lib/images/responsive-image';
+
+import './HeroArtwork.css';
+
+interface Props {
+  armor: ResponsiveImage;
+  eye: ResponsiveImage;
+  armorAlt: string;
+  eyeAlt: string;
+}
+
+const { armor, eye, armorAlt, eyeAlt } = Astro.props;
+---
+
+<div class="hero-artwork">
+  <div class="hero-artwork__stage">
+    <CriticalImage class="hero-artwork__armor" {...armor} alt={armorAlt} />
+    <HeroEye image={eye} alt={eyeAlt} />
+  </div>
+</div>

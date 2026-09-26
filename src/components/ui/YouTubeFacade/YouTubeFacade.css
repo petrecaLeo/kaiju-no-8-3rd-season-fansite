@@ -1,0 +1,61 @@
+@layer reset, tokens, base, components, utilities;
+
+@layer components {
+  /* The play control is a grid item centred on the poster; its ::after stretches over the whole
+     facade (the control itself is not positioned), so a click anywhere on the video plays it. */
+  .youtube-facade {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: var(--aspect-video);
+    overflow: clip;
+    border-radius: var(--radius-md);
+    background-color: var(--color-black);
+    container-type: inline-size;
+  }
+
+  .youtube-facade__poster,
+  .youtube-facade__player {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .youtube-facade__poster-image {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .youtube-facade__control {
+    --button-height: clamp(var(--button-height-lg), 11cqi, 6rem);
+    --button-icon-size: calc(var(--button-height) * 0.45);
+
+    z-index: 1;
+  }
+
+  .youtube-facade__control::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .youtube-facade__fallback {
+    display: none;
+  }
+
+  @media (scripting: none) {
+    .youtube-facade__play {
+      display: none;
+    }
+
+    .youtube-facade__fallback {
+      display: inline-flex;
+    }
+  }
+
+  .youtube-facade__player {
+    border: 0;
+  }
+}
