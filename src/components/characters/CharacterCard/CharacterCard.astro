@@ -30,11 +30,11 @@ const { suit } = character;
     aria-controls={controls}
   >
     <Image class="character-card__photo" {...character.cardPhoto} alt={character.photoAlt} />
-    {suit && <SuitNumber class="character-card__suit" value={suit.value} label={suit.label} />}
     <span class="character-card__name" data-character-name>
       {character.name}
     </span>
   </button>
+  {suit && <SuitNumber class="character-card__suit" value={suit.value} label={suit.label} />}
   {character.alias && (
     <p class="visually-hidden" data-character-alias>
       {character.alias}

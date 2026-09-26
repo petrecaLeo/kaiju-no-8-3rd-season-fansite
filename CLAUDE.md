@@ -405,7 +405,10 @@ mostra o tamanho antes e depois.
   renderiza sem rolar só vê os valores finais. A colocação (`award`) não rola.
 - A arte `assets/images/Story/background.webp` (3452×2160, webp q95 de 725 KB, convertida de um
   JPEG de 4,5 MB) é o original de onde o Astro gera webp de 52–256 KB (`STORY_ART` em
-  `lib/synopsis/story-art.ts`, lazy).
+  `lib/synopsis/story-art.ts`, lazy). A largura 2880 existe para celulares de 1,75× a 2×: o
+  `sizes` (180vh) pede ~2600 a 2900 px de dispositivo, e sem ela o navegador pulava de 2560 para
+  o original de 3452 (249 KiB contra 190 KiB). Celulares de 2,6× ou mais pedem acima de 3452 e
+  recebem o original.
 
 ## A história até aqui
 
@@ -496,6 +499,10 @@ mostra o tamanho antes e depois.
   crossfade salta 1 px quando a camada composta é desfeita.
 - O anel de foco do card é desenhado no `::after`: o outline do botão fica atrás da foto, que é
   absoluta.
+- O badge do traje fica fora do `<button>`, sobreposto ao card (`pointer-events: none`), para o
+  texto visível do botão ser só o nome, que o `aria-label` contém (WCAG 2.5.3, regra
+  `label-content-name-mismatch` do axe). `aria-hidden` não resolve: a regra compara o texto
+  visível. O rótulo do traje ("Traje Numbers 10") passa a ser lido depois do botão.
 
 ## Trailer
 

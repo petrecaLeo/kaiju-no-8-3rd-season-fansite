@@ -2,6 +2,7 @@
 
 @layer components {
   .character-card {
+    position: relative;
     flex: 0 0 var(--roster-card-size);
     scroll-snap-align: center;
   }
@@ -69,12 +70,15 @@
     scale: 1.05;
   }
 
+  /* Outside the button, so the button's visible text is only the name, which its aria-label
+     contains (WCAG 2.5.3). Clicks and hover pass through to the button underneath. */
   .character-card__suit {
     position: absolute;
     inset-block-start: var(--space-xs);
     inset-inline-start: var(--space-xs);
     z-index: 1;
     font-size: var(--font-size-xs);
+    pointer-events: none;
   }
 
   .character-card__name {
