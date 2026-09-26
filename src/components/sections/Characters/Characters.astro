@@ -20,9 +20,11 @@ const { featured, characters } = getCharacterLineup(content);
 
 <section id={ANCHORS.characters} class="characters" aria-labelledby={titleId} data-characters>
   <div class="characters__layout container">
-    <h2 id={titleId} class="characters__title">
-      {content.title}
-    </h2>
+    <div class="characters__heading">
+      <h2 id={titleId} class="characters__title">
+        {content.title}
+      </h2>
+    </div>
     <CharacterSpotlight characters={characters} featured={featured} infoId={spotlightId} />
     <CharacterRoster
       characters={characters}

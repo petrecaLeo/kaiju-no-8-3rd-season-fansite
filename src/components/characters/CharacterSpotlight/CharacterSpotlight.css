@@ -182,10 +182,12 @@
       padding: 0;
       background-image: none;
       clip-path: none;
+      container-type: inline-size;
     }
 
+    /* Same cap as the section title (Characters.css), so the name never outgrows it. */
     .character-spotlight__name {
-      font-size: var(--font-size-xl);
+      font-size: min(var(--font-size-xl), 8.75cqi);
     }
 
     .character-spotlight__description {

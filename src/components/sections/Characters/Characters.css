@@ -24,9 +24,15 @@
     container-type: inline-size;
   }
 
-  .characters__title {
+  /* The title scales with its own cell, which in the wide layout is only the column beside the
+     photo. "Personagens" is about 11em wide in Paladins, so 8.75cqi keeps it in one piece. */
+  .characters__heading {
     grid-area: title;
-    font-size: var(--font-size-xl);
+    container-type: inline-size;
+  }
+
+  .characters__title {
+    font-size: min(var(--font-size-xl), 8.75cqi);
   }
 
   /* Wide landscape screens: photo on the left at full height; title, text and roster on the

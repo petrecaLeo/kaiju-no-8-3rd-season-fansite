@@ -72,12 +72,32 @@
     gap: var(--space-sm);
   }
 
+  /* Below 360 px the number leaves less than six characters of room beside it, and a Japanese
+     name would break in the middle, so the title moves under the number. */
+  @media (width < 22.5em) {
+    .recap-front {
+      grid-template-areas:
+        'suit numeral'
+        'title title'
+        'text text'
+        'stats stats';
+      grid-template-rows: auto auto 1fr auto;
+    }
+
+    .recap-front__matchup {
+      display: contents;
+    }
+  }
+
   .recap-front__suit {
+    grid-area: suit;
     order: -1;
+    justify-self: start;
     font-size: var(--font-size-xs);
   }
 
   .recap-front__title {
+    grid-area: title;
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-tight);
   }
