@@ -1,5 +1,10 @@
 # build output
 dist/
+
+# Playwright output
+test-results/
+playwright-report/
+
 # generated types
 .astro/
 

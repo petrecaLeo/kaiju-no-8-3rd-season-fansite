@@ -28,7 +28,7 @@ const CODE_FILES = ['**/*.{js,ts,astro}'];
 const TEMPLATE_RULES = [...CSP_SAFE_TEMPLATE, ...NO_HARDCODED_TEXT, ...TEMPLATE_LOGIC];
 
 export default defineConfig(
-  globalIgnores(['dist/', '.astro/', 'public/']),
+  globalIgnores(['dist/', '.astro/', 'public/', 'test-results/', 'playwright-report/']),
   {
     linterOptions: {
       reportUnusedDisableDirectives: 'error',
@@ -93,7 +93,7 @@ export default defineConfig(
     languageOptions: { globals: globals.browser },
   },
   {
-    files: ['*.{js,ts}', 'tooling/**/*.{js,ts}', 'scripts/**/*.{js,ts}'],
+    files: ['*.{js,ts}', 'tooling/**/*.{js,ts}', 'scripts/**/*.{js,ts}', 'tests/**/*.ts'],
     languageOptions: { globals: globals.node },
   },
   {
@@ -151,7 +151,12 @@ export default defineConfig(
     },
   },
   {
-    files: ['src/**/*.{ts,astro,css}', 'tooling/**/*.{js,ts}', 'scripts/**/*.{js,ts}'],
+    files: [
+      'src/**/*.{ts,astro,css}',
+      'tooling/**/*.{js,ts}',
+      'scripts/**/*.{js,ts}',
+      'tests/**/*.ts',
+    ],
     ignores: ['src/pages/**'],
     plugins: { 'check-file': checkFile },
     rules: {
@@ -163,6 +168,7 @@ export default defineConfig(
           'src/!(components|layouts)/**/*.{ts,css}': 'KEBAB_CASE',
           'tooling/**/*.{js,ts}': 'KEBAB_CASE',
           'scripts/**/*.{js,ts}': 'KEBAB_CASE',
+          'tests/**/*.ts': 'KEBAB_CASE',
         },
         { ignoreMiddleExtensions: true },
       ],
@@ -173,6 +179,7 @@ export default defineConfig(
           'src/layouts/*/': 'PASCAL_CASE',
           'src/!(components|layouts|pages)/**/': 'KEBAB_CASE',
           'tooling/**/': 'KEBAB_CASE',
+          'tests/**/': 'KEBAB_CASE',
         },
         { ignoreWords: COMPONENT_GROUPS },
       ],
