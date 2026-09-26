@@ -10,8 +10,16 @@ interface StructuredDataInput {
   canonicalUrl: string;
 }
 
-// The page describes a fan site: the WebSite is *about* the series, and nothing here names the
-// rights holders as publisher or links to official properties.
+function buildAuthors(locale: Locale) {
+  return getDictionary(locale).footer.credits.project.map(({ name, url }) => ({
+    '@type': 'Person',
+    name,
+    url,
+  }));
+}
+
+// The page describes a fan site: the WebSite is *about* the series, its authors are the fans, and
+// nothing here names the rights holders as publisher or links to official properties.
 function buildWebSite({ locale, meta, canonicalUrl }: StructuredDataInput) {
   const otherSeriesNames = LOCALES.map((other) => getDictionary(other).meta.siteName).filter(
     (name, index, names) => name !== meta.siteName && names.indexOf(name) === index,
@@ -24,6 +32,7 @@ function buildWebSite({ locale, meta, canonicalUrl }: StructuredDataInput) {
     description: meta.description,
     url: canonicalUrl,
     inLanguage: locale,
+    author: buildAuthors(locale),
     about: {
       '@type': 'TVSeries',
       name: meta.siteName,

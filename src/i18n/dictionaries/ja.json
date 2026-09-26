@@ -316,8 +316,12 @@
       ],
       "copyright": "©防衛隊第3部隊 ©松本直也／集英社",
       "project": [
-        { "label": "UX/UIデザイン", "name": "Duda（@byduuds.design）", "url": "[LINK_DUDA]" },
-        { "label": "開発", "name": "Leonardo [SOBRENOME]", "url": "[LINK_LEONARDO]" }
+        {
+          "label": "UX/UIデザイン",
+          "name": "@byduuds.design",
+          "url": "https://www.instagram.com/byduuds.design"
+        },
+        { "label": "開発", "name": "petrecaLeo", "url": "https://github.com/petrecaLeo" }
       ]
     },
     "languages": "対応言語",

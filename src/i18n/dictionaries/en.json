@@ -313,8 +313,12 @@
       ],
       "copyright": "© Naoya Matsumoto/SHUEISHA, JAKDF 3rd Division",
       "project": [
-        { "label": "UX/UI design", "name": "Duda (@byduuds.design)", "url": "[LINK_DUDA]" },
-        { "label": "Development", "name": "Leonardo [SOBRENOME]", "url": "[LINK_LEONARDO]" }
+        {
+          "label": "UX/UI design",
+          "name": "@byduuds.design",
+          "url": "https://www.instagram.com/byduuds.design"
+        },
+        { "label": "Development", "name": "petrecaLeo", "url": "https://github.com/petrecaLeo" }
       ]
     },
     "languages": "Available languages",
