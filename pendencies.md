@@ -4,12 +4,13 @@ Itens que dependem de decisão ou material externo. Marque `[x]` ao concluir.
 
 ## Antes de publicar
 
-- [ ] **Domínio real** em `src/config/site.ts` (`SITE.url`, hoje o placeholder
-      `https://seu-dominio.example`). Ele alimenta canonical, hreflang, `og:url`, `og:image`,
-      `sitemap-index.xml` e `robots.txt`; o build avisa (`[site-url]`) enquanto não for trocado.
-- [ ] **Hospedagem.** O `dist/_headers` (CSP e headers de segurança) funciona na Netlify e na
-      Cloudflare Pages. Em outro host (Vercel, S3/CloudFront, GitHub Pages), converter para o
-      formato dele; o GitHub Pages não aceita headers customizados.
+- [x] **Domínio**: `site` no `astro.config.ts` é `https://kaiju-no-8-fansite.pages.dev`.
+- [x] **Hospedagem**: Cloudflare Pages, projeto `kaiju-no-8-fansite` (ver "Deploy" no CLAUDE.md).
+- [ ] **Conectar o repositório na Cloudflare Pages** com a configuração da seção "Deploy" do
+      CLAUDE.md. Se a URL final vier com sufixo (`kaiju-no-8-fansite-xxxx.pages.dev`), trocar
+      `site` no `astro.config.ts` e fazer novo deploy.
+- [ ] Depois do primeiro deploy: conferir os headers na URL real (`curl -I`, securityheaders.com),
+      o console sem erros de CSP e o PageSpeed Insights nas três rotas.
 - [x] **Imagem de Open Graph**: uma por idioma em `public/og/<idioma>.jpg` (1200×630), gerada por
       `npm run generate-og-images` a partir da arte do hero e do logo do idioma.
 - [x] **Favicon**: `favicon.ico`, PNGs 16/32, `apple-touch-icon.png` e ícones 192/512 do manifest,

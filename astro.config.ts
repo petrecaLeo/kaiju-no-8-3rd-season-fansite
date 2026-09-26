@@ -3,12 +3,10 @@ import { defineConfig } from 'astro/config';
 import { FontaineTransform } from 'fontaine';
 
 import { FONT_FILES } from './src/config/fonts';
-import { SITE } from './src/config/site';
 import { DEFAULT_LOCALE, LOCALES } from './src/i18n/config';
 import { fontFiles } from './tooling/integrations/font-files';
 import { notFoundPages } from './tooling/integrations/not-found-pages';
 import { securityHeaders } from './tooling/integrations/security-headers';
-import { siteUrlCheck } from './tooling/integrations/site-url';
 
 const EXCLUDED_FROM_SITEMAP = new Set(['/']);
 
@@ -24,8 +22,9 @@ const addDefaultAlternate = (item: SitemapItem): SitemapItem =>
 const keepScriptsAndFontsExternal = (filePath: string): false | undefined =>
   /\.(?:js|woff2)$/.test(filePath) ? false : undefined;
 
+// Canonical, hreflang, og:url, og:image, the sitemap and robots.txt all derive from `site`.
 export default defineConfig({
-  site: SITE.url,
+  site: 'https://kaiju-no-8-fansite.pages.dev',
   output: 'static',
   trailingSlash: 'always',
   i18n: {
@@ -49,7 +48,6 @@ export default defineConfig({
     fontFiles(FONT_FILES),
     notFoundPages(),
     securityHeaders(),
-    siteUrlCheck(),
   ],
   vite: {
     build: {

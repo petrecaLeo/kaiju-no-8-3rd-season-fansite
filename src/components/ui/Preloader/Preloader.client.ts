@@ -11,8 +11,6 @@ const EXIT_DURATION = 0.5;
 const FAILSAFE_ANIMATION = 'preloader-failsafe';
 const PAGE_CONTENT_SELECTOR = '[data-page-content]';
 
-type Outcome = 'ready' | 'error' | 'timeout' | 'failsafe';
-
 function isShown(element: HTMLElement): boolean {
   const { display, visibility } = getComputedStyle(element);
   return display !== 'none' && visibility !== 'hidden';
@@ -23,32 +21,29 @@ function setBusy(content: HTMLElement, busy: boolean): void {
   content.ariaBusy = busy ? 'true' : null;
 }
 
-async function waitForAssets(content: ParentNode): Promise<Outcome> {
+async function waitForAssets(content: ParentNode): Promise<void> {
   try {
     await waitForFirstView(content);
-    return 'ready';
   } catch {
-    return 'error';
+    // A failed asset must not keep the page covered.
   }
 }
 
 // Counted from navigation start, before the CSS failsafe (counted from first paint), and early
 // enough for the exit fade to finish by then: the failsafe would otherwise cut the fade short.
-function waitForTimeout(): Promise<Outcome> {
+function waitForTimeout(): Promise<void> {
   return new Promise((resolve) => {
     window.setTimeout(
-      () => {
-        resolve('timeout');
-      },
+      resolve,
       Math.max(0, SAFETY_TIMEOUT_MS - EXIT_DURATION * 1000 - performance.now()),
     );
   });
 }
 
-function waitForCssFailsafe(preloader: HTMLElement): Promise<Outcome> {
+function waitForCssFailsafe(preloader: HTMLElement): Promise<void> {
   return new Promise((resolve) => {
     preloader.addEventListener('animationend', (event) => {
-      if (event.animationName === FAILSAFE_ANIMATION) resolve('failsafe');
+      if (event.animationName === FAILSAFE_ANIMATION) resolve();
     });
   });
 }
@@ -92,14 +87,11 @@ async function initPreloader(): Promise<void> {
   const content = document.querySelector<HTMLElement>(PAGE_CONTENT_SELECTOR);
   if (content) setBusy(content, true);
 
-  const outcome = await Promise.race([
+  await Promise.race([
     waitForAssets(content ?? document),
     waitForTimeout(),
     waitForCssFailsafe(preloader),
   ]);
-  if (outcome !== 'ready') {
-    console.warn(`Preloader: released by ${outcome} before every font and eager image settled.`);
-  }
 
   if (hasPendingPageFonts()) lockFallbackFonts();
   reveal(preloader, content);

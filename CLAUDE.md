@@ -6,7 +6,7 @@ estrutura, configuração e placeholders das seções. O conteúdo visual ainda 
 ## Como rodar
 
 ```bash
-nvm use        # Node 24 (via .nvmrc). Astro 7 não roda em Node 20
+nvm use        # Node 24.21.0 (via .nvmrc, a mesma do build na Cloudflare). Astro 7 não roda em Node 20
 npm install
 npm run dev    # http://localhost:4321 — "/" redireciona para /pt-BR/, /en/ ou /ja/
 ```
@@ -58,7 +58,7 @@ src/
                   RecapFront (card "vs.") · RecapFinale
     footer/       FooterSignoff (linha de HUD, "fim do relatório", voltar ao topo) · FooterCredits
                   FooterLanguages (links de idioma)
-    ui/           Button (design system de botões) · Preloader · CriticalImage · SectionPlaceholder
+    ui/           Button (design system de botões) · Preloader · CriticalImage
                   YouTubeFacade (player do trailer) · SuitNumber (badge "08" de kaiju e trajes)
                   Readout (leitor numérico em <dl>)
   i18n/           config.ts · dictionaries/{pt-BR,en,ja}.json · dictionary.ts · routing.ts · locale-redirect.ts
@@ -82,7 +82,7 @@ src/
   assets/fonts/   fontes processadas pelo Astro (noto-sans-jp/ é gerada por `subset-fonts`)
 public/           gerados por script: og/ (imagens de compartilhamento) · favicon.ico · favicon-*.png
                   apple-touch-icon.png · icon-192.png · icon-512.png
-tooling/          integrations/ (security-headers, font-files, not-found-pages, site-url)
+tooling/          integrations/ (security-headers, font-files, not-found-pages)
                   eslint/ (conventions, local-plugin)
 scripts/          subset-fonts.ts · generate-favicons.ts · generate-og-images.ts
                   fonts-source/ (fontes completas, fora do git)
@@ -128,7 +128,7 @@ scripts/          subset-fonts.ts · generate-favicons.ts · generate-og-images.
   de layout começa com essa linha (regra `local/css-layer-order`). O Astro não garante a ordem dos
   chunks de CSS, e a primeira declaração que o navegador lê fixa a prioridade das layers.
 - Regras de componente ficam dentro de `@layer components { }`, com classes BEM (`.hero__cta`,
-  `.section-placeholder--full-bleed`). O CSS não é escopado.
+  `.character-card--unknown`). O CSS não é escopado.
 - Valores sempre via tokens de `src/styles/tokens.css`; cores em hex ou `rgb()`/`oklch()` etc. só
   são aceitas nesse arquivo. Use propriedades e unidades lógicas (`inline-size`, `svb`, `vi`); o
   lint exige recursos Baseline 2024.
@@ -657,11 +657,10 @@ mostra o tamanho antes e depois.
 
 ## SEO, segurança e hospedagem
 
-- **Domínio: troque antes do deploy.** `SITE.url` (`src/config/site.ts`, lido pelo `site` do
-  `astro.config.ts`) ainda é o placeholder `https://seu-dominio.example`, no TLD reservado
-  `.example`, que não aponta para ninguém. Canonical, hreflang, `og:url`, `og:image`, sitemap e
-  robots.txt saem dele. A integração `tooling/integrations/site-url.ts` avisa no fim do build
-  enquanto o domínio terminar em `.example`. Para testar local com URLs absolutas corretas:
+- **Domínio:** a opção `site` do `astro.config.ts` (`https://kaiju-no-8-fansite.pages.dev`) é a
+  única fonte das URLs absolutas. Canonical, hreflang (inclusive x-default), `og:url`, `og:image`,
+  JSON-LD, sitemap e robots.txt saem dela (via `Astro.site`); nenhum outro arquivo escreve o
+  domínio. Para trocar, ver "Deploy". Para testar local com URLs absolutas corretas:
   `npx astro build --site http://localhost:8790 --outDir <pasta>`.
 - Todo o `<head>` de SEO sai de `components/head/SeoHead`, com os dados montados em
   `src/seo/metadata.ts` e `src/seo/structured-data.ts`; nenhum layout escreve meta tag. Textos em
@@ -688,20 +687,91 @@ mostra o tamanho antes e depois.
 - As 404 (ver "Página 404") usam `BaseHead` com `indexable={false}` (`noindex`, sem canonical nem
   hreflang) e ficam fora do sitemap. O `404.html` da raiz é necessário: sem ele, a Cloudflare Pages
   trata o site como SPA e responde 200 com a raiz para qualquer URL.
-- A CSP é estrita e sai em `dist/_headers` (formato Netlify/Cloudflare Pages), gerado por
-  `tooling/integrations/security-headers`. A integração calcula o SHA-256 de cada `<script>` e
-  `<style>` inline do HTML final. Nonce exige servidor por requisição; num site estático o hash é o
-  equivalente seguro. O build falha se o HTML tiver atributos `style=` ou `on*=`, ou se existir
-  `public/_headers` (seria sobrescrito; headers novos vão em `policy.ts`).
+- Os headers saem em `dist/_headers` (formato da Cloudflare Pages), gerado no fim de todo build por
+  `tooling/integrations/security-headers`. Tudo o que vai nele (CSP, headers, cache) é declarado em
+  `policy.ts`. Não existe `public/_headers`: o build falha se ele for criado, porque seria
+  sobrescrito e os hashes ficariam velhos.
+- Hashes da CSP: a integração calcula o SHA-256 de cada `<script>` e `<style>` inline do HTML final
+  e os põe em `script-src`/`style-src`, então acompanham qualquer mudança sem passo manual. Nonce
+  exige servidor por requisição; num site estático o hash é o equivalente seguro. Nada de
+  `'unsafe-inline'`. O build falha se o HTML tiver atributos `style=` ou `on*=`.
+- CSP: `default-src 'none'` e só o necessário. Scripts, estilos, fontes e manifest de `'self'` (mais
+  os hashes); `img-src 'self' data: https://i.ytimg.com`; `frame-src
+https://www.youtube-nocookie.com`; `frame-ancestors`, `base-uri`, `form-action` e `object-src`
+  em `'none'`. O site não faz requisição nenhuma, mas `connect-src 'self'` fica: o Lighthouse e o
+  PageSpeed baixam o robots.txt de dentro da página e, sem ele, acusam "robots.txt is not valid".
+- Demais headers: HSTS, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`,
+  `Referrer-Policy: strict-origin-when-cross-origin`, COOP `same-origin` e um `Permissions-Policy`
+  que desliga câmera, microfone, geolocalização, pagamento, USB, MIDI, sensores, captura de tela,
+  wake lock, XR, idle detection e Topics. Autoplay, clipboard-write, encrypted-media,
+  picture-in-picture e web-share continuam liberados porque o iframe do trailer os pede.
+  `bluetooth`, `serial` e `hid` ficaram de fora: o Chrome registra "Unrecognized feature" no
+  console onde a API não existe (bluetooth no Linux). Ao incluir um recurso, confira o console.
+- Cache (`Cache-Control`): o padrão (`/*`) é `public, max-age=0, must-revalidate`, então HTML, 404,
+  robots e sitemap revalidam e um deploy novo aparece na hora. `/_astro/*` (nome com hash) usa
+  `public, max-age=31536000, immutable`; favicons, `site.webmanifest` e `/og/*` (sem hash), um dia.
+  A Cloudflare aplica todas as regras que casam, na ordem do arquivo, e junta com vírgula um header
+  repetido; por isso as regras específicas começam com `! Cache-Control`, que desanexa o padrão.
+  Conferido no `wrangler pages dev`.
 - Scripts nunca são inlinados (`vite.build.assetsInlineLimit`). CSS pequeno pode ser inlinado, e o
   hash cobre. O único script inline executável é o redirect da raiz.
-- Em outro host (Vercel, por exemplo), converta o `_headers` para o formato dele. Recurso externo
-  novo (vídeo, iframe, fonte) exige ajuste em `tooling/integrations/security-headers/policy.ts`.
+- Em outro host, converta o `_headers` para o formato dele (o `! Cache-Control` é sintaxe da
+  Cloudflare). Recurso externo novo (vídeo, iframe, fonte) exige ajuste em `policy.ts`.
 - Origens externas liberadas: `img-src https://i.ytimg.com` (thumbnail do trailer) e
   `frame-src https://www.youtube-nocookie.com` (player). As duas vêm de `YOUTUBE_ORIGINS`
   (`src/config/youtube.ts`), que o `policy.ts` importa, então a CSP acompanha qualquer troca de
   origem. O embed do YouTube exige o header `Referer` (sem ele, erro 153): não troque o
   `Referrer-Policy` por `no-referrer`.
+
+## Deploy (Cloudflare Pages)
+
+Site estático, sem Functions nem adapter (`output: 'static'`). A Cloudflare roda `npm run build` e
+publica `dist/`, que já traz o `_headers` e as 404 por idioma.
+
+| Campo no painel        | Valor                                                                      |
+| ---------------------- | -------------------------------------------------------------------------- |
+| Project name           | `kaiju-no-8-fansite` (vira `https://kaiju-no-8-fansite.pages.dev`)         |
+| Repositório / branch   | `petrecaLeo/kaiju-no-8-3rd-season-fansite`, produção em `main`             |
+| Framework preset       | Astro                                                                      |
+| Build command          | `npm run build`                                                            |
+| Build output directory | `dist`                                                                     |
+| Root directory         | vazio (raiz do repositório)                                                |
+| Node                   | `.nvmrc` (`24.21.0`); sem ele, o build image v3 usaria Node 22.16 e npm 10 |
+
+- Nenhuma variável de ambiente é necessária. Não defina `NODE_ENV=production`: a instalação
+  deixaria de fora as devDependencies, e o build (`astro check`) precisa delas. Se quiser fixar o
+  Node também pelo painel, `NODE_VERSION` precisa ter o mesmo valor do `.nvmrc`.
+- O build não acessa a rede nem roda script auxiliar: subset da Noto, favicons e imagens OG são
+  arquivos versionados; `site.webmanifest`, `robots.txt`, sitemap e `_headers` saem do próprio
+  build. Conferido com uma cópia só dos arquivos do git (sem `scripts/fonts-source/`), `npm ci` e
+  `npm run build` com a rede cortada (`unshare -rn`).
+- Antes de um deploy, rode à mão e comite o resultado quando a origem mudar:
+
+  | Mudou                                                        | Rode                         | Comite                               |
+  | ------------------------------------------------------------ | ---------------------------- | ------------------------------------ |
+  | texto em `ja.json` (ou um `nativeName`)                      | `npm run subset-fonts`       | `src/assets/fonts/noto-sans-jp/`     |
+  | `logo/favicon.png` ou `src/config/site-icons.ts`             | `npm run generate-favicons`  | `public/favicon.ico`, `public/*.png` |
+  | arte do hero, logos, `sections.hero.season` ou cores do tema | `npm run generate-og-images` | `public/og/`                         |
+
+  Os três são determinísticos: rodar sem mudança na origem não altera nada no git.
+
+- Headers: nada a fazer por deploy. Os hashes da CSP são recalculados a cada build; para mudar
+  header, origem ou cache, edite `tooling/integrations/security-headers/policy.ts`.
+- **Subdomínio ocupado:** se `kaiju-no-8-fansite` já existir, a Cloudflare acrescenta um sufixo
+  aleatório (ex.: `kaiju-no-8-fansite-4x7.pages.dev`). Troque `site` no `astro.config.ts` pela URL
+  que o painel mostrar, comite e faça um novo deploy.
+- **Domínio próprio:** adicione-o em Custom domains, no painel do projeto, troque `site` no
+  `astro.config.ts` (`https://dominio`, sem caminho) e faça um novo deploy. O `*.pages.dev`
+  continua no ar, com canonical apontando para o domínio novo. As imagens OG não mudam.
+- Deploys de preview (outros branches) saem em `<hash>.kaiju-no-8-fansite.pages.dev`, com canonical
+  para a produção.
+- Cloudflare Web Analytics: se for ligado pelo painel, a Cloudflare injeta um script de
+  `static.cloudflareinsights.com` que a CSP bloqueia. Libere a origem em `policy.ts` antes.
+- Limites do plano grátis: 20.000 arquivos por deploy e 25 MiB por arquivo. Hoje: 171 arquivos,
+  12 MB no total, maior arquivo 2,1 MiB (o loop do Reno).
+- Testar local como na Cloudflare: `npx wrangler pages dev dist` aplica o `_headers` e as 404 por
+  pasta. Reinicie depois de cada build (ele só lê o `_headers` ao subir). `npm run preview` não
+  aplica headers.
 
 ## Decisões técnicas
 

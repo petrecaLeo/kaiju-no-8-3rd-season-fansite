@@ -1,9 +1,6 @@
 import type { Locale } from '../i18n/config';
 
-// Placeholder on the reserved .example TLD (RFC 2606): canonical, hreflang, og:url, the sitemap
-// and robots.txt all derive from it, and the build warns until it is replaced.
 export const SITE = {
-  url: 'https://seu-dominio.example',
   themeColor: '#0b0d10',
   openGraphImage: {
     directory: 'og',
