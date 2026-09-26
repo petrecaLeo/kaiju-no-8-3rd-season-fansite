@@ -22,7 +22,7 @@
       "logoAlt": "Logotipo de Kaiju No. 8",
       "armorAlt": "Armadura vermelha vista de perto, com uma fenda em forma de cruz no peito",
       "eyeAlt": "Olho vermelho e luminoso que espia pela fenda em cruz da armadura",
-      "scrollCue": "Role para descobrir"
+      "scrollCue": "Desça para descobrir"
     },
     "synopsis": {
       "title": "O que é Kaiju No. 8",
@@ -140,15 +140,15 @@
         "title": "O plano do Kaiju Nº9",
         "paragraphs": [
           "Diferente dos outros kaiju, o Nº9 pensa, estuda e se adapta.",
-          "Ao absorver o Diretor-Geral Isao Shinomiya, ele tomou para si a Numbers 2, a armadura feita do Kaiju Nº2."
+          "Ao absorver o Diretor-Geral Isao Shinomiya, ele tomou para si a Numerada 2, a armadura feita do Kaiju Nº2."
         ],
         "goalLabel": "Objetivo",
         "goal": "Recuperar para o lado dos kaiju todo o poder que caiu nas mãos humanas."
       },
       "numbers": {
         "title": "As armaduras numeradas",
-        "intro": "As Numbers são armas feitas com os restos de kaiju numerados. Poucos humanos conseguem usá-las, e todas cobram um preço de quem as veste.",
-        "suitLabel": "Numbers {number}",
+        "intro": "As Numeradas são armas feitas com os restos de kaiju numerados. Poucos humanos conseguem usá-las, e todas cobram um preço de quem as veste.",
+        "suitLabel": "Numerada {number}",
         "list": {
           "narumi": {
             "holder": "Gen Narumi",
@@ -228,14 +228,14 @@
           "Mas, diante de uma companheira prestes a morrer, Kafka desobedece e se torna o Kaiju Nº8."
         ],
         "closing": "E é exatamente isso que o Nº9 estava esperando.",
-        "imageAlt": "Reno Ichikawa, vestindo a Numbers 6, aponta a arma direto para quem olha, envolto em raios de luz azul."
+        "imageAlt": "Reno Ichikawa, vestindo a Numerada 6, aponta a arma direto para quem olha, envolto em raios de luz azul."
       }
     },
     "characters": {
       "title": "Personagens principais",
       "rosterLabel": "Outros personagens",
       "showCharacter": "Mostrar {name} em destaque",
-      "suitLabel": "Traje Numbers {number}",
+      "suitLabel": "Armadura Numerada {number}",
       "previous": "Personagens anteriores",
       "next": "Próximos personagens",
       "list": {
@@ -252,23 +252,23 @@
         },
         "hoshina": {
           "name": "Soshiro Hoshina",
-          "description": "Vice-capitão da Terceira Divisão e o maior espadachim da Força de Defesa. Vem de um clã de caçadores de kaiju com raízes no período Muromachi e é imbatível contra kaiju menores, o que completa o estilo de Mina. Veste a Numbers 10, uma armadura com vontade própria.",
-          "photoAlt": "Soshiro Hoshina em combate, de máscara e vestindo a armadura Numbers 10, com o núcleo vermelho aceso no peito"
+          "description": "Vice-capitão da Terceira Divisão e o maior espadachim da Força de Defesa. Vem de um clã de caçadores de kaiju com raízes no período Muromachi e é imbatível contra kaiju menores, o que completa o estilo de Mina. Veste a Numerada 10, uma armadura com vontade própria.",
+          "photoAlt": "Soshiro Hoshina em combate, de máscara e vestindo a armadura Numerada 10, com o núcleo vermelho aceso no peito"
         },
         "kikoru": {
           "name": "Kikoru Shinomiya",
-          "description": "Prodígio com o maior poder de combate já registrado entre os recrutas. Filha do Diretor-Geral Isao Shinomiya, cresceu cobrada a ser perfeita em memória da mãe, morta por um kaiju. Hoje luta nos céus com a Numbers 4, a mesma armadura que a mãe usava.",
-          "photoAlt": "Kikoru Shinomiya avançando aos gritos, vestindo a armadura branca Numbers 4"
+          "description": "Prodígio com o maior poder de combate já registrado entre os recrutas. Filha do Diretor-Geral Isao Shinomiya, cresceu cobrada a ser perfeita em memória da mãe, morta por um kaiju. Hoje luta nos céus com a Numerada 4, a mesma armadura que a mãe usava.",
+          "photoAlt": "Kikoru Shinomiya avançando aos gritos, vestindo a armadura branca Numerada 4"
         },
         "reno": {
           "name": "Reno Ichikawa",
-          "description": "Colega de trabalho do Kafka na limpeza de kaiju, entrou na Força de Defesa junto com ele. Foi o primeiro a descobrir o segredo do amigo e nunca hesitou em protegê-lo. Começou sem talento de destaque e acabou escolhido para a Numbers 6, a mais poderosa e perigosa de todas.",
-          "photoAlt": "Reno Ichikawa estendendo a mão, vestindo a armadura Numbers 6, cercado por estilhaços de gelo"
+          "description": "Colega de trabalho do Kafka na limpeza de kaiju, entrou na Força de Defesa junto com ele. Foi o primeiro a descobrir o segredo do amigo e nunca hesitou em protegê-lo. Começou sem talento de destaque e acabou escolhido para a Numerada 6, a mais poderosa e perigosa de todas.",
+          "photoAlt": "Reno Ichikawa estendendo a mão, vestindo a armadura Numerada 6, cercado por estilhaços de gelo"
         },
         "narumi": {
           "name": "Gen Narumi",
-          "description": "Capitão da Primeira Divisão e o combatente mais forte do Japão. Com a Numbers 1, feita a partir do Kaiju Nº1, consegue prever os movimentos do inimigo e quase nunca erra um golpe. Fora de campo, é viciado em videogame, compras online e na própria popularidade nas redes sociais.",
-          "photoAlt": "Gen Narumi com a arma apoiada no ombro, vestindo a armadura Numbers 1 diante de um céu em chamas"
+          "description": "Capitão da Primeira Divisão e o combatente mais forte do Japão. Com a Numerada 1, feita a partir do Kaiju Nº1, consegue prever os movimentos do inimigo e quase nunca erra um golpe. Fora de campo, é viciado em videogame, compras online e na própria popularidade nas redes sociais.",
+          "photoAlt": "Gen Narumi com a arma apoiada no ombro, vestindo a armadura Numerada 1 diante de um céu em chamas"
         },
         "kaiju9": {
           "name": "Kaiju Nº9",

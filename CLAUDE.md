@@ -471,7 +471,7 @@ mostra o tamanho antes e depois.
   sem texto em algum idioma é erro de tipo. `FEATURED_CHARACTER` (Kafka) começa em foco.
 - Badges dos trajes (e todo código de kaiju ou traje no site): só o número, com dois dígitos ("08",
   "04", "10"), via `formatDesignation` (`lib/suits/designation.ts`) dentro do `SuitNumber`. Texto
-  corrido ("Kaiju Nº8", "Numbers 10") usa o número puro. A armadura do hero traz "00 10" pintado na
+  corrido ("Kaiju Nº8", "Numerada 10") usa o número puro. A armadura do hero traz "00 10" pintado na
   própria imagem.
 - As descrições têm três frases. No layout estreito o bloco de texto cresce com a altura do painel
   (`clamp(4lh, 32cqb, 7lh)`, o painel é um size container) e rola por dentro quando não cabe, com
@@ -513,7 +513,7 @@ mostra o tamanho antes e depois.
 - O badge do traje fica fora do `<button>`, sobreposto ao card (`pointer-events: none`), para o
   texto visível do botão ser só o nome, que o `aria-label` contém (WCAG 2.5.3, regra
   `label-content-name-mismatch` do axe). `aria-hidden` não resolve: a regra compara o texto
-  visível. O rótulo do traje ("Traje Numbers 10") passa a ser lido depois do botão.
+  visível. O rótulo do traje ("Armadura Numerada 10") passa a ser lido depois do botão.
 
 ## Trailer
 
