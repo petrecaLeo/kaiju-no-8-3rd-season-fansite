@@ -18,7 +18,7 @@ Itens que dependem de decisão ou material externo. Marque `[x]` ao concluir.
       do X, WhatsApp) e o JSON-LD no Rich Results Test / validator.schema.org com a URL real.
 - [ ] Quando os créditos do projeto estiverem definidos, avaliar `author` (Person) no JSON-LD do
       WebSite, sempre como pessoas fãs, nunca como os detentores dos direitos.
-- [x] **Repositório git**: `github.com/petrecaLeo/kaiju-no-8-3rd-season-fansite` (privado).
+- [x] **Repositório git**: `github.com/petrecaLeo/kaiju-no-8-3rd-season-fansite` (público).
 - [ ] **404 por idioma fora da Cloudflare Pages.** Lá `/pt-BR/…` e `/ja/…` já recebem a 404 do
       idioma. Na Netlify só o `/404.html` (inglês) é usado; para as outras, seria preciso um
       `_redirects` com `/pt-BR/* /pt-BR/404.html 404` e `/ja/* /ja/404.html 404`. Gerar esse

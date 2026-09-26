@@ -716,6 +716,17 @@ mostra o tamanho antes e depois.
   mora nos `.ts`.
 - Uma rota dinâmica `[locale]` em vez de três páginas iguais.
 
+## Git e GitHub
+
+- Repositório: `github.com/petrecaLeo/kaiju-no-8-3rd-season-fansite` (público, branch `main`).
+- **Autor de commits e PRs: sempre e só petrecaLeo** (`leopetrecca@gmail.com`, definido no
+  `.git/config` local). Nunca acrescente `Co-Authored-By`, "Generated with Claude Code" ou outra
+  menção ao Claude em mensagem de commit, descrição de PR ou arquivo do repositório.
+- Tudo que aparece no GitHub fica em inglês: README, descrição e tópicos do repositório e
+  mensagens de commit e de PR. `CLAUDE.md` e `pendencies.md` continuam em pt-BR.
+- Os prints do README ficam em `.github/readme/`. Se o visual mudar, refaça-os com o build de
+  produção (o dev mostra a barra de ferramentas do Astro).
+
 ## Pendências
 
 Lista viva em [`pendencies.md`](./pendencies.md). Ao resolver um item, marque-o lá.
