@@ -18,6 +18,7 @@ npm run dev    # http://localhost:4321 — "/" redireciona para /pt-BR/, /en/ ou
 | `npm run build`                       | `astro check` + build estático em `dist/` (inclui `dist/_headers`) |
 | `npm run preview`                     | serve o `dist/` (não aplica o `_headers`)                          |
 | `npm run validate`                    | Prettier (check) + ESLint + `astro check`. Rode antes de concluir  |
+| `npm run test:e2e`                    | build + testes E2E (Playwright), ver "Testes E2E"                  |
 | `npm run lint:fix` / `npm run format` | correções automáticas                                              |
 | `npm run subset-fonts`                | gera o subset do Noto Sans JP (ver "Subset da fonte japonesa")     |
 | `npm run generate-favicons`           | gera favicons e ícones do manifest em `public/` (ver "Favicons")   |
@@ -86,6 +87,8 @@ tooling/          integrations/ (security-headers, font-files, not-found-pages)
                   eslint/ (conventions, local-plugin)
 scripts/          subset-fonts.ts · generate-favicons.ts · generate-og-images.ts
                   fonts-source/ (fontes completas, fora do git)
+tests/            e2e/ (specs do Playwright) · support/ (servidor que imita a Cloudflare Pages,
+                  setup global, fixture com a rede isolada, helpers)
 ```
 
 ## Convenções de código
@@ -229,6 +232,7 @@ renderiza `<a>`; sem `href`, `<button type="button">`. Aceita qualquer atributo 
 - A Paladins não tem kana nem kanji. Em ja, os títulos usam Paladins nos caracteres latinos e Noto
   Sans JP no resto. Ela também é muito larga: títulos grandes em telas estreitas precisam de tamanho
   menor (h1–h3 têm `overflow-wrap: anywhere` só como proteção contra rolagem horizontal).
+  Conferido de 320 a 1920 px, em várias alturas: nenhum título quebra palavra no meio.
 - O Fontaine gera `"<família> fallback"` com `size-adjust` e overrides de métricas: lê o arquivo da
   Paladins e usa a base do Capsize para Exo 2 e Noto Sans JP. Como ele não reescreve custom
   properties, os tokens `--font-stack-*` já listam o fallback.
@@ -455,6 +459,9 @@ mostra o tamanho antes e depois.
 - Breakpoints: 48em (aviso em duas colunas, capa 16:9, leitores das ondas à direita), 56em (dossiê
   e final em duas colunas), 60em (frentes em 2×2, com a de Shinonome na linha inteira, logo antes
   do final).
+- Abaixo de 22.5em (360 px), o número do kaiju deixa menos de seis caracteres ao lado do nome e
+  「四ノ宮キコル」 quebraria no meio: o `.recap-front__matchup` vira `display: contents` e o título
+  da frente desce para baixo do número, com o badge do traje ao lado dele.
 
 ## Personagens
 
@@ -482,6 +489,10 @@ mostra o tamanho antes e depois.
   vez. As fotos do painel ficam `hidden` + lazy; quando o roster entra na tela o JS as passa para
   eager, para o clique não esperar download. Não pisque a opacidade da foto nova: a anterior
   aparece por baixo.
+- Título: fica num `.characters__heading` com `container-type: inline-size` e usa
+  `min(var(--font-size-xl), 8.75cqi)` da própria célula. No layout largo a coluna ao lado da foto é
+  estreita (~350 px em 900×800), e "Personagens" mede ~11em em Paladins. O nome em foco usa o
+  mesmo limite no layout largo, para nunca passar do título.
 - Layout: `(orientation: landscape) and (width >= 56em)` põe a foto à esquerda e título, texto e
   roster à direita (o painel vira `display: contents` e entra no grid da seção). Abaixo disso,
   tudo empilha e o painel é um size container que mantém a foto em 4:5 com o texto por cima. A
@@ -561,8 +572,8 @@ mostra o tamanho antes e depois.
 - Textos em `footer` dos dicionários. `disclaimer` e `rights` são os dois parágrafos do aviso
   legal. Os créditos da obra seguem a grafia oficial: em ja,
   「松本直也（集英社「少年ジャンプ＋」連載）」, 「怪獣デザイン＆ワークス：スタジオカラー」 e o
-  copyright japonês 「©防衛隊第3部隊 ©松本直也／集英社」. Links e sobrenome dos créditos do projeto
-  ainda são placeholders (`[LINK_DUDA]`, `[LINK_LEONARDO]`, `[SOBRENOME]`) nos três dicionários.
+  copyright japonês 「©防衛隊第3部隊 ©松本直也／集英社」. Créditos do projeto: `@byduuds.design`
+  (Instagram) e `petrecaLeo` (GitHub), iguais nos três dicionários (`footer.credits.project`).
 - O ano sai de `new Date().getFullYear()` no build (`signature`, com `{year}`).
 - Voltar ao topo: `Button` secondary `sm` com `href="#top"`, e o alvo é o `<header id="top" tabindex="-1">` (`ANCHORS.top`).
   O foco vai para o cabeçalho, então o próximo Tab cai no seletor de idioma e o anterior no skip
@@ -680,9 +691,10 @@ mostra o tamanho antes e depois.
   dois), Twitter card `summary_large_image` e JSON-LD. O `lang` do `<html>` vem da rota.
 - JSON-LD: um `WebSite` (`fanSiteName`, description, URL canônica, `inLanguage`) com `about` →
   `TVSeries` (nome da obra, os nomes dos outros idiomas em `alternateName`, `creator` e
-  `productionCompany` Production I.G). Para não parecer site oficial: nome e descrição dizem
-  "site de fã", a obra só aparece como assunto (`about`) e não há `publisher`, `sameAs` nem link
-  para propriedades oficiais. `serializeJsonLd` troca `<` por `<`, para o JSON não fechar o
+  `productionCompany` Production I.G) e `author` → as duas `Person` dos créditos do rodapé (nome e
+  link lidos de `footer.credits.project`). Para não parecer site oficial: nome e descrição dizem
+  "site de fã", a obra só aparece como assunto (`about`), os autores são os fãs e não há
+  `publisher`, `sameAs` nem link para propriedades oficiais. `serializeJsonLd` troca `<` por `<`, para o JSON não fechar o
   `<script>`. Tipos e propriedades conferidos com o vocabulário do schema.org.
 - O bloco `application/ld+json` é dado, não script: o navegador não o executa e a CSP não se aplica
   a ele. `inline-code.ts` o ignora (não gera hash em `script-src`) e `JsonLd.astro` é a exceção de
@@ -779,6 +791,29 @@ publica `dist/`, que já traz o `_headers` e as 404 por idioma.
 - Testar local como na Cloudflare: `npx wrangler pages dev dist` aplica o `_headers` e as 404 por
   pasta. Reinicie depois de cada build (ele só lê o `_headers` ao subir). `npm run preview` não
   aplica headers.
+
+## Testes E2E
+
+- `npm run test:e2e` roda `npm run build` e depois o Playwright (`playwright.config.ts`, specs em
+  `tests/e2e/`, só Chromium). É a revisão final antes de um deploy. Numa máquina nova, baixe o
+  navegador uma vez: `npx playwright install --only-shell chromium`.
+- `tests/support/global-setup.ts` serve o `dist/` com `tests/support/pages-server.ts`, que imita a
+  Cloudflare Pages: aplica o `dist/_headers` (inclusive o `! Cache-Control`), redireciona pasta sem
+  barra (308) e responde com a 404 mais próxima, status 404. Sem `dist/_headers` ele para e pede o
+  build. `npx playwright test` sozinho reaproveita o `dist/` atual.
+- `BASE_URL=https://kaiju-no-8-fansite.pages.dev npx playwright test` roda a mesma bateria contra o
+  site publicado, sem servidor local.
+- Nada sai para a rede: o fixture de `tests/support/test.ts` responde o YouTube (thumbnail e player)
+  com stubs e aborta qualquer outra origem. A CSP age antes do roteamento, então uma origem
+  bloqueada ainda aparece como violação no console.
+- Cobertura: redirect da raiz (idioma do navegador, escolha salva, query e hash, links quando o
+  script não roda, meta refresh sem JS); headers e cache; CSP no navegador (cada idioma percorrido
+  até o fim, relatório revelado e trailer tocado, sem erro nem violação no console); preloader
+  (fontes e imagens da primeira dobra prontas na revelação, Tab no skip link, fragmento, timeout
+  com fonte travada, failsafe de CSS sem os módulos, reduced motion, sem JS); seletor de idioma
+  (nome acessível, Esc, clique fora, foco saindo, escolha lembrada, rodapé, sem JS); 404 por idioma;
+  SEO (canonical, hreflang, OG, JSON-LD com os autores, sitemap).
+- Rolagem nos testes usa `behavior: 'instant'`: o `base.css` liga `scroll-behavior: smooth`.
 
 ## Decisões técnicas
 

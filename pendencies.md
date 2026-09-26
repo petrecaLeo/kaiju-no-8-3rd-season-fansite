@@ -6,27 +6,28 @@ Itens que dependem de decisão ou material externo. Marque `[x]` ao concluir.
 
 - [x] **Domínio**: `site` no `astro.config.ts` é `https://kaiju-no-8-fansite.pages.dev`.
 - [x] **Hospedagem**: Cloudflare Pages, projeto `kaiju-no-8-fansite` (ver "Deploy" no CLAUDE.md).
-- [ ] **Conectar o repositório na Cloudflare Pages** com a configuração da seção "Deploy" do
-      CLAUDE.md. Se a URL final vier com sufixo (`kaiju-no-8-fansite-xxxx.pages.dev`), trocar
-      `site` no `astro.config.ts` e fazer novo deploy.
-- [ ] Depois do primeiro deploy: conferir os headers na URL real (`curl -I`, securityheaders.com),
+- [x] **Conectar o repositório na Cloudflare Pages** com a configuração da seção "Deploy" do
+      CLAUDE.md. No ar em `https://kaiju-no-8-fansite.pages.dev`, sem sufixo, então o `site`
+      ficou como estava.
+- [x] Depois do primeiro deploy: conferir os headers na URL real (`curl -I`, securityheaders.com),
       o console sem erros de CSP e o PageSpeed Insights nas três rotas.
 - [x] **Imagem de Open Graph**: uma por idioma em `public/og/<idioma>.jpg` (1200×630), gerada por
       `npm run generate-og-images` a partir da arte do hero e do logo do idioma.
 - [x] **Favicon**: `favicon.ico`, PNGs 16/32, `apple-touch-icon.png` e ícones 192/512 do manifest,
       gerados de `src/assets/images/logo/favicon.png` por `npm run generate-favicons`.
-- [ ] Depois de publicar: conferir as prévias de compartilhamento (Facebook Sharing Debugger, card
+- [x] Depois de publicar: conferir as prévias de compartilhamento (Facebook Sharing Debugger, card
       do X, WhatsApp) e o JSON-LD no Rich Results Test / validator.schema.org com a URL real.
-- [ ] Quando os créditos do projeto estiverem definidos, avaliar `author` (Person) no JSON-LD do
-      WebSite, sempre como pessoas fãs, nunca como os detentores dos direitos.
+- [x] Quando os créditos do projeto estiverem definidos, avaliar `author` (Person) no JSON-LD do
+      WebSite, sempre como pessoas fãs, nunca como os detentores dos direitos. Feito: `author` com
+      `@byduuds.design` e `petrecaLeo`, lidos dos créditos do rodapé.
 - [x] **Repositório git**: `github.com/petrecaLeo/kaiju-no-8-3rd-season-fansite` (público).
-- [ ] **404 por idioma fora da Cloudflare Pages.** Lá `/pt-BR/…` e `/ja/…` já recebem a 404 do
+- [x] **404 por idioma fora da Cloudflare Pages.** Lá `/pt-BR/…` e `/ja/…` já recebem a 404 do
       idioma. Na Netlify só o `/404.html` (inglês) é usado; para as outras, seria preciso um
       `_redirects` com `/pt-BR/* /pt-BR/404.html 404` e `/ja/* /ja/404.html 404`. Gerar esse
       arquivo só depois de escolher o host e confirmar que ele aceita status 404 no `_redirects`.
-- [ ] **Créditos do rodapé**: preencher `[LINK_DUDA]`, `[LINK_LEONARDO]` e `[SOBRENOME]` em
-      `footer.credits.project` nos três dicionários. Até lá os links apontam para um caminho
-      relativo inexistente (abrem a 404).
+      Decidido: não se aplica, o host é a Cloudflare Pages.
+- [x] **Créditos do rodapé**: `@byduuds.design` (link para o Instagram) e `petrecaLeo` (link para o
+      GitHub) em `footer.credits.project`, nos três dicionários.
 
 ## Fontes
 
@@ -52,7 +53,7 @@ Itens que dependem de decisão ou material externo. Marque `[x]` ao concluir.
       lenta de opacidade. Decidido: sem botão de pausa.
 - [x] **O que é**: premissa contada em etapas sobre a arte fixa (câmera com scrub, mira que trava
       no Kaiju Nº8), ficha do autor, números com rolos e linha das temporadas.
-- [ ] O que é: revisar os textos em en/ja com falantes nativos (premissa, ficha e legendas dos
+- [x] O que é: revisar os textos em en/ja com falantes nativos (premissa, ficha e legendas dos
       números) e conferir os números de sucesso numa fonte oficial antes de publicar.
 - [x] O que é: `assets/images/Story/background.webp` era um JPEG de 4,5 MB com extensão `.webp`. O
       site só baixa as variantes (52–256 KB), mas o original ia para o `dist/`. Convertido para
@@ -66,13 +67,13 @@ Itens que dependem de decisão ou material externo. Marque `[x]` ao concluir.
 - [x] História até aqui: o loop do Reno como vídeo (WebM/MP4 em `<video muted loop playsinline>`)
       ficaria bem menor que o WebP animado. Exige ffmpeg completo para gerar os arquivos.
       Decidido: continua WebP animado.
-- [ ] História até aqui: o loop do Reno tem a marca d'água (coelho) de quem editou o GIF.
-      Confirmar a origem e, se possível, creditar no rodapé.
+- [x] História até aqui: o loop do Reno tem a marca d'água (coelho) de quem editou o GIF.
+      Confirmar a origem e, se possível, creditar no rodapé. Decidido: sem crédito.
 - [x] História até aqui: confirmar "fortitude 9.0" em pt-BR (a norma seria "9,0"; mantido como no
       texto original e na tela do anime). Decidido: fica "9.0".
 - [x] **Personagens principais**: painel em foco + carrossel com os 7 personagens, textos em
       pt-BR (placeholders enviados) e rascunhos em en/ja.
-- [ ] Personagens: as descrições definitivas em pt-BR chegaram; revisar com falantes nativos as
+- [x] Personagens: as descrições definitivas em pt-BR chegaram; revisar com falantes nativos as
       versões en e ja e os alts das fotos.
 - [x] Personagens: formato do badge. Só o número, com dois dígitos ("04", "10", "08"), em todo o
       site, via `formatDesignation`.
@@ -95,20 +96,25 @@ Itens que dependem de decisão ou material externo. Marque `[x]` ao concluir.
 - [x] Hero: o logo da Crunchyroll aparecia também em ja. (O logo saiu do hero.)
 - [x] **Rodapé**: "fim do relatório" com linha de HUD animada (luz, linha, selo "00 08"), aviso
       legal, créditos da obra e do projeto, links de idioma e voltar ao topo.
-- [ ] Rodapé: revisar com falante nativo o aviso legal em en e ja (tom formal de fan site).
-- [ ] Revisar as traduções em inglês e japonês com falantes nativos.
+- [x] Rodapé: revisar com falante nativo o aviso legal em en e ja (tom formal de fan site).
+- [x] Revisar as traduções em inglês e japonês com falantes nativos.
 - [x] **Página 404**: meme com "404" em Paladins, uma versão por idioma (`/404.html` em inglês,
       `/pt-BR/404.html`, `/ja/404.html`), sem JS e fora do sitemap.
-- [ ] 404: confirmar a origem do meme (`assets/images/404/meme.webp`) e, se possível, creditar.
+- [x] 404: confirmar a origem do meme (`assets/images/404/meme.webp`) e, se possível, creditar.
+      Decidido: sem crédito.
 - [x] 404: a `theme-color` segue `SITE.themeColor` (escura), então no Android a barra do navegador
       fica escura sobre a página branca. Se incomodar, dar ao `BaseHead` uma prop de cor.
       Decidido: fica escura.
 
 ## Revisão final (último passo do projeto)
 
-- [ ] Transformar em testes automatizados (Playwright) a verificação E2E feita na configuração:
+- [x] Transformar em testes automatizados (Playwright) a verificação E2E feita na configuração:
       redirect por idioma, CSP, preloader e seletor de idioma. Essa bateria serve de revisão final
-      do site antes do deploy.
-- [ ] Títulos das seções em telas estreitas: conferir nessa revisão. A Paladins é larga e quebra
+      do site antes do deploy. Feito: `npm run test:e2e` (ver "Testes E2E" no CLAUDE.md), que
+      também cobre a 404 por idioma e as tags de SEO.
+- [x] Títulos das seções em telas estreitas: conferir nessa revisão. A Paladins é larga e quebra
       palavras longas no meio em 390 px. Personagens já usa `--font-size-xl` e quebra entre as
-      palavras; as outras seções ainda usam `--font-size-2xl`.
+      palavras; as outras seções ainda usam `--font-size-2xl`. Conferido de 320 a 1920 px: só
+      "Personagens principais" ainda quebrava (320–340 px e o layout largo em ~900 px), e os nomes
+      das frentes em ja abaixo de 360 px. Os dois foram corrigidos (ver Personagens e A história
+      até aqui no CLAUDE.md).
