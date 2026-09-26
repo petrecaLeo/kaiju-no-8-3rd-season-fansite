@@ -256,7 +256,7 @@ mostra o tamanho antes e depois.
   Gerar os pesos estáticos a partir dela leva cerca de 40 s por peso e produz um subset quase duas
   vezes maior (~60 KB contra 34 KB, medidos antes da seção de personagens), porque ela traz glifos
   alternativos (formas verticais, variantes JIS) que entram na closure do subset. Com os textos
-  de personagens (três frases cada) e do rodapé, o subset do Fontsource tem cerca de 90 KB por peso (633
+  de personagens (três frases cada) e do rodapé, o subset do Fontsource tem cerca de 92 KB por peso (651
   caracteres). Os arquivos do Fontsource geram exatamente o resultado atual. Ao trocar a versão
   fixada, confira o tamanho do resultado.
 - Se o download falhar (rede ou HTTP), o script sai com código 1 e sugere baixar o ZIP em

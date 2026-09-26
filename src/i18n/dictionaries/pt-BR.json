@@ -28,8 +28,8 @@
       "title": "O que é Kaiju No. 8",
       "artAlt": "Kaiju Nº8, de carapaça escura riscada por linhas ciano luminosas, de pé numa viga de aço vermelha no alto da cidade. Lá embaixo, o corpo de um kaiju gigante está caído entre os prédios.",
       "premise": {
-        "world": "Num Japão onde ataques de kaiju fazem parte do dia a dia, Kafka Hibino, de 32 anos, trabalha limpando os restos dos monstros abatidos pela Força de Defesa.",
-        "promise": "Ele e sua amiga de infância, Mina Ashiro, fizeram uma promessa: lutariam juntos contra os kaiju.",
+        "world": "Num Japão onde ataques de kaijus fazem parte do dia a dia, Kafka Hibino, de 32 anos, trabalha limpando os restos dos monstros abatidos pela Força de Defesa.",
+        "promise": "Ele e sua amiga de infância, Mina Ashiro, fizeram uma promessa: lutariam juntos contra os kaijus.",
         "captain": "Mina virou capitã.",
         "leftBehind": "Kafka ficou para trás.",
         "change": "Tudo muda quando uma criatura misteriosa entra no seu corpo e ele ganha o poder de se transformar em kaiju.",
@@ -139,32 +139,32 @@
       "threat": {
         "title": "O plano do Kaiju Nº9",
         "paragraphs": [
-          "Diferente dos outros kaiju, o Nº9 pensa, estuda e se adapta.",
+          "Diferente dos outros kaijus, o Nº9 pensa, estuda e se adapta.",
           "Ao absorver o Diretor-Geral Isao Shinomiya, ele tomou para si a Numerada 2, a armadura feita do Kaiju Nº2."
         ],
         "goalLabel": "Objetivo",
-        "goal": "Recuperar para o lado dos kaiju todo o poder que caiu nas mãos humanas."
+        "goal": "Recuperar para o lado dos kaijus todo o poder que caiu nas mãos humanas."
       },
       "numbers": {
         "title": "As armaduras numeradas",
-        "intro": "As Numeradas são armas feitas com os restos de kaiju numerados. Poucos humanos conseguem usá-las, e todas cobram um preço de quem as veste.",
+        "intro": "As Numeradas são armas feitas com os restos de kaijus numerados. Poucos humanos conseguem usá-las, e todas cobram um preço de quem as veste.",
         "suitLabel": "Numerada {number}",
         "list": {
           "narumi": {
             "holder": "Gen Narumi",
-            "text": "Permite prever os movimentos do inimigo."
+            "text": "A mais antiga das Numeradas do Japão, feita do Kaiju Nº1. Com a retina do kaiju, Narumi enxerga os impulsos elétricos que correm pelo corpo do inimigo e sabe o próximo movimento antes que ele aconteça."
           },
           "isao": {
             "holder": "Kaiju Nº9",
-            "text": "Pertencia a Isao Shinomiya. Agora está nas mãos do inimigo."
+            "text": "Feita do Kaiju Nº2, que devastou Sapporo, era a armadura do Diretor-Geral Isao Shinomiya. No último combate, Isao atingiu o Nº9 com a mesma rajada de energia que arrasou a cidade. O ataque não bastou, e o Nº9 absorveu Isao junto com a armadura."
           },
           "kikoru": {
             "holder": "Kikoru Shinomiya",
-            "text": "Herdada da mãe, dá voo e velocidade."
+            "text": "Feita do Kaiju Nº4, é a única Numerada que voa e a mais rápida de todas. Pertencia à mãe de Kikoru, Hikari, e o pai, Isao, mandou ajustá-la em segredo para a filha."
           },
           "reno": {
             "holder": "Reno Ichikawa",
-            "text": "A mais poderosa e perigosa de todas. Reno a conquistou lutando lado a lado com Iharu."
+            "text": "Feita do Kaiju Nº6, o rei dos kaijus, é a mais poderosa e perigosa de todas e passou anos sem um usuário compatível. No primeiro combate, dominou Reno e o isolou atrás de uma parede de gelo. Iharu rompeu o gelo para alcançá-lo, e os dois venceram a luta juntos."
           },
           "hoshina": {
             "holder": "Soshiro Hoshina",
@@ -178,12 +178,12 @@
         "waves": {
           "first": {
             "title": "Primeira onda",
-            "text": "Tudo começa com Mina Ashiro destruindo dois kaiju gigantes a 20 quilômetros de distância. Parecia uma vitória, mas era só a primeira onda.",
+            "text": "Tudo começa com Mina Ashiro destruindo dois kaijus gigantes a 20 quilômetros de distância. Parecia uma vitória, mas era só a primeira onda.",
             "statLabel": "Distância do alvo"
           },
           "second": {
             "title": "Segunda onda",
-            "text": "Surgem os kaiju de 11 a 15, todos com fortitude 9.0. Eles falam e pensam, e o Nº9 os criou para neutralizar, um por um, os combatentes mais fortes da Força de Defesa.",
+            "text": "Surgem os kaijus de 11 a 15, todos com fortitude 9.0. Eles falam e pensam, e o Nº9 os criou para neutralizar, um por um, os combatentes mais fortes da Força de Defesa.",
             "statLabel": "Fortitude"
           }
         }
@@ -242,17 +242,17 @@
         "kafka": {
           "name": "Kafka Hibino",
           "alias": "Kaiju Nº8",
-          "description": "Aos 32 anos, Kafka trabalha limpando os restos de kaiju abatidos, bem longe do sonho de infância de lutar ao lado de Mina. Tudo muda quando uma criatura misteriosa entra no seu corpo e ele ganha o poder de virar um kaiju. Agora ele tenta provar que consegue controlar essa força sem perder a própria humanidade.",
+          "description": "Aos 32 anos, Kafka trabalha limpando os restos de kaijus abatidos, bem longe do sonho de infância de lutar ao lado de Mina. Tudo muda quando uma criatura misteriosa entra no seu corpo e ele ganha o poder de virar um kaiju. Agora ele tenta provar que consegue controlar essa força sem perder a própria humanidade.",
           "photoAlt": "Rosto de Kafka Hibino rasgado ao meio: de um lado o rapaz, do outro o Kaiju Nº8, com o olho verde aceso"
         },
         "mina": {
           "name": "Mina Ashiro",
-          "description": "Capitã da Terceira Divisão e amiga de infância do Kafka. Com seu canhão, derruba kaiju gigantes a quilômetros de distância, e muitos a consideram insuperável contra os maiores alvos. Calma e firme no comando, é quem Kafka prometeu alcançar um dia.",
+          "description": "Capitã da Terceira Divisão e amiga de infância do Kafka. Com seu canhão, derruba kaijus gigantes a quilômetros de distância, e muitos a consideram insuperável contra os maiores alvos. Calma e firme no comando, é quem Kafka prometeu alcançar um dia.",
           "photoAlt": "Mina Ashiro de uniforme da Força de Defesa, com o canhão pesado apoiado no ombro"
         },
         "hoshina": {
           "name": "Soshiro Hoshina",
-          "description": "Vice-capitão da Terceira Divisão e o maior espadachim da Força de Defesa. Vem de um clã de caçadores de kaiju com raízes no período Muromachi e é imbatível contra kaiju menores, o que completa o estilo de Mina. Veste a Numerada 10, uma armadura com vontade própria.",
+          "description": "Vice-capitão da Terceira Divisão e o maior espadachim da Força de Defesa. Vem de um clã de caçadores de kaijus com raízes no período Muromachi e é imbatível contra kaijus menores, o que completa o estilo de Mina. Veste a Numerada 10, uma armadura com vontade própria.",
           "photoAlt": "Soshiro Hoshina em combate, de máscara e vestindo a armadura Numerada 10, com o núcleo vermelho aceso no peito"
         },
         "kikoru": {
@@ -262,7 +262,7 @@
         },
         "reno": {
           "name": "Reno Ichikawa",
-          "description": "Colega de trabalho do Kafka na limpeza de kaiju, entrou na Força de Defesa junto com ele. Foi o primeiro a descobrir o segredo do amigo e nunca hesitou em protegê-lo. Começou sem talento de destaque e acabou escolhido para a Numerada 6, a mais poderosa e perigosa de todas.",
+          "description": "Colega de trabalho do Kafka na limpeza de kaijus, entrou na Força de Defesa junto com ele. Foi o primeiro a descobrir o segredo do amigo e nunca hesitou em protegê-lo. Começou sem talento de destaque e acabou escolhido para a Numerada 6, a mais poderosa e perigosa de todas.",
           "photoAlt": "Reno Ichikawa estendendo a mão, vestindo a armadura Numerada 6, cercado por estilhaços de gelo"
         },
         "narumi": {
