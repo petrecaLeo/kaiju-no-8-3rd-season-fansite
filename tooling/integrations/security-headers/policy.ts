@@ -7,16 +7,23 @@ import {
 } from '../../../src/config/site-icons';
 import { YOUTUBE_ORIGINS } from '../../../src/config/youtube';
 
+// Web Analytics is on in the Cloudflare Pages project: the edge injects this beacon script into
+// every HTML response, and the beacon sends the page view to cloudflareinsights.com.
+const CLOUDFLARE_WEB_ANALYTICS = {
+  script: 'https://static.cloudflareinsights.com',
+  report: 'https://cloudflareinsights.com',
+} as const;
+
 export const CONTENT_SECURITY_POLICY = {
   'default-src': ["'none'"],
-  'script-src': ["'self'"],
+  'script-src': ["'self'", CLOUDFLARE_WEB_ANALYTICS.script],
   'style-src': ["'self'"],
   'img-src': ["'self'", 'data:', YOUTUBE_ORIGINS.thumbnail],
   'font-src': ["'self'"],
   'frame-src': [YOUTUBE_ORIGINS.embed],
-  // The site never fetches anything, but Lighthouse and PageSpeed Insights download robots.txt
-  // from inside the page and report it as invalid when this is blocked.
-  'connect-src': ["'self'"],
+  // The site's own code never fetches anything, but Lighthouse and PageSpeed Insights download
+  // robots.txt from inside the page and report it as invalid when 'self' is blocked.
+  'connect-src': ["'self'", CLOUDFLARE_WEB_ANALYTICS.report],
   'manifest-src': ["'self'"],
   'base-uri': ["'none'"],
   'form-action': ["'none'"],

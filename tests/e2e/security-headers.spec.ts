@@ -2,15 +2,28 @@ import { LOCALES } from '../../src/i18n/config';
 import { collectPageErrors, scrollThroughPage, waitForReveal } from '../support/site';
 import { expect, test } from '../support/test';
 
-const CSP_DIRECTIVES = [
-  "default-src 'none'",
-  "frame-ancestors 'none'",
-  "base-uri 'none'",
-  "form-action 'none'",
-  "object-src 'none'",
-  "img-src 'self' data: https://i.ytimg.com",
-  'frame-src https://www.youtube-nocookie.com',
-];
+// Sources each directive must list; script-src also carries the hashes of the inline code.
+const CSP_SOURCES = {
+  'default-src': ["'none'"],
+  'script-src': ["'self'", 'https://static.cloudflareinsights.com'],
+  'style-src': ["'self'"],
+  'img-src': ["'self'", 'data:', 'https://i.ytimg.com'],
+  'frame-src': ['https://www.youtube-nocookie.com'],
+  'connect-src': ["'self'", 'https://cloudflareinsights.com'],
+  'frame-ancestors': ["'none'"],
+  'base-uri': ["'none'"],
+  'form-action': ["'none'"],
+  'object-src': ["'none'"],
+};
+
+function parseCsp(header: string): Map<string, string[]> {
+  return new Map(
+    header
+      .split(';')
+      .map((directive) => directive.trim().split(/\s+/))
+      .map(([name = '', ...sources]) => [name, sources]),
+  );
+}
 
 const SECURITY_HEADERS = {
   'strict-transport-security': /max-age=\d{7,}/,
@@ -22,25 +35,34 @@ const SECURITY_HEADERS = {
 };
 
 const HTML_CACHE = 'public, max-age=0, must-revalidate';
+// Cloudflare Pages answers its 404 pages with no-store; the local server applies _headers as is.
+const NOT_FOUND_CACHE = /^(no-store|public, max-age=0, must-revalidate)$/;
 const IMMUTABLE_CACHE = 'public, max-age=31536000, immutable';
 const DAILY_CACHE = 'public, max-age=86400';
 
-const DOCUMENTS = ['/', ...LOCALES.map((locale) => `/${locale}/`), '/pt-BR/nao-existe'];
+const DOCUMENTS = [
+  { pathname: '/', cache: HTML_CACHE },
+  ...LOCALES.map((locale) => ({ pathname: `/${locale}/`, cache: HTML_CACHE })),
+  { pathname: '/pt-BR/nao-existe', cache: NOT_FOUND_CACHE },
+];
 
 test.describe('response headers', () => {
-  for (const pathname of DOCUMENTS) {
+  for (const { pathname, cache } of DOCUMENTS) {
     test(`${pathname} carries the CSP and the security headers`, async ({ request }) => {
       const response = await request.get(pathname);
       const headers = response.headers();
       const csp = headers['content-security-policy'] ?? '';
+      const directives = parseCsp(csp);
 
-      for (const directive of CSP_DIRECTIVES) expect(csp).toContain(directive);
+      for (const [name, sources] of Object.entries(CSP_SOURCES)) {
+        expect(directives.get(name), name).toEqual(expect.arrayContaining(sources));
+      }
       expect(csp).not.toContain('unsafe-inline');
       expect(csp).not.toContain('unsafe-eval');
       for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
         expect(headers[name], name).toMatch(value);
       }
-      expect(headers['cache-control']).toBe(HTML_CACHE);
+      expect(headers['cache-control']).toMatch(cache);
     });
   }
 

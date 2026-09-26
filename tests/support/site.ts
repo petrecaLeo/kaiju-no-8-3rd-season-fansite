@@ -3,35 +3,31 @@ import { type BrowserContext, expect, type Page } from '@playwright/test';
 const REVEAL_TIMEOUT_MS = 12_000;
 const SCROLL_PAUSE_MS = 120;
 
-// 1×1 transparent PNG: the trailer thumbnail stays local and still decodes.
+// 1×1 transparent PNG, so the stubbed trailer thumbnail still decodes.
 const PIXEL = Buffer.from(
   'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=',
   'base64',
 );
 
-export const STUBBED_ORIGINS = {
-  thumbnails: 'https://i.ytimg.com',
-  player: 'https://www.youtube-nocookie.com',
-} as const;
+// Stand-ins for the third parties the pages load: the trailer thumbnail and player, and the
+// Cloudflare Web Analytics beacon that the edge injects into the deployed pages.
+const STUBS: Record<string, { status?: number; contentType?: string; body?: string | Buffer }> = {
+  'https://i.ytimg.com': { contentType: 'image/png', body: PIXEL },
+  'https://www.youtube-nocookie.com': { contentType: 'text/html', body: '<!doctype html>' },
+  'https://static.cloudflareinsights.com': { contentType: 'text/javascript', body: '' },
+  'https://cloudflareinsights.com': { status: 204 },
+};
 
-// Nothing leaves the site under test: YouTube answers with stubs, anything else is aborted. The
-// CSP is enforced before a request is routed, so a blocked source still shows up as a violation.
+// Nothing leaves the site under test: known third parties answer with stubs, anything else is
+// aborted. The CSP is enforced before a request is routed, so a blocked source still shows up as
+// a violation.
 export async function isolateFromNetwork(context: BrowserContext, baseURL: string): Promise<void> {
   const { origin } = new URL(baseURL);
   await context.route(
     (url) => url.origin !== origin,
     async (route) => {
-      const { origin: target } = new URL(route.request().url());
-      if (target === STUBBED_ORIGINS.thumbnails) {
-        await route.fulfill({ contentType: 'image/png', body: PIXEL });
-      } else if (target === STUBBED_ORIGINS.player) {
-        await route.fulfill({
-          contentType: 'text/html',
-          body: '<!doctype html><title>player</title>',
-        });
-      } else {
-        await route.abort('blockedbyclient');
-      }
+      const stub = STUBS[new URL(route.request().url()).origin];
+      await (stub === undefined ? route.abort('blockedbyclient') : route.fulfill(stub));
     },
   );
 }

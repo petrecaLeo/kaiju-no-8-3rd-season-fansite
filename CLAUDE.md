@@ -717,8 +717,10 @@ mostra o tamanho antes e depois.
 - CSP: `default-src 'none'` e só o necessário. Scripts, estilos, fontes e manifest de `'self'` (mais
   os hashes); `img-src 'self' data: https://i.ytimg.com`; `frame-src
 https://www.youtube-nocookie.com`; `frame-ancestors`, `base-uri`, `form-action` e `object-src`
-  em `'none'`. O site não faz requisição nenhuma, mas `connect-src 'self'` fica: o Lighthouse e o
-  PageSpeed baixam o robots.txt de dentro da página e, sem ele, acusam "robots.txt is not valid".
+  em `'none'`. O código do site não faz requisição nenhuma, mas `connect-src 'self'` fica: o
+  Lighthouse e o PageSpeed baixam o robots.txt de dentro da página e, sem ele, acusam "robots.txt
+  is not valid". `script-src` e `connect-src` liberam também o Cloudflare Web Analytics (ver
+  "Deploy").
 - Demais headers: HSTS, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`,
   `Referrer-Policy: strict-origin-when-cross-origin`, COOP `same-origin` e um `Permissions-Policy`
   que desliga câmera, microfone, geolocalização, pagamento, USB, MIDI, sensores, captura de tela,
@@ -726,8 +728,9 @@ https://www.youtube-nocookie.com`; `frame-ancestors`, `base-uri`, `form-action` 
   picture-in-picture e web-share continuam liberados porque o iframe do trailer os pede.
   `bluetooth`, `serial` e `hid` ficaram de fora: o Chrome registra "Unrecognized feature" no
   console onde a API não existe (bluetooth no Linux). Ao incluir um recurso, confira o console.
-- Cache (`Cache-Control`): o padrão (`/*`) é `public, max-age=0, must-revalidate`, então HTML, 404,
-  robots e sitemap revalidam e um deploy novo aparece na hora. `/_astro/*` (nome com hash) usa
+- Cache (`Cache-Control`): o padrão (`/*`) é `public, max-age=0, must-revalidate`, então HTML,
+  robots e sitemap revalidam e um deploy novo aparece na hora. As 404 saem da Cloudflare com
+  `no-store`, que ela impõe por cima do `_headers`. `/_astro/*` (nome com hash) usa
   `public, max-age=31536000, immutable`; favicons, `site.webmanifest` e `/og/*` (sem hash), um dia.
   A Cloudflare aplica todas as regras que casam, na ordem do arquivo, e junta com vírgula um header
   repetido; por isso as regras específicas começam com `! Cache-Control`, que desanexa o padrão.
@@ -740,7 +743,7 @@ https://www.youtube-nocookie.com`; `frame-ancestors`, `base-uri`, `form-action` 
   `frame-src https://www.youtube-nocookie.com` (player). As duas vêm de `YOUTUBE_ORIGINS`
   (`src/config/youtube.ts`), que o `policy.ts` importa, então a CSP acompanha qualquer troca de
   origem. O embed do YouTube exige o header `Referer` (sem ele, erro 153): não troque o
-  `Referrer-Policy` por `no-referrer`.
+  `Referrer-Policy` por `no-referrer`. Além delas, as duas do Web Analytics (ver "Deploy").
 
 ## Deploy (Cloudflare Pages)
 
@@ -784,8 +787,12 @@ publica `dist/`, que já traz o `_headers` e as 404 por idioma.
   continua no ar, com canonical apontando para o domínio novo. As imagens OG não mudam.
 - Deploys de preview (outros branches) saem em `<hash>.kaiju-no-8-fansite.pages.dev`, com canonical
   para a produção.
-- Cloudflare Web Analytics: se for ligado pelo painel, a Cloudflare injeta um script de
-  `static.cloudflareinsights.com` que a CSP bloqueia. Libere a origem em `policy.ts` antes.
+- Cloudflare Web Analytics está ligado no painel: a Cloudflare injeta em todo HTML um
+  `<script defer src="https://static.cloudflareinsights.com/beacon.min.js">`, e o beacon envia a
+  visita para `cloudflareinsights.com`. O `policy.ts` (`CLOUDFLARE_WEB_ANALYTICS`) libera as duas
+  origens, em `script-src` e `connect-src`. Sem isso, a CSP bloqueia o beacon e todo carregamento
+  loga um erro no console (achado pelos testes E2E contra o site no ar). Se desligar o analytics,
+  tire as duas origens.
 - Limites do plano grátis: 20.000 arquivos por deploy e 25 MiB por arquivo. Hoje: 171 arquivos,
   12 MB no total, maior arquivo 2,1 MiB (o loop do Reno).
 - Testar local como na Cloudflare: `npx wrangler pages dev dist` aplica o `_headers` e as 404 por
@@ -804,7 +811,8 @@ publica `dist/`, que já traz o `_headers` e as 404 por idioma.
 - `BASE_URL=https://kaiju-no-8-fansite.pages.dev npx playwright test` roda a mesma bateria contra o
   site publicado, sem servidor local.
 - Nada sai para a rede: o fixture de `tests/support/test.ts` responde o YouTube (thumbnail e player)
-  com stubs e aborta qualquer outra origem. A CSP age antes do roteamento, então uma origem
+  e o beacon do Web Analytics (que só existe no site publicado) com stubs e aborta qualquer outra
+  origem. A CSP age antes do roteamento, então uma origem
   bloqueada ainda aparece como violação no console.
 - Cobertura: redirect da raiz (idioma do navegador, escolha salva, query e hash, links quando o
   script não roda, meta refresh sem JS); headers e cache; CSP no navegador (cada idioma percorrido
