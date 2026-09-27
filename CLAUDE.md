@@ -194,8 +194,11 @@ renderiza `<a>`; sem `href`, `<button type="button">`. Aceita qualquer atributo 
   dois. Tudo funciona sem JS. O nome acessível inclui o nome nativo ("PT Português"). O
   `LanguageSwitcher.client.ts` grava a escolha manual com `rememberLocaleChoice`
   (`src/i18n/locale-choice.ts`, o mesmo usado pelos links do rodapé; a detecção automática nunca
-  é gravada) e fecha o menu com Esc (devolvendo o foco), clique fora ou quando o foco sai dele. Bandeiras em
-  `src/lib/images/locale-flags.ts`; en usa a dos EUA, coerente com `openGraphLocale: en_US`.
+  é gravada) e fecha o menu com Esc (devolvendo o foco), clique fora ou quando o foco sai dele. O
+  Safari (macOS e iOS) não foca o link clicado: o foco vai para o ancestral focável mais próximo (o
+  `<header tabindex="-1">`) ou para lugar nenhum, e nenhum dos dois fecha o menu, senão o link some
+  antes de o clique chegar. Bandeiras em `src/lib/images/locale-flags.ts`; en usa a dos EUA,
+  coerente com `openGraphLocale: en_US`.
 - Skills genéricas de i18n (como `internationalization-i18n`) sugerem i18next e troca de idioma sem
   recarregar a página. Aqui não: cada idioma é uma rota estática e nenhum texto é trocado via JS
   depois da pintura, para não haver layout shift.

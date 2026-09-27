@@ -15,14 +15,20 @@ function closeWhenOutside(menu: HTMLDetailsElement, target: EventTarget | null):
   if (target instanceof Node && !menu.contains(target)) menu.open = false;
 }
 
+// Safari (macOS and iOS) does not focus a clicked link: mousedown hands the focus to the nearest
+// focusable ancestor (the header, target of "back to top") or to nothing. Closing then would hide
+// the link before its click lands, so only a move to an unrelated element closes the menu.
+// Outside clicks are handled separately.
+function closeWhenFocusLeaves(menu: HTMLDetailsElement, next: EventTarget | null): void {
+  if (next instanceof Node && !next.contains(menu)) closeWhenOutside(menu, next);
+}
+
 function enhanceMenu(menu: HTMLDetailsElement): void {
   menu.addEventListener('keydown', (event) => {
     closeOnEscape(menu, event);
   });
-  // Safari does not focus links on click, so a focusout without relatedTarget must not close the
-  // menu: the link would be hidden before its click lands. Outside clicks are handled below.
   menu.addEventListener('focusout', (event) => {
-    closeWhenOutside(menu, event.relatedTarget);
+    closeWhenFocusLeaves(menu, event.relatedTarget);
   });
   document.addEventListener('click', (event) => {
     closeWhenOutside(menu, event.target);

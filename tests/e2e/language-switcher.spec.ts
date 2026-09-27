@@ -84,6 +84,28 @@ test.describe('language switcher', () => {
     await page.waitForURL((url) => url.pathname === '/ja/');
   });
 
+  test('a link still works when Safari hands the focus to the header', async ({ page }) => {
+    await openPage(page);
+    const { trigger, links } = getSwitcher(page);
+    // Safari (macOS and iOS) does not focus a clicked link: mousedown focuses the nearest focusable
+    // ancestor instead, here the header (tabindex="-1", target of "back to top").
+    await page.evaluate(() => {
+      document.addEventListener(
+        'mousedown',
+        (event) => {
+          if (!(event.target instanceof Element) || !event.target.closest('a')) return;
+          event.preventDefault();
+          event.target.closest<HTMLElement>('[tabindex="-1"]')?.focus();
+        },
+        true,
+      );
+    });
+
+    await trigger.click();
+    await links.and(page.locator('[hreflang="en"]')).click();
+    await page.waitForURL((url) => url.pathname === '/en/');
+  });
+
   test('the footer links remember the choice too', async ({ page }) => {
     await openPage(page);
     const footerLink = page.locator('[data-footer-languages] a[hreflang="en"]');
