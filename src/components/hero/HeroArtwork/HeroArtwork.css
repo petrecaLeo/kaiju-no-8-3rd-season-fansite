@@ -10,17 +10,18 @@
   }
 
   .hero-artwork__stage {
-    /* Measured on background.webp: aspect ratio and the centre of the cross-shaped socket. */
-    --artwork-aspect: 1.5142;
-    --socket-x: 0.5193;
-    --socket-y: 0.606;
+    /* Measured on background.png: aspect ratio and the centre of the cross-shaped socket. */
+    --artwork-aspect: 1.7778;
+    --socket-x: 0.4992;
+    --socket-y: 0.6122;
     --socket-target: 0.5;
     --min-fill: 0.6;
 
-    /* As little zoom as possible: wide enough to put the socket axis on the centre line, and at
-       least --min-fill of the height tall. Keep in sync with STAGE_SIZES in hero-images.ts. */
+    /* As little zoom as possible: wide enough for the shorter side of the socket axis to reach the
+       edge when the axis sits on the centre line, and at least --min-fill of the height tall.
+       Keep in sync with STAGE_SIZES in hero-images.ts. */
     --stage-inline: max(
-      100cqi / (2 * (1 - var(--socket-x))),
+      100cqi / (2 * min(var(--socket-x), 1 - var(--socket-x))),
       100cqb * var(--min-fill) * var(--artwork-aspect)
     );
     --stage-block: calc(var(--stage-inline) / var(--artwork-aspect));

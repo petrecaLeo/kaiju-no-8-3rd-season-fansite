@@ -2,7 +2,7 @@
 
 @layer components {
   .hero-eye {
-    --eye-size: 14.25%;
+    --eye-size: 10.5%;
 
     position: absolute;
     inset-block-start: calc(var(--socket-y) * 100%);

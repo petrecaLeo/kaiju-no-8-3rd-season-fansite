@@ -10,9 +10,9 @@ export interface ImagePreload {
 
 export function getImagePreloads(images: readonly ResponsiveImage[]): Promise<ImagePreload[]> {
   return Promise.all(
-    images.map(async ({ src, widths, sizes }) => {
-      const image = await getImage({ src, widths, sizes });
-      return { href: image.src, srcset: image.srcSet.attribute, sizes };
+    images.map(async (options) => {
+      const image = await getImage(options);
+      return { href: image.src, srcset: image.srcSet.attribute, sizes: options.sizes };
     }),
   );
 }

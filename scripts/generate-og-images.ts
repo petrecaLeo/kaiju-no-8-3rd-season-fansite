@@ -17,10 +17,10 @@ const DICTIONARIES = { 'pt-BR': ptBR, en, ja } satisfies Record<Locale, unknown>
 const LOGOS = { 'pt-BR': 'ENLogo.webp', en: 'ENLogo.webp', ja: 'JPLogo.webp' } as const;
 const TITLE_FONT = { family: 'Paladins Straight', file: 'paladins/paladinsstraight.woff2' };
 
-// Same measurements as HeroArtwork.css (--socket-x/y) and HeroEye.css (eye at 14.25% of the art).
-const ARMOR = { socketX: 0.5193, socketY: 0.606 };
-const STAGE_WIDTH = 1300;
-const EYE_SIZE = Math.round(STAGE_WIDTH * 0.1425);
+// Same measurements as HeroArtwork.css (--socket-x/y) and HeroEye.css (eye at 10.5% of the art).
+const ARMOR = { socketX: 0.4992, socketY: 0.6122 };
+const STAGE_WIDTH = 1500;
+const EYE_SIZE = Math.round(STAGE_WIDTH * 0.105);
 const SOCKET = { x: WIDTH / 2, y: 215 };
 const LOGO_WIDTH = 500;
 const SEASON_SIZE = Math.round(LOGO_WIDTH * 0.07);
@@ -69,7 +69,7 @@ function shade(): Buffer {
 }
 
 async function armor(): Promise<OverlayOptions> {
-  const file = path.join(ROOT, 'src/assets/images/hero/background.webp');
+  const file = path.join(ROOT, 'src/assets/images/hero/background.png');
   const { width, height } = await sharp(file).metadata();
   const stageHeight = Math.round((STAGE_WIDTH * height) / width);
   const left = Math.round(SOCKET.x - ARMOR.socketX * STAGE_WIDTH);

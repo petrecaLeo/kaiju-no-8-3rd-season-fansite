@@ -46,7 +46,7 @@ Itens que dependem de decisão ou material externo. Marque `[x]` ao concluir.
 - [x] **Hero**: arte da armadura com o olho interativo, logo, "3rd Season", "em breve" e indicador
       de scroll (o logo da Crunchyroll saiu; "Onde assistir" cumpre esse papel).
 - [x] Hero: decidir se o logo da Crunchyroll vira link. (O logo saiu do hero.)
-- [x] Hero: a armadura (`assets/images/hero/background.webp`) traz "00 10" pintado na própria arte.
+- [x] Hero: a armadura (`assets/images/hero/background.png`) traz "00 10" pintado na própria arte.
       O resto do site mostra só o número ("10"); mudar a arte exige editar a imagem. Decidido: fica como está.
 - [x] Hero: o pulso do olho roda sem parar. Para WCAG 2.2.2 (pausar animação que dura mais de 5 s),
       avaliar um botão de pausa; hoje ele só para fora da tela e com reduced motion vira uma variação

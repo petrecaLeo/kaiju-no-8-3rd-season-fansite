@@ -278,9 +278,10 @@ mostra o tamanho antes e depois.
   `<Image>`/`<Picture>` de `astro:assets` (lazy por padrão) com `sizes` definido por imagem. O
   preloader espera toda imagem que não é lazy, então uma `eager` fora da primeira dobra atrasa a
   revelação (hoje, a foto do Kafka em Personagens).
-- Preload de imagem: descreva a imagem uma vez como `ResponsiveImage` (`src`, `widths`, `sizes`, em
-  `src/lib/images/`) e use o mesmo objeto no `<img>` e em `<ImagePreloads slot="head">`. O `getImage()`
-  gera as mesmas URLs para as mesmas opções, então o `imagesrcset` do preload bate com o `srcset`.
+- Preload de imagem: descreva a imagem uma vez como `ResponsiveImage` (`src`, `widths`, `sizes` e,
+  se precisar, `quality`, em `src/lib/images/`) e use o mesmo objeto no `<img>` e em
+  `<ImagePreloads slot="head">`. O `getImage()` gera as mesmas URLs para as mesmas opções, então o
+  `imagesrcset` do preload bate com o `srcset`.
 - Visual: overlay `--color-bg` em tela cheia (`position: fixed; inset: 0`, `--z-preloader`) com o
   `number.webp` no centro, respirando (opacidade 0,2 ↔ 1 em `--preloader-breath-duration`). A
   respiração é keyframe CSS, então roda desde o primeiro paint, antes do JS. Sem texto visível: o
@@ -333,16 +334,23 @@ mostra o tamanho antes e depois.
 
 ## Hero
 
-- A armadura (`background.webp`) fica num "palco" com a proporção da imagem, dimensionado em
-  `HeroArtwork.css` com unidades de container (`cqi`/`cqb`). As constantes `--socket-x`/`--socket-y`
-  (centro da fenda em cruz, medido no canal alfa) e `--artwork-aspect` valem só para essa imagem:
-  **se trocar a arte, meça de novo**. O olho é posicionado em porcentagem do palco, então acompanha
-  o soquete em qualquer tela.
-- O palco usa o menor zoom possível: largura de `100cqi / (2 × (1 − socket-x))` (para o eixo da cruz
-  cair no centro) ou `--min-fill` da altura. Em telas altas a arte não cobre tudo e as bordas somem
-  no preto (`mask-image`). O soquete fica em `--socket-target` da altura (0,5; 0,45 em retrato).
+- A armadura (`background.png`, 2304×1296) fica num "palco" com a proporção da imagem,
+  dimensionado em `HeroArtwork.css` com unidades de container (`cqi`/`cqb`). As constantes
+  `--socket-x`/`--socket-y` (centro da fenda em cruz, medido no canal alfa) e `--artwork-aspect`
+  valem só para essa imagem: **se trocar a arte, meça de novo**. O olho é posicionado em
+  porcentagem do palco, então acompanha o soquete em qualquer tela. O tamanho dele (`--eye-size` em
+  `HeroEye.css`, 10,5% do palco) também depende da arte: cerca de 2,5× a altura do braço horizontal
+  da fenda junto ao cruzamento.
+- O palco usa o menor zoom possível: largura de `100cqi / (2 × min(socket-x, 1 − socket-x))` (para o
+  eixo da cruz cair no centro com os dois lados cobrindo a tela) ou `--min-fill` da altura. Em telas
+  altas a arte não cobre tudo e as bordas somem no preto (`mask-image`). O soquete fica em
+  `--socket-target` da altura (0,5; 0,45 em retrato). Em 16:9 o topo da arte ("00 10") sai cortado;
+  baixar o soquete para mostrá-lo encosta o olho no logo (testado com 0,54).
 - `STAGE_SIZES`, `EYE_SIZES` e `LOGO_SIZES` em `src/lib/images/hero-images.ts`
   espelham esse CSS. Ao mudar tamanhos no CSS, atualize os `sizes`.
+- A armadura sai em webp com qualidade 95 (`ARMOR_QUALITY`), e as outras imagens usam o padrão
+  (80), que perdia detalhe na textura vermelha dela. Custa peso na imagem que o preloader espera:
+  a versão de 1920 px tem ~356 KB (125 KB em q80, 560 KB em q100).
 - O `h1` é visualmente oculto (`.visually-hidden`) e o bloco visual (logo + temporada + "em breve")
   leva `aria-hidden`, para o leitor de tela não ler o título duas vezes. Em ja, "3rd Season" fica em inglês e em Paladins (`seasonLang: "en"`), e "em breve" é
   「近日公開」 em Noto Sans JP (`.hero-lockup__status:lang(ja)`).
@@ -670,7 +678,7 @@ mostra o tamanho antes e depois.
   usam `SITE.themeColor` (`#0b0d10`, igual ao `--color-bg`), não `#000`, para a barra do navegador
   e a splash emendarem na página.
 - `npm run generate-og-images` (`scripts/generate-og-images.ts`) gera `public/og/{pt-BR,en,ja}.jpg`
-  (1200×630, JPEG de ~45 KB; em PNG seriam ~440 KB, e há apps que não mostram prévia acima de
+  (1200×630, JPEG de ~50 KB; em PNG seriam ~440 KB, e há apps que não mostram prévia acima de
   ~300 KB): armadura do
   hero, luz e olho no soquete, degradê, logo do idioma (`ENLogo` em pt-BR e en, `JPLogo` em ja) e
   a temporada (`sections.hero.season`) em Paladins. As cores vêm de `tokens.css`; a posição do
@@ -799,8 +807,9 @@ publica `dist/`, que já traz o `_headers` e as 404 por idioma.
   origens, em `script-src` e `connect-src`. Sem isso, a CSP bloqueia o beacon e todo carregamento
   loga um erro no console (achado pelos testes E2E contra o site no ar). Se desligar o analytics,
   tire as duas origens.
-- Limites do plano grátis: 20.000 arquivos por deploy e 25 MiB por arquivo. Hoje: 171 arquivos,
-  12 MB no total, maior arquivo 2,1 MiB (o loop do Reno).
+- Limites do plano grátis: 20.000 arquivos por deploy e 25 MiB por arquivo. Hoje: 172 arquivos,
+  17 MB no total, maior arquivo 4,1 MiB (o PNG original da armadura do hero, que o Astro copia para
+  `_astro/` mas nenhuma página pede; o maior servido é o loop do Reno, 2,1 MiB).
 - Testar local como na Cloudflare: `npx wrangler pages dev dist` aplica o `_headers` e as 404 por
   pasta. Reinicie depois de cada build (ele só lê o `_headers` ao subir). `npm run preview` não
   aplica headers.
