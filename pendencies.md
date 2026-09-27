@@ -19,14 +19,14 @@ Itens que dependem de decisão ou material externo. Marque `[x]` ao concluir.
       do X, WhatsApp) e o JSON-LD no Rich Results Test / validator.schema.org com a URL real.
 - [x] Quando os créditos do projeto estiverem definidos, avaliar `author` (Person) no JSON-LD do
       WebSite, sempre como pessoas fãs, nunca como os detentores dos direitos. Feito: `author` com
-      `@byduuds.design` e `petrecaLeo`, lidos dos créditos do rodapé.
+      `byduuds.design` e `petrecaLeo`, lidos dos créditos do rodapé.
 - [x] **Repositório git**: `github.com/petrecaLeo/kaiju-no-8-3rd-season-fansite` (público).
 - [x] **404 por idioma fora da Cloudflare Pages.** Lá `/pt-BR/…` e `/ja/…` já recebem a 404 do
       idioma. Na Netlify só o `/404.html` (inglês) é usado; para as outras, seria preciso um
       `_redirects` com `/pt-BR/* /pt-BR/404.html 404` e `/ja/* /ja/404.html 404`. Gerar esse
       arquivo só depois de escolher o host e confirmar que ele aceita status 404 no `_redirects`.
       Decidido: não se aplica, o host é a Cloudflare Pages.
-- [x] **Créditos do rodapé**: `@byduuds.design` (link para o Instagram) e `petrecaLeo` (link para o
+- [x] **Créditos do rodapé**: `byduuds.design` (link para o Instagram) e `petrecaLeo` (link para o
       GitHub) em `footer.credits.project`, nos três dicionários.
 
 ## Fontes

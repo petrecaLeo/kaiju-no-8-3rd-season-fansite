@@ -578,7 +578,7 @@ mostra o tamanho antes e depois.
 - Textos em `footer` dos dicionários. `disclaimer` e `rights` são os dois parágrafos do aviso
   legal. Os créditos da obra seguem a grafia oficial: em ja,
   「松本直也（集英社「少年ジャンプ＋」連載）」, 「怪獣デザイン＆ワークス：スタジオカラー」 e o
-  copyright japonês 「©防衛隊第3部隊 ©松本直也／集英社」. Créditos do projeto: `@byduuds.design`
+  copyright japonês 「©防衛隊第3部隊 ©松本直也／集英社」. Créditos do projeto: `byduuds.design`
   (Instagram) e `petrecaLeo` (GitHub), iguais nos três dicionários (`footer.credits.project`).
 - O ano sai de `new Date().getFullYear()` no build (`signature`, com `{year}`).
 - Voltar ao topo: `Button` secondary `sm` com `href="#top"`, e o alvo é o `<header id="top" tabindex="-1">` (`ANCHORS.top`).

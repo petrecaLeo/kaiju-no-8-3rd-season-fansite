@@ -3,7 +3,7 @@ import { expect, test } from '../support/test';
 
 // The footer credits, which the JSON-LD names as the site's authors: fans, never rights holders.
 const AUTHORS = [
-  { '@type': 'Person', name: '@byduuds.design', url: 'https://www.instagram.com/byduuds.design' },
+  { '@type': 'Person', name: 'byduuds.design', url: 'https://www.instagram.com/byduuds.design' },
   { '@type': 'Person', name: 'petrecaLeo', url: 'https://github.com/petrecaLeo' },
 ];
 

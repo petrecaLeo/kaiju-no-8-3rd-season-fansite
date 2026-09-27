@@ -158,7 +158,7 @@ Conventions, architecture and technical decisions are documented in Portuguese i
 
 ## Credits
 
-- UX/UI design: [@byduuds.design](https://www.instagram.com/byduuds.design)
+- UX/UI design: [byduuds.design](https://www.instagram.com/byduuds.design)
 - Development: [petrecaLeo](https://github.com/petrecaLeo)
 
 ## Disclaimer
