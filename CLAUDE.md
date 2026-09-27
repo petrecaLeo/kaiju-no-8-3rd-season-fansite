@@ -427,8 +427,11 @@ mostra o tamanho antes e depois.
 - Portão (`lib/recap/recap-gate.ts`): o relatório inteiro está no HTML (SEO e sem JS). O JS o marca
   `inert` e põe `data-recap-state` na seção (`veiled` → `revealing` → `revealed`). O aviso fica
   sticky por cima do relatório velado. O véu (`.recap__veil`) é um bloco sticky de uma tela de
-  altura com `backdrop-filter`, então o blur só processa uma viewport. O botão tem `aria-expanded`
-  e `aria-controls`. Ao revelar, o foco vai para a primeira frase do relatório (`data-recap-start`)
+  altura com `backdrop-filter`, então o blur só processa uma viewport. Enquanto `veiled`, o relatório
+  fica `visibility: hidden` e só a capa aparece, com blur próprio: a cortina é uma camada à parte,
+  que o iOS desenha um quadro atrasada numa rolagem rápida, e as bordas dela caem em fração de
+  pixel. Sem texto embaixo, nada vaza. Por isso `reveal()` troca o estado antes de mover o foco. O
+  botão tem `aria-expanded` e `aria-controls`. Ao revelar, o foco vai para a primeira frase do relatório (`data-recap-start`)
   e o status "Relatório revelado" ocupa a mesma célula do botão (sem layout shift). A escolha fica
   em `sessionStorage` (`kaiju8-teaser:recap-revealed`).
 - Revelação: uma linha de varredura ciano desce pela parte visível do véu (só transform). Com

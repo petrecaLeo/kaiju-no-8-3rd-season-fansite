@@ -71,21 +71,19 @@ function sweepVeil(veil: HTMLElement, onComplete: () => void): void {
 function reveal(section: HTMLElement, parts: GateParts): void {
   writeSessionStorage(STORAGE_KEY, REVEALED);
   alignToStart(parts);
+  // Leaving "veiled" makes the report visible (Recap.css), which it must be to take the focus.
+  const sweep = !prefersReducedMotion();
+  setState(section, sweep ? 'revealing' : 'revealed');
   parts.report.inert = false;
   parts.button.setAttribute('aria-expanded', 'true');
   // The button disappears, so focus moves to the first line of the report, where reading starts.
   parts.start.focus({ preventScroll: true });
 
-  const finish = (): void => {
-    setState(section, 'revealed');
-  };
-
-  if (prefersReducedMotion()) {
-    finish();
-    return;
+  if (sweep) {
+    sweepVeil(parts.veil, () => {
+      setState(section, 'revealed');
+    });
   }
-  setState(section, 'revealing');
-  sweepVeil(parts.veil, finish);
 }
 
 // The report ships in the HTML (for search engines and no-JS visitors) and is only veiled here:

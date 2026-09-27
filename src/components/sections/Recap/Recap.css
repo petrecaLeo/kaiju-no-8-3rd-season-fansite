@@ -73,6 +73,18 @@
     opacity: 1;
   }
 
+  /* The veil is a layer of its own: iOS Safari can draw it a frame behind a fast scroll, and its
+     edges fall on fractions of a device pixel. So while veiled nothing readable paints under it,
+     only the cover, blurred by itself. Revealing starts the sweep over the real report. */
+  .recap[data-recap-state='veiled'] .recap__report {
+    visibility: hidden;
+  }
+
+  .recap[data-recap-state='veiled'] .recap-cover__frame {
+    visibility: visible;
+    filter: blur(1.75rem);
+  }
+
   @media (scripting: enabled) {
     .recap:not([data-recap-state='revealed']) .recap__veil {
       display: block;
