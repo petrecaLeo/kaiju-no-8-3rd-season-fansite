@@ -101,6 +101,49 @@ test('a URL fragment keeps its target after the reveal', async ({ page }) => {
   await expect(page.locator(`#${ANCHORS.whereToWatch}`)).toBeInViewport();
 });
 
+interface PhotoAtReveal {
+  ready: boolean;
+  revealedAt: number;
+}
+
+// The browser restores the scroll on reload, so the first view can be the characters section,
+// whose photo is lazy. The page must wait for that photo, and only for what is on screen: a card
+// clipped by the roster never loads and would hold the page until the timeout.
+test('a reload that lands on the characters waits for the photo on screen', async ({ page }) => {
+  await page.goto('/en/');
+  await waitForReveal(page);
+  await page.evaluate((id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'instant' });
+  }, ANCHORS.characters);
+
+  await page.route(
+    (url) => url.pathname.includes('/kafka.'),
+    async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await route.continue();
+    },
+  );
+  await page.addInitScript(() => {
+    document.addEventListener('page:revealed', () => {
+      const photo = document.querySelector<HTMLImageElement>('[data-spotlight-photo="kafka"]');
+      const photoAtReveal: PhotoAtReveal = {
+        ready: photo !== null && photo.complete && photo.naturalWidth > 0,
+        revealedAt: performance.now(),
+      };
+      Object.assign(window, { photoAtReveal });
+    });
+  });
+  await page.reload();
+  await waitForReveal(page);
+
+  await expect(page.locator('[data-spotlight-photo="kafka"]')).toBeInViewport();
+  const photoAtReveal = await page.evaluate(
+    () => (window as unknown as { photoAtReveal: PhotoAtReveal }).photoAtReveal,
+  );
+  expect(photoAtReveal.ready).toBe(true);
+  expect(photoAtReveal.revealedAt).toBeLessThan(5000);
+});
+
 test('a font that never arrives releases the page on the timeout with the fallbacks locked', async ({
   page,
 }) => {

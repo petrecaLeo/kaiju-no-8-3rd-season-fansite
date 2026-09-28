@@ -33,7 +33,7 @@ const nameId = `${infoId}-name`;
           ]}
           {...character.spotlightPhoto}
           alt={character.photoAlt}
-          loading={character.id === featured.id ? 'eager' : 'lazy'}
+          loading="lazy"
           hidden={character.id !== featured.id}
           data-spotlight-photo={character.id}
         />

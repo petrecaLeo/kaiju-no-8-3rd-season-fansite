@@ -277,9 +277,10 @@ mostra o tamanho antes e depois.
 - Imagem crítica: `<CriticalImage>` (eager, `fetchpriority="high"`). As demais usam
   `<Image>`/`<Picture>` de `astro:assets` (lazy por padrão) com `sizes` definido por imagem. O
   preloader espera toda imagem que não é lazy, então uma `eager` fora da primeira dobra atrasa a
-  revelação (hoje, a foto do Kafka em Personagens).
+  revelação. A foto do Kafka em Personagens era `eager` e prendia a página no 4G lento (8,3 s
+  contra 7,4 s sem ela, medido num celular 390×844 a 3x); hoje ela é lazy.
 - Preload de imagem: descreva a imagem uma vez como `ResponsiveImage` (`src`, `widths`, `sizes` e,
-  se precisar, `quality`, em `src/lib/images/`) e use o mesmo objeto no `<img>` e em
+  se precisar, `format` e `quality`, em `src/lib/images/`) e use o mesmo objeto no `<img>` e em
   `<ImagePreloads slot="head">`. O `getImage()` gera as mesmas URLs para as mesmas opções, então o
   `imagesrcset` do preload bate com o `srcset`.
 - Visual: overlay `--color-bg` em tela cheia (`position: fixed; inset: 0`, `--z-preloader`) com o
@@ -301,10 +302,14 @@ mostra o tamanho antes e depois.
   - o `DOMContentLoaded`, que só dispara depois de todos os módulos da página rodarem (as seções já
     registraram as animações de entrada). `readyState` não serve: já vale `interactive` enquanto os
     módulos rodam.
-- O que ele não espera: imagens `loading="lazy"`, que só carregam perto do scroll (esperar por elas
-  prenderia o loader para sempre) e continuam carregando depois; e o trailer, que é um facade: o
-  iframe do YouTube só entra no clique, então não há vídeo para esperar. O loader não adia nenhum
-  asset: tudo começa a baixar em paralelo desde o `<head>`.
+  - depois disso, as imagens `lazy` que estão na tela. Um reload restaura a rolagem, e a primeira
+    tela pode ser Personagens (a foto do Kafka virava o LCP nesse caso, no Web Analytics). Quem
+    decide é um `IntersectionObserver`, porque ele conta o recorte: um card fora da área visível
+    do carrossel nunca carrega e prenderia o loader até o timeout (o teste E2E cobre os dois).
+- O que ele não espera: imagens `loading="lazy"` fora da tela, que só carregam perto do scroll
+  (esperar por elas prenderia o loader para sempre) e continuam carregando depois; e o trailer,
+  que é um facade: o iframe do YouTube só entra no clique, então não há vídeo para esperar. O
+  loader não adia nenhum asset: tudo começa a baixar em paralelo desde o `<head>`.
 - Nenhuma falha trava o loader: imagem ou fonte com erro conta como resolvida, e um timeout libera a
   página aos 7,5 s contados do início da navegação (8 s menos o fade de saída de 0,5 s), para o fade
   terminar antes do failsafe de CSS, que o cortaria no meio. Se uma fonte ainda estiver carregando nesse
@@ -348,9 +353,14 @@ mostra o tamanho antes e depois.
   baixar o soquete para mostrá-lo encosta o olho no logo (testado com 0,54).
 - `STAGE_SIZES`, `EYE_SIZES` e `LOGO_SIZES` em `src/lib/images/hero-images.ts`
   espelham esse CSS. Ao mudar tamanhos no CSS, atualize os `sizes`.
-- A armadura sai em webp com qualidade 95 (`ARMOR_QUALITY`), e as outras imagens usam o padrão
-  (80), que perdia detalhe na textura vermelha dela. Custa peso na imagem que o preloader espera:
-  a versão de 1920 px tem ~356 KB (125 KB em q80, 560 KB em q100).
+- A armadura sai em AVIF q90 (`ARMOR_ENCODING`); as outras imagens usam webp no padrão (80), que
+  perdia detalhe na textura vermelha dela. O webp com perda guarda a cor em meia resolução (4:2:0)
+  e o AVIF do sharp, em resolução cheia (4:4:4). Medido em 1920 px contra o PNG: erro médio no
+  canal vermelho de 3,47 (webp q95, 356 KB), 1,13 (AVIF q90, 367 KB) e 0,82 (AVIF q95, 619 KB).
+  O q90 foi escolhido comparando as versões a olho: pesa o mesmo que o webp q95 antigo, e o q95
+  custaria 1,2 s num celular 390×844 a 3x em 4G lento (a página abre em 7,3 s contra 8,5 s; esse
+  celular baixa a versão de 2304 px, 475 KB em q90). O AVIF é Baseline 2024, então não há fallback
+  em webp. Codificar as cinco larguras leva ~2 min no build (o cache do Astro reaproveita depois).
 - O `h1` é visualmente oculto (`.visually-hidden`) e o bloco visual (logo + temporada + "em breve")
   leva `aria-hidden`, para o leitor de tela não ler o título duas vezes. Em ja, "3rd Season" fica em inglês e em Paladins (`seasonLang: "en"`), e "em breve" é
   「近日公開」 em Noto Sans JP (`.hero-lockup__status:lang(ja)`).
@@ -500,9 +510,9 @@ mostra o tamanho antes e depois.
   transição vence (`progress(1)` na anterior).
 - Crossfade em `lib/characters/spotlight-transition.ts`: a foto nova entra por cima da anterior
   (0,8 s, scale 1,06 → 1), o texto sai, é trocado e volta. Com reduced motion tudo troca de uma
-  vez. As fotos do painel ficam `hidden` + lazy; quando o roster entra na tela o JS as passa para
-  eager, para o clique não esperar download. Não pisque a opacidade da foto nova: a anterior
-  aparece por baixo.
+  vez. Todas as fotos do painel são lazy, inclusive a do Kafka, e as outras ficam `hidden`; quando
+  o roster entra na tela o JS as passa para eager, para o clique não esperar download. Não pisque
+  a opacidade da foto nova: a anterior aparece por baixo.
 - Título: fica num `.characters__heading` com `container-type: inline-size` e usa
   `min(var(--font-size-xl), 8.75cqi)` da própria célula. No layout largo a coluna ao lado da foto é
   estreita (~350 px em 900×800), e "Personagens" mede ~11em em Paladins. O nome em foco usa o
@@ -511,7 +521,9 @@ mostra o tamanho antes e depois.
   roster à direita (o painel vira `display: contents` e entra no grid da seção). Abaixo disso,
   tudo empilha e o painel é um size container que mantém a foto em 4:5 com o texto por cima. A
   seção tem no mínimo `100svb` sempre. O breakpoint se repete em `Characters.css`,
-  `CharacterSpotlight.css`, `CharacterRoster.css` e nos `sizes` de `characters.ts`.
+  `CharacterSpotlight.css`, `CharacterRoster.css` e nos `sizes` de `characters.ts`. O `sizes` da
+  foto em tela larga repete os três limites do CSS (80% da altura útil, 36rem e metade da largura):
+  sem o de 36rem, um desktop a 2x baixava 1600w ou o original de 2872w, e 1200w bastava.
 - Roster: `scroll-snap-type: x mandatory`, cards com `scroll-snap-align: center` e largura de 40%
   (29% em tela larga) para o vizinho sempre aparecer cortado; no mobile ele vai até a borda da
   tela. As bordas esmaecem só quando há mais cards daquele lado (`data-at-start`/`data-at-end`,

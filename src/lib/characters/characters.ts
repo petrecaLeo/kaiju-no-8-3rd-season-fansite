@@ -40,9 +40,10 @@ const CHARACTER_ART: readonly CharacterArt[] = [
 export const FEATURED_CHARACTER: CharacterId = 'kafka';
 
 // Keep in sync with CharacterSpotlight.css, CharacterRoster.css and the 56em landscape breakpoint
-// in Characters.css. Wide screens cap the spotlight at 80% of the height left by the padding.
+// in Characters.css. Wide screens cap the spotlight like the CSS does: 80% of the height left by
+// the padding, 36rem, and half the layout (50vw stands in for 50cqi).
 const SPOTLIGHT_SIZES =
-  '(orientation: landscape) and (min-width: 56em) calc(80vh - 6.4rem), calc(100vw - 2rem)';
+  '(orientation: landscape) and (min-width: 56em) min(calc(80vh - 6.4rem), 36rem, 50vw), calc(100vw - 2rem)';
 const CARD_SIZES =
   '(orientation: landscape) and (min-width: 56em) 10rem, (min-width: 32.5em) 13rem, 40vw';
 

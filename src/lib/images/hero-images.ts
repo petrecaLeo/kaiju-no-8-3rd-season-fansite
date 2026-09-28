@@ -6,7 +6,7 @@ import logoLatin from '@/assets/images/logo/ENLogo.webp';
 import logoJapanese from '@/assets/images/logo/JPLogo.webp';
 import type { Locale } from '@/i18n/config';
 
-import { type ResponsiveImage, responsiveImage } from './responsive-image';
+import { type ImageEncoding, type ResponsiveImage, responsiveImage } from './responsive-image';
 
 export interface HeroImages {
   armor: ResponsiveImage;
@@ -25,12 +25,14 @@ const LOGOS = {
 const STAGE_SIZES = '(min-aspect-ratio: 16/15) 100vw, 107vh';
 const EYE_SIZES = '(min-aspect-ratio: 16/15) 10.5vw, 11.2vh';
 const LOGO_SIZES = '(min-width: 35rem) 27rem, 78vw';
-// The armour fills the hero, and at the default quality (80) its red texture loses detail.
-const ARMOR_QUALITY = 95;
+// The armour fills the hero and its red texture is the point of the art. AVIF keeps the colour
+// at full resolution (lossy webp halves it): at q90 it weighs what webp q95 did, and its red
+// channel errs a third as much.
+const ARMOR_ENCODING = { format: 'avif', quality: 90 } as const satisfies ImageEncoding;
 
 export function getHeroImages(locale: Locale): HeroImages {
   return {
-    armor: responsiveImage(armor, [720, 1080, 1440, 1920], STAGE_SIZES, ARMOR_QUALITY),
+    armor: responsiveImage(armor, [720, 1080, 1440, 1920], STAGE_SIZES, ARMOR_ENCODING),
     eye: responsiveImage(eye, [160, 240, 320, 480, 640], EYE_SIZES),
     logo: responsiveImage(LOGOS[locale], [320, 480, 640, 864, 1080], LOGO_SIZES),
   };

@@ -1,18 +1,22 @@
-import type { ImageMetadata } from 'astro';
+import type { ImageMetadata, ImageOutputFormat } from 'astro';
 
-export interface ResponsiveImage {
+export interface ImageEncoding {
+  format?: ImageOutputFormat;
+  quality?: number;
+}
+
+export interface ResponsiveImage extends ImageEncoding {
   src: ImageMetadata;
   widths: number[];
   sizes: string;
-  quality?: number;
 }
 
 export function responsiveImage(
   src: ImageMetadata,
   targetWidths: readonly number[],
   sizes: string,
-  quality?: number,
+  encoding: ImageEncoding = {},
 ): ResponsiveImage {
   const widths = [...targetWidths.filter((width) => width < src.width), src.width];
-  return quality === undefined ? { src, widths, sizes } : { src, widths, sizes, quality };
+  return { src, widths, sizes, ...encoding };
 }
